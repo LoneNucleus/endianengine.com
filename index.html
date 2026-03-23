@@ -640,6 +640,31 @@ a, button, [role="button"], input, textarea, select {
   cursor: not-allowed;
 }
 
+.download-item.download-active {
+  opacity: 1;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.download-item.download-active:hover {
+  border-color: var(--color-orange);
+  background: var(--color-surface-3);
+}
+
+.download-hash {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+  word-break: break-all;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.download-size {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
 .download-icon {
   width: 40px;
   height: 40px;
@@ -1151,8 +1176,8 @@ a, button, [role="button"], input, textarea, select {
       <!-- Audio Sleep Patch -->
       <article class="product-card reveal">
         <div class="product-card-images" data-carousel>
-          <img src="./assets/audio-sleep-patch.jpg" alt="Audio Sleep Patch main interface" class="active" loading="lazy">
-          <img src="./assets/audio-sleep-patch-about.jpg" alt="Audio Sleep Patch about screen" loading="lazy">
+          <img src="./assets/audio-sleep-patch-banner.jpg" alt="Audio Sleep Patch banner" class="active" loading="lazy">
+          <img src="./assets/audio-sleep-patch-screenshot.jpg" alt="Audio Sleep Patch application screenshot" loading="lazy">
           <div class="carousel-dots">
             <button class="carousel-dot active" aria-label="Slide 1"></button>
             <button class="carousel-dot" aria-label="Slide 2"></button>
@@ -1160,26 +1185,34 @@ a, button, [role="button"], input, textarea, select {
         </div>
         <div class="product-card-body">
           <div class="product-card-header">
-            <h3 class="product-card-title">Audio Sleep Patch <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v0.2.20.26</span></h3>
-            <span class="badge badge--blue">Free — Windows</span>
+            <h3 class="product-card-title">Audio Sleep Patch <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v02.03.14.26.11</span></h3>
+            <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-sleep-patch-v02.03.14.26.11/AudioSleepPatch.exe" class="badge badge--green" style="text-decoration:none;">Download — Free</a>
           </div>
           <p class="product-card-desc">Keeps your audio devices awake by periodically playing a very low-volume audio signal to prevent hardware from entering sleep or power-saving modes. Lives in your system tray.</p>
-          <p class="product-card-platform">Platform: Windows</p>
+          <p class="product-card-platform">Platform: Windows 10/11</p>
+          <div style="margin-top:var(--space-4);padding:var(--space-4);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;">
+            <p style="font-size:var(--text-sm);color:var(--color-text-light);margin:0 0 var(--space-2) 0;font-weight:500;">Auto-Start on Boot</p>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:0;">Press <kbd style="background:var(--color-surface-3);padding:2px 6px;border-radius:4px;font-family:var(--font-display);font-size:0.8em;">Win+R</kbd>, type <code style="background:var(--color-surface-3);padding:2px 6px;border-radius:4px;font-family:var(--font-display);font-size:0.85em;">shell:startup</code>, press Enter. Copy the .exe into that folder. It will launch automatically every time Windows starts.</p>
+          </div>
         </div>
       </article>
 
       <!-- Audio Clock -->
       <article class="product-card reveal">
         <div class="product-card-images" data-carousel>
-          <img src="./assets/audio-clock.jpg" alt="Audio Clock interface showing voice selection and system tray menu" class="active" loading="lazy">
+          <img src="./assets/audio-clock-screenshot.jpg" alt="Audio Clock application screenshot" class="active" loading="lazy">
         </div>
         <div class="product-card-body">
           <div class="product-card-header">
             <h3 class="product-card-title">Audio Clock <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v03.03.14.26.03</span></h3>
-            <span class="badge badge--blue">Free &mdash; Windows</span>
+            <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-clock-v03.03.14.26.03/AudioClock.exe" class="badge badge--green" style="text-decoration:none;">Download — Free</a>
           </div>
-          <p class="product-card-desc">Speaks the current time periodically using Windows text-to-speech. Choose from 10+ voices, toggle random mode, or turn it on and off from the system tray. Never lose track of time again during those 14-hour coding sessions.</p>
+          <p class="product-card-desc">Speaks the current time periodically using Windows text-to-speech. Choose from 13 voices, toggle random mode, or turn it on and off from the system tray. Never lose track of time again during those 14-hour coding sessions.</p>
           <p class="product-card-platform">Platform: Windows 10/11</p>
+          <div style="margin-top:var(--space-4);padding:var(--space-4);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;">
+            <p style="font-size:var(--text-sm);color:var(--color-text-light);margin:0 0 var(--space-2) 0;font-weight:500;">Auto-Start on Boot</p>
+            <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin:0;">Press <kbd style="background:var(--color-surface-3);padding:2px 6px;border-radius:4px;font-family:var(--font-display);font-size:0.8em;">Win+R</kbd>, type <code style="background:var(--color-surface-3);padding:2px 6px;border-radius:4px;font-family:var(--font-display);font-size:0.85em;">shell:startup</code>, press Enter. Copy the .exe into that folder. It will launch automatically every time Windows starts.</p>
+          </div>
         </div>
       </article>
 
@@ -1242,24 +1275,28 @@ a, button, [role="button"], input, textarea, select {
           <div class="download-status">Coming Soon</div>
         </div>
       </div>
-      <div class="download-item reveal">
-        <div class="download-icon">
+      <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-sleep-patch-v02.03.14.26.11/AudioSleepPatch.exe" class="download-item download-active reveal" style="text-decoration:none;">
+        <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </div>
         <div class="download-info">
-          <div class="download-name">Audio Sleep Patch</div>
-          <div class="download-status">Coming Soon</div>
+          <div class="download-name" style="color:var(--color-text-light);">Audio Sleep Patch</div>
+          <div class="download-size">111 MB &middot; Windows</div>
+          <div class="download-status" style="color:var(--color-green);">Available</div>
+          <div class="download-hash">SHA-256: 27254c4ad27aed41bcbbeca11ad26fffce1f5534eb57f8712c13e8f21bb1a475</div>
         </div>
-      </div>
-      <div class="download-item reveal">
-        <div class="download-icon">
+      </a>
+      <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-clock-v03.03.14.26.03/AudioClock.exe" class="download-item download-active reveal" style="text-decoration:none;">
+        <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         </div>
         <div class="download-info">
-          <div class="download-name">Audio Clock</div>
-          <div class="download-status">Coming Soon</div>
+          <div class="download-name" style="color:var(--color-text-light);">Audio Clock</div>
+          <div class="download-size">50 MB &middot; Windows</div>
+          <div class="download-status" style="color:var(--color-green);">Available</div>
+          <div class="download-hash">SHA-256: 13319f6c7ae33c85b2b897a4860d5b0fbb86ad110f69c2ce4d4eb08fd7f77020</div>
         </div>
-      </div>
+      </a>
       <div class="download-item reveal">
         <div class="download-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
