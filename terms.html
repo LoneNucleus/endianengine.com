@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Endian Engine</title>
+<meta name="description" content="Terms of Service for Endian Engine LLC. Covers software licensing, purchases, refund policy, and user rights.">
+<meta property="og:title" content="Terms of Service — Endian Engine">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+:root {
+  /* Type Scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Endian Engine Dark Palette */
+  --color-bg:           #0a0a0f;
+  --color-surface:      #0f0f18;
+  --color-surface-2:    #141420;
+  --color-surface-3:    #1a1a2a;
+  --color-border:       #2a2a3a;
+  --color-border-hover: #3a3a50;
+  --color-text:         #e0e0e8;
+  --color-text-muted:   #8888a0;
+  --color-text-faint:   #555570;
+  --color-orange:       #FF6B00;
+  --color-orange-glow:  rgba(255, 107, 0, 0.15);
+  --color-blue:         #3B82F6;
+  --color-blue-glow:    rgba(59, 130, 246, 0.15);
+
+  /* Fonts */
+  --font-display: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Transitions */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+
+  /* Content widths */
+  --content-default: 720px;
+  --content-wide: 1200px;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.15; font-family: var(--font-display); }
+p, li { text-wrap: pretty; }
+
+::selection {
+  background: rgba(255, 107, 0, 0.25);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a {
+  transition: color var(--transition-interactive);
+}
+
+/* ========== HEADER / NAV ========== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header-logo img {
+  height: 36px;
+  width: auto;
+  border-radius: var(--radius-sm);
+}
+
+.header-logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.nav-desktop {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.nav-desktop a {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-desktop a:hover {
+  color: var(--color-orange);
+  background: var(--color-orange-glow);
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 15, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4);
+  z-index: 99;
+}
+
+.nav-mobile.open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.nav-mobile a {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-mobile a:hover { color: var(--color-orange); background: var(--color-orange-glow); }
+
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+  padding: calc(var(--space-20) + 60px) var(--space-6) var(--space-12);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-orange), transparent);
+  opacity: 0.4;
+}
+
+.page-header-inner {
+  max-width: var(--content-default);
+  margin: 0 auto;
+}
+
+.page-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: var(--space-3);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.page-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.page-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.page-meta span::before {
+  content: '//';
+  color: var(--color-orange);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+}
+
+/* ========== MAIN CONTENT ========== */
+.content-wrap {
+  max-width: var(--content-default);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6) var(--space-20);
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-orange);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: var(--space-4);
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc-counter;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toc ol li {
+  counter-increment: toc-counter;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.toc ol li::before {
+  content: counter(toc-counter, decimal-leading-zero) '.';
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-orange);
+  min-width: 2.2em;
+  flex-shrink: 0;
+}
+
+.toc ol li a {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.toc ol li a:hover {
+  color: var(--color-orange);
+}
+
+/* Legal Sections */
+.legal-section {
+  margin-bottom: var(--space-12);
+  scroll-margin-top: 100px;
+}
+
+.legal-section + .legal-section {
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-orange);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.legal-section p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-4);
+  max-width: 70ch;
+}
+
+.legal-section p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-section ul, .legal-section ol {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.legal-section ul li, .legal-section ol li {
+  max-width: 68ch;
+}
+
+.legal-section ul li::marker {
+  color: var(--color-orange);
+}
+
+.legal-section ol li::marker {
+  color: var(--color-orange);
+  font-family: var(--font-display);
+}
+
+/* Highlight box */
+.callout {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-blue);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-4) 0;
+}
+
+.callout p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: 0 !important;
+  max-width: none !important;
+}
+
+.callout-orange {
+  border-left-color: var(--color-orange);
+}
+
+/* Contact block */
+.contact-block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.contact-block p {
+  margin-bottom: var(--space-2) !important;
+}
+
+.contact-block a {
+  color: var(--color-orange);
+  text-decoration: none;
+}
+
+.contact-block a:hover {
+  text-decoration: underline;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-10) var(--space-6);
+}
+
+.footer-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.footer-copyright {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+.footer-attribution {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-attribution a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-attribution a:hover {
+  color: var(--color-orange);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  .content-wrap {
+    padding: var(--space-10) var(--space-4) var(--space-16);
+  }
+  .page-header {
+    padding: calc(var(--space-16) + 60px) var(--space-4) var(--space-8);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="https://endianengine.com" class="header-logo" aria-label="Endian Engine Home">
+      <span class="header-logo-text">Endian Engine</span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="https://endianengine.com">Home</a>
+      <a href="https://endianengine.com/#products">Products</a>
+      <a href="https://endianengine.com/#downloads">Downloads</a>
+      <a href="https://endianengine.com/#about">About</a>
+      <a href="https://endianengine.com/#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <a href="https://endianengine.com">Home</a>
+  <a href="https://endianengine.com/#products">Products</a>
+  <a href="https://endianengine.com/#downloads">Downloads</a>
+  <a href="https://endianengine.com/#about">About</a>
+  <a href="https://endianengine.com/#contact">Contact</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-label">Legal Document</div>
+    <h1 class="page-title">Terms of Service</h1>
+    <div class="page-meta">
+      <span>Endian Engine LLC</span>
+      <span>Effective: March 23, 2026</span>
+      <span>Kalamazoo, Michigan</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="content-wrap">
+
+  <!-- Table of Contents -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#acceptance">Acceptance of Terms</a></li>
+      <li><a href="#services">Description of Services</a></li>
+      <li><a href="#accounts">User Accounts</a></li>
+      <li><a href="#purchases">Purchases &amp; Payments</a></li>
+      <li><a href="#licensing">Software Licensing</a></li>
+      <li><a href="#apk">APK Downloads</a></li>
+      <li><a href="#free-tools">Free Web Tools</a></li>
+      <li><a href="#ip">Intellectual Property</a></li>
+      <li><a href="#liability">Limitation of Liability</a></li>
+      <li><a href="#warranties">Disclaimer of Warranties</a></li>
+      <li><a href="#governing-law">Governing Law</a></li>
+      <li><a href="#changes">Changes to These Terms</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. Acceptance -->
+  <section class="legal-section" id="acceptance">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Acceptance of Terms</h2>
+    <p>By accessing or using any product, website, or service provided by Endian Engine LLC ("Endian Engine," "we," "us," or "our"), you agree to be bound by these Terms of Service. Please read them carefully before using our software or services.</p>
+    <p>If you do not agree to these Terms, you may not use our products or services. These Terms apply to all users, including visitors, purchasers, and anyone who downloads or uses our software.</p>
+    <div class="callout callout-orange">
+      <p><strong>Plain language summary:</strong> Using our stuff means you agree to these rules. If you don't agree, please don't use our products.</p>
+    </div>
+  </section>
+
+  <!-- 2. Services -->
+  <section class="legal-section" id="services">
+    <div class="section-num">02</div>
+    <h2 class="section-title">Description of Services</h2>
+    <p>Endian Engine LLC is a software development company based in Kalamazoo, Michigan. We offer the following types of products and services:</p>
+    <ul>
+      <li><strong>Desktop applications (Windows):</strong> Paid software sold and distributed via our website. These are downloadable programs that run on Windows PCs.</li>
+      <li><strong>Android applications:</strong> Mobile apps distributed as APK downloads directly from our website, and/or through the Google Play Store. Pricing and distribution method vary by product.</li>
+      <li><strong>Free web-based tools:</strong> Browser-based data visualization and analysis tools available at no cost on our website. These are provided as a convenience and may change or be discontinued at any time.</li>
+    </ul>
+    <p>We may add, modify, or discontinue any product or service at any time. We will make reasonable efforts to notify users of significant changes, but we are not obligated to do so.</p>
+  </section>
+
+  <!-- 3. Accounts -->
+  <section class="legal-section" id="accounts">
+    <div class="section-num">03</div>
+    <h2 class="section-title">User Accounts</h2>
+    <p>Currently, Endian Engine does not require you to create an account to purchase or use our software. Purchases are processed through our payment provider, Stripe, and download links are typically delivered via email after purchase.</p>
+    <p>If we introduce account functionality in the future, these Terms will be updated accordingly. You would be responsible for maintaining the security of your account credentials and for all activity that occurs under your account.</p>
+    <p>You agree to provide accurate and complete information when making purchases, and to update that information if it changes.</p>
+  </section>
+
+  <!-- 4. Purchases -->
+  <section class="legal-section" id="purchases">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Purchases &amp; Payments</h2>
+    <p>All paid products are sold through our website. Payment processing is handled securely by <strong>Stripe</strong>, a third-party payment processor. We do not store your full credit card or payment information on our servers.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Pricing</h3>
+    <p>All prices are listed in US Dollars (USD). We reserve the right to change pricing at any time, but changes will not affect purchases you have already completed.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Refund Policy</h3>
+    <p>We offer a <strong>30-day refund policy</strong> for paid software purchases. If you're not satisfied with a purchase, contact us within 30 days of your purchase date and we will issue a full refund.</p>
+    <div class="callout">
+      <p>To request a refund, email us at <strong>loco@endianengine.com</strong> with your purchase details. Refunds are processed through Stripe and may take 5–10 business days to appear on your statement.</p>
+    </div>
+    <p>Refunds are not available for:</p>
+    <ul>
+      <li>Purchases made more than 30 days ago</li>
+      <li>Free products or tools</li>
+      <li>Cases where we have reasonable evidence of fraud or abuse</li>
+    </ul>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Taxes</h3>
+    <p>You are responsible for any applicable sales taxes or duties in your jurisdiction. We will collect applicable taxes where required by law.</p>
+  </section>
+
+  <!-- 5. Licensing -->
+  <section class="legal-section" id="licensing">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Software Licensing</h2>
+    <p>When you purchase software from Endian Engine, you receive a personal, non-exclusive, non-transferable license to use that software. This license is for your own personal or business use.</p>
+    <p>Unless explicitly stated otherwise, your license permits:</p>
+    <ul>
+      <li>Installing and using the software on your own devices</li>
+      <li>Making a backup copy for archival purposes</li>
+    </ul>
+    <p>Your license does not permit:</p>
+    <ul>
+      <li>Sharing, reselling, or redistributing the software to others</li>
+      <li>Reverse engineering, decompiling, or disassembling the software</li>
+      <li>Removing or altering any copyright, trademark, or proprietary notices</li>
+      <li>Using the software to develop competing products</li>
+      <li>Sublicensing or transferring the license to any other person or entity</li>
+    </ul>
+    <p>Your license begins upon purchase and remains valid unless terminated under these Terms. We reserve the right to terminate a license if these Terms are violated.</p>
+  </section>
+
+  <!-- 6. APK -->
+  <section class="legal-section" id="apk">
+    <div class="section-num">06</div>
+    <h2 class="section-title">APK Downloads</h2>
+    <p>Some of our Android applications are distributed as direct APK downloads from our website, in addition to or instead of the Google Play Store. Downloading and installing APK files outside of the Google Play Store requires you to enable "Install unknown apps" or "Unknown sources" on your Android device.</p>
+    <p>By downloading an APK from our website, you acknowledge and accept the following:</p>
+    <ul>
+      <li>APK files are provided "as is." While we take care to ensure they are safe and functional, downloading software outside of an official app store carries inherent risks.</li>
+      <li>You are responsible for your device's security settings and for any consequences of enabling the installation of apps from outside the Google Play Store.</li>
+      <li>We cannot guarantee compatibility with all Android devices or versions.</li>
+      <li>You should only download APKs directly from <strong>endianengine.com</strong>. We are not responsible for APK files distributed by any third party claiming to be Endian Engine software.</li>
+    </ul>
+    <div class="callout callout-orange">
+      <p><strong>Security notice:</strong> Always verify that you are downloading from <strong>endianengine.com</strong>. We will never distribute our apps through unofficial third-party sites.</p>
+    </div>
+  </section>
+
+  <!-- 7. Free Tools -->
+  <section class="legal-section" id="free-tools">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Free Web Tools</h2>
+    <p>Endian Engine provides free, browser-based data visualization and analysis tools as a courtesy. These tools are provided at no cost and with no guarantees.</p>
+    <p>Specifically, regarding our free web tools:</p>
+    <ul>
+      <li>They are provided "as is" without warranty of any kind</li>
+      <li>We do not guarantee their availability, accuracy, or continued operation</li>
+      <li>We may modify, suspend, or discontinue any free tool at any time without notice</li>
+      <li>We are not liable for any losses or damages resulting from your use of or reliance on these tools</li>
+    </ul>
+    <p>We appreciate everyone who uses our free tools — we build them because we find them useful, and we hope you do too. But they come as-is, and we can't make promises about uptime or future availability.</p>
+  </section>
+
+  <!-- 8. IP -->
+  <section class="legal-section" id="ip">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Intellectual Property</h2>
+    <p>All software, source code, designs, graphics, logos, names, text, data visualizations, and other content created by Endian Engine LLC are owned exclusively by Endian Engine LLC and are protected by United States and international copyright, trademark, and other intellectual property laws.</p>
+    <p>Purchasing a license to use our software does not transfer any ownership rights to you. You receive only the right to use the software as described in Section 5 (Software Licensing).</p>
+    <p>The name "Endian Engine," the Endian Engine logo, and related marks are trademarks of Endian Engine LLC. You may not use these marks without our prior written permission.</p>
+    <p>If you believe any content on our site or in our software infringes on your intellectual property rights, please contact us at <a href="mailto:loco@endianengine.com" style="color: var(--color-orange); text-decoration: none;">loco@endianengine.com</a>.</p>
+  </section>
+
+  <!-- 9. Liability -->
+  <section class="legal-section" id="liability">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Limitation of Liability</h2>
+    <p>To the fullest extent permitted by applicable law, Endian Engine LLC shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of our products or services, including but not limited to:</p>
+    <ul>
+      <li>Loss of data or business information</li>
+      <li>Loss of profits or revenue</li>
+      <li>Business interruption</li>
+      <li>Costs of substitute software or services</li>
+    </ul>
+    <p>In any case, our total liability to you for any claims arising out of or related to these Terms or our products shall not exceed the amount you paid to us for the specific product giving rise to the claim in the 12 months preceding the claim, or $100 USD, whichever is greater.</p>
+    <p>Some jurisdictions do not allow the exclusion or limitation of certain types of damages, so some of the above limitations may not apply to you.</p>
+    <div class="callout">
+      <p><strong>In plain terms:</strong> We're a small LLC. If something goes wrong with our software, the most you can recover from us is what you paid for it. We're not on the hook for business losses or other consequential damages.</p>
+    </div>
+  </section>
+
+  <!-- 10. Warranties -->
+  <section class="legal-section" id="warranties">
+    <div class="section-num">10</div>
+    <h2 class="section-title">Disclaimer of Warranties</h2>
+    <p>Our software and services are provided <strong>"as is"</strong> and <strong>"as available"</strong> without warranties of any kind, either express or implied.</p>
+    <p>We disclaim all warranties, including but not limited to:</p>
+    <ul>
+      <li>Implied warranties of merchantability or fitness for a particular purpose</li>
+      <li>Warranties that our software will be error-free, uninterrupted, or free of viruses or other harmful components</li>
+      <li>Warranties regarding the accuracy or reliability of results obtained through our software</li>
+    </ul>
+    <p>We build our software with care and take pride in its quality, but no software is perfect. We don't make promises we can't keep.</p>
+    <p>Some jurisdictions do not allow the exclusion of implied warranties, so the above exclusions may not apply to you. In such cases, any implied warranties are limited to the minimum scope and duration permitted by applicable law.</p>
+  </section>
+
+  <!-- 11. Governing Law -->
+  <section class="legal-section" id="governing-law">
+    <div class="section-num">11</div>
+    <h2 class="section-title">Governing Law</h2>
+    <p>These Terms of Service are governed by and construed in accordance with the laws of the <strong>State of Michigan</strong>, United States, without regard to its conflict of law provisions.</p>
+    <p>Any disputes arising out of or relating to these Terms or your use of our products shall be subject to the exclusive jurisdiction of the state and federal courts located in Kalamazoo County, Michigan, and you consent to personal jurisdiction in those courts.</p>
+    <p>If you are a consumer located outside the United States, you may have additional rights under the laws of your jurisdiction. Nothing in these Terms is intended to limit or waive any rights you have under applicable consumer protection laws that cannot be waived by contract.</p>
+  </section>
+
+  <!-- 12. Changes -->
+  <section class="legal-section" id="changes">
+    <div class="section-num">12</div>
+    <h2 class="section-title">Changes to These Terms</h2>
+    <p>We may update these Terms of Service from time to time. When we do, we will update the effective date at the top of this page. For significant changes, we will make reasonable efforts to notify users — for example, via email if we have your address on file, or by posting a notice on our website.</p>
+    <p>Your continued use of our products or services after changes are posted constitutes your acceptance of the updated Terms. If you do not agree to the updated Terms, you should stop using our products.</p>
+    <p>We encourage you to review these Terms periodically to stay informed about how they apply to you.</p>
+  </section>
+
+  <!-- 13. Contact -->
+  <section class="legal-section" id="contact">
+    <div class="section-num">13</div>
+    <h2 class="section-title">Contact Us</h2>
+    <p>If you have any questions about these Terms of Service, or need to reach us for a refund, licensing question, or other matter, please contact us:</p>
+    <div class="contact-block">
+      <p><strong>Endian Engine LLC</strong></p>
+      <p>Kalamazoo, Michigan, USA</p>
+      <p>Email: <a href="mailto:loco@endianengine.com">loco@endianengine.com</a></p>
+      <p>Website: <a href="https://endianengine.com">endianengine.com</a></p>
+    </div>
+    <p style="margin-top: var(--space-6);">We're a small operation and aim to respond to all inquiries within a few business days.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-tagline">Order Drives Execution</div>
+    <div class="footer-copyright">&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="https://endianengine.com">Home</a>
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:loco@endianengine.com">Contact</a>
+    </div>
+    <div class="footer-attribution">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMobile = document.getElementById('nav-mobile');
+
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navMobile.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', navToggle.classList.contains('open'));
+});
+
+// Close mobile nav on link click
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navMobile.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+</body>
+</html>

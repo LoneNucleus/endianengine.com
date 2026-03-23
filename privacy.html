@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Endian Engine</title>
+<meta name="description" content="Privacy Policy for Endian Engine LLC. How we collect, use, and protect your information.">
+<meta property="og:title" content="Privacy Policy — Endian Engine">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+:root {
+  /* Type Scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* Endian Engine Dark Palette */
+  --color-bg:           #0a0a0f;
+  --color-surface:      #0f0f18;
+  --color-surface-2:    #141420;
+  --color-surface-3:    #1a1a2a;
+  --color-border:       #2a2a3a;
+  --color-border-hover: #3a3a50;
+  --color-text:         #e0e0e8;
+  --color-text-muted:   #8888a0;
+  --color-text-faint:   #555570;
+  --color-orange:       #FF6B00;
+  --color-orange-glow:  rgba(255, 107, 0, 0.15);
+  --color-blue:         #3B82F6;
+  --color-blue-glow:    rgba(59, 130, 246, 0.15);
+
+  /* Fonts */
+  --font-display: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Transitions */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+
+  /* Content widths */
+  --content-default: 720px;
+  --content-wide: 1200px;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.15; font-family: var(--font-display); }
+p, li { text-wrap: pretty; }
+
+::selection {
+  background: rgba(255, 107, 0, 0.25);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a {
+  transition: color var(--transition-interactive);
+}
+
+/* ========== HEADER / NAV ========== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header-logo img {
+  height: 36px;
+  width: auto;
+  border-radius: var(--radius-sm);
+}
+
+.header-logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.nav-desktop {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.nav-desktop a {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-desktop a:hover {
+  color: var(--color-orange);
+  background: var(--color-orange-glow);
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 15, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4);
+  z-index: 99;
+}
+
+.nav-mobile.open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.nav-mobile a {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-mobile a:hover { color: var(--color-orange); background: var(--color-orange-glow); }
+
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+/* ========== PAGE HEADER ========== */
+.page-header {
+  padding: calc(var(--space-20) + 60px) var(--space-6) var(--space-12);
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-blue), transparent);
+  opacity: 0.4;
+}
+
+.page-header-inner {
+  max-width: var(--content-default);
+  margin: 0 auto;
+}
+
+.page-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: var(--space-3);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+}
+
+.page-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.page-meta span {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.page-meta span::before {
+  content: '//';
+  color: var(--color-blue);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+}
+
+/* ========== MAIN CONTENT ========== */
+.content-wrap {
+  max-width: var(--content-default);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6) var(--space-20);
+}
+
+/* Table of Contents */
+.toc {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-blue);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-bottom: var(--space-12);
+}
+
+.toc-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  margin-bottom: var(--space-4);
+}
+
+.toc ol {
+  list-style: none;
+  counter-reset: toc-counter;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.toc ol li {
+  counter-increment: toc-counter;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.toc ol li::before {
+  content: counter(toc-counter, decimal-leading-zero) '.';
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-blue);
+  min-width: 2.2em;
+  flex-shrink: 0;
+}
+
+.toc ol li a {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.toc ol li a:hover {
+  color: var(--color-blue);
+}
+
+/* Legal Sections */
+.legal-section {
+  margin-bottom: var(--space-12);
+  scroll-margin-top: 100px;
+}
+
+.legal-section + .legal-section {
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border);
+}
+
+.section-num {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-blue);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-6);
+}
+
+.legal-section p {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin-bottom: var(--space-4);
+  max-width: 70ch;
+}
+
+.legal-section p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-section ul, .legal-section ol {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.legal-section ul li, .legal-section ol li {
+  max-width: 68ch;
+}
+
+.legal-section ul li::marker {
+  color: var(--color-blue);
+}
+
+.legal-section ol li::marker {
+  color: var(--color-blue);
+  font-family: var(--font-display);
+}
+
+/* Data table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-6) 0;
+  font-size: var(--text-sm);
+}
+
+.data-table th {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  background: var(--color-surface-2);
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 2px solid var(--color-border);
+}
+
+.data-table td {
+  color: var(--color-text-muted);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.data-table tr:hover td {
+  background: var(--color-surface);
+}
+
+@media (max-width: 600px) {
+  .data-table, .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {
+    display: block;
+  }
+  .data-table thead { display: none; }
+  .data-table td {
+    padding: var(--space-2) var(--space-3);
+    border-bottom: none;
+  }
+  .data-table tr {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+    padding: var(--space-2);
+  }
+  .data-table td::before {
+    content: attr(data-label) ': ';
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    color: var(--color-blue);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+/* Highlight box */
+.callout {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-blue);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-4) 0;
+}
+
+.callout p {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: 0 !important;
+  max-width: none !important;
+}
+
+.callout-orange {
+  border-left-color: var(--color-orange);
+}
+
+/* Contact block */
+.contact-block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.contact-block p {
+  margin-bottom: var(--space-2) !important;
+}
+
+.contact-block a {
+  color: var(--color-blue);
+  text-decoration: none;
+}
+
+.contact-block a:hover {
+  text-decoration: underline;
+}
+
+/* Rights list */
+.rights-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+.rights-list li {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  align-items: flex-start;
+}
+
+.rights-list li:last-child {
+  border-bottom: none;
+}
+
+.rights-list li::before {
+  content: '→';
+  color: var(--color-blue);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-10) var(--space-6);
+}
+
+.footer-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.footer-copyright {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+.footer-attribution {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-attribution a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-attribution a:hover {
+  color: var(--color-orange);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+  .content-wrap {
+    padding: var(--space-10) var(--space-4) var(--space-16);
+  }
+  .page-header {
+    padding: calc(var(--space-16) + 60px) var(--space-4) var(--space-8);
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="https://endianengine.com" class="header-logo" aria-label="Endian Engine Home">
+      <span class="header-logo-text">Endian Engine</span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="https://endianengine.com">Home</a>
+      <a href="https://endianengine.com/#products">Products</a>
+      <a href="https://endianengine.com/#downloads">Downloads</a>
+      <a href="https://endianengine.com/#about">About</a>
+      <a href="https://endianengine.com/#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <a href="https://endianengine.com">Home</a>
+  <a href="https://endianengine.com/#products">Products</a>
+  <a href="https://endianengine.com/#downloads">Downloads</a>
+  <a href="https://endianengine.com/#about">About</a>
+  <a href="https://endianengine.com/#contact">Contact</a>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-label">Legal Document</div>
+    <h1 class="page-title">Privacy Policy</h1>
+    <div class="page-meta">
+      <span>Endian Engine LLC</span>
+      <span>Effective: March 23, 2026</span>
+      <span>Kalamazoo, Michigan</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="content-wrap">
+
+  <div class="callout" style="margin-bottom: var(--space-10);">
+    <p>Your privacy matters to us. This policy explains what data we collect, why we collect it, and how we use it. We keep this as simple and transparent as possible.</p>
+  </div>
+
+  <!-- Table of Contents -->
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#information-we-collect">Information We Collect</a></li>
+      <li><a href="#how-we-use">How We Use Your Information</a></li>
+      <li><a href="#third-party">Third-Party Services</a></li>
+      <li><a href="#cookies">Cookies &amp; Tracking</a></li>
+      <li><a href="#data-retention">Data Retention</a></li>
+      <li><a href="#childrens-privacy">Children's Privacy</a></li>
+      <li><a href="#your-rights">Your Rights</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#policy-changes">Changes to This Policy</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#legal-compliance">Michigan / US Law Compliance</a></li>
+      <li><a href="#ccpa">California Privacy Rights (CCPA)</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. Information We Collect -->
+  <section class="legal-section" id="information-we-collect">
+    <div class="section-num">01</div>
+    <h2 class="section-title">Information We Collect</h2>
+    <p>We only collect what we need. Here's a breakdown of the types of information we may collect and when:</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Information You Provide</h3>
+    <ul>
+      <li><strong>Email address:</strong> Collected when you make a purchase. We use it to send order confirmations, download links, and important product updates.</li>
+      <li><strong>Contact form submissions:</strong> If you reach out to us via email or a contact form, we receive your name, email address, and the contents of your message.</li>
+    </ul>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Payment Information</h3>
+    <p>We use <strong>Stripe</strong> to process all payments. When you make a purchase, your payment details (credit card number, billing address, etc.) are entered directly into Stripe's secure environment. We never see or store your full credit card number. Stripe may retain this information in accordance with their own Privacy Policy.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Analytics Data</h3>
+    <p>We may collect basic, anonymized analytics about how visitors use our website. This may include:</p>
+    <ul>
+      <li>Pages visited and time spent on pages</li>
+      <li>General geographic region (country/state level — not precise location)</li>
+      <li>Browser type and operating system</li>
+      <li>Referring website (how you found us)</li>
+      <li>Device type (desktop, mobile, tablet)</li>
+    </ul>
+    <p>This data is aggregated and does not identify you personally. It helps us understand how people use the site so we can improve it.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Information We Do Not Collect</h3>
+    <p>We do not collect or store:</p>
+    <ul>
+      <li>Social security numbers or government ID numbers</li>
+      <li>Precise GPS location data</li>
+      <li>Data from your use of our software on your own device (our apps do not phone home)</li>
+      <li>Sensitive personal information beyond what is listed above</li>
+    </ul>
+  </section>
+
+  <!-- 2. How We Use It -->
+  <section class="legal-section" id="how-we-use">
+    <div class="section-num">02</div>
+    <h2 class="section-title">How We Use Your Information</h2>
+    <p>We use the information we collect for the following purposes:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Data Type</th>
+          <th>How We Use It</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Data Type"><strong>Email address</strong></td>
+          <td data-label="How We Use It">Process your order, deliver download links, send purchase receipts, and occasionally notify you of important updates to software you've purchased</td>
+        </tr>
+        <tr>
+          <td data-label="Data Type"><strong>Payment data (via Stripe)</strong></td>
+          <td data-label="How We Use It">Process transactions and handle refunds. Managed entirely by Stripe.</td>
+        </tr>
+        <tr>
+          <td data-label="Data Type"><strong>Analytics data</strong></td>
+          <td data-label="How We Use It">Understand website traffic, improve content and navigation, assess which products and tools are most useful</td>
+        </tr>
+        <tr>
+          <td data-label="Data Type"><strong>Contact messages</strong></td>
+          <td data-label="How We Use It">Respond to your inquiry or support request</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>We do not sell your personal information to third parties. We do not use your data for targeted advertising. We do not build behavioral profiles on our users.</p>
+  </section>
+
+  <!-- 3. Third-Party Services -->
+  <section class="legal-section" id="third-party">
+    <div class="section-num">03</div>
+    <h2 class="section-title">Third-Party Services</h2>
+    <p>We use a small number of third-party services to operate our website and products. Each has its own privacy policy that governs how they handle data.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Stripe (Payment Processing)</h3>
+    <p>All payment processing is handled by Stripe, Inc. When you make a purchase, you are interacting with Stripe's systems. Your payment information is transmitted directly to Stripe and is governed by <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">Stripe's Privacy Policy</a>. Stripe is PCI-DSS compliant.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">GitHub Pages (Website Hosting)</h3>
+    <p>Our website is hosted on GitHub Pages. When you visit our site, your request passes through GitHub's servers. GitHub may log IP addresses and other technical data in accordance with <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">GitHub's Privacy Statement</a>. We do not have access to this server-level log data.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Google Analytics (Potential)</h3>
+    <p>We may use Google Analytics to collect anonymized website usage statistics. If active, Google Analytics uses cookies to track aggregate visitor behavior. This data is sent to Google and governed by <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">Google's Privacy Policy</a>. We use this data only in aggregate form and do not attempt to identify individual users. You can opt out of Google Analytics tracking by using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">Google Analytics Opt-out Browser Add-on</a>.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Google Play (Android App Distribution)</h3>
+    <p>Some of our Android apps are distributed through the Google Play Store. If you download an app from Google Play, Google's data collection practices apply to that transaction. Please review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">Google's Privacy Policy</a> for more information.</p>
+  </section>
+
+  <!-- 4. Cookies -->
+  <section class="legal-section" id="cookies">
+    <div class="section-num">04</div>
+    <h2 class="section-title">Cookies &amp; Tracking</h2>
+    <p>Cookies are small text files stored on your device by your browser. We use cookies only as necessary.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Types of Cookies We Use</h3>
+    <ul>
+      <li><strong>Analytics cookies:</strong> Used by Google Analytics (if active) to collect anonymized usage statistics. These help us understand traffic patterns and improve the site.</li>
+      <li><strong>Cookie consent preference:</strong> We store your cookie consent choice so we don't ask you again on repeat visits.</li>
+    </ul>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">What We Don't Do</h3>
+    <ul>
+      <li>We do not use cookies for advertising or ad retargeting</li>
+      <li>We do not track you across other websites</li>
+      <li>We do not sell cookie data to third parties</li>
+    </ul>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Managing Cookies</h3>
+    <p>You can control cookies through your browser settings. Most browsers allow you to view, delete, and block cookies. Note that blocking all cookies may affect site functionality. For more information on managing cookies, visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener noreferrer" style="color: var(--color-blue); text-decoration: none;">allaboutcookies.org</a>.</p>
+  </section>
+
+  <!-- 5. Data Retention -->
+  <section class="legal-section" id="data-retention">
+    <div class="section-num">05</div>
+    <h2 class="section-title">Data Retention</h2>
+    <p>We retain your data only as long as necessary to provide our services and fulfill legal obligations.</p>
+    <ul>
+      <li><strong>Purchase records and email addresses:</strong> Retained for at least 7 years to comply with US tax and financial record-keeping requirements. This is a legal obligation, not a choice.</li>
+      <li><strong>Support communications:</strong> Retained for up to 2 years after your last interaction with us.</li>
+      <li><strong>Analytics data:</strong> Anonymized aggregate data may be retained indefinitely. No individual-level analytics data is stored by us directly.</li>
+    </ul>
+    <p>You may request deletion of your personal data at any time (see Section 7 — Your Rights). Note that we may be required to retain certain records (such as purchase transactions) for legal and compliance reasons even after a deletion request.</p>
+  </section>
+
+  <!-- 6. Children's Privacy -->
+  <section class="legal-section" id="childrens-privacy">
+    <div class="section-num">06</div>
+    <h2 class="section-title">Children's Privacy</h2>
+    <p>Our website and software products are not directed at children under the age of 13, and we do not knowingly collect personal information from children under 13.</p>
+    <p>If you are a parent or guardian and believe that your child under 13 has provided us with personal information, please contact us at <a href="mailto:loco@endianengine.com" style="color: var(--color-blue); text-decoration: none;">loco@endianengine.com</a> and we will promptly delete such information.</p>
+    <p>For users between the ages of 13 and 18, we recommend reviewing this policy with a parent or guardian before making any purchases or providing personal information.</p>
+  </section>
+
+  <!-- 7. Your Rights -->
+  <section class="legal-section" id="your-rights">
+    <div class="section-num">07</div>
+    <h2 class="section-title">Your Rights</h2>
+    <p>You have rights regarding your personal information. We honor the following requests:</p>
+
+    <ul class="rights-list">
+      <li>
+        <div>
+          <strong>Access</strong><br>
+          <span style="color: var(--color-text-muted);">You can request a copy of the personal information we hold about you.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Correction</strong><br>
+          <span style="color: var(--color-text-muted);">If any information we hold about you is inaccurate, you can ask us to correct it.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Deletion</strong><br>
+          <span style="color: var(--color-text-muted);">You can request that we delete your personal data. Note that we may be required to retain certain records for legal purposes (e.g., purchase transactions for tax compliance).</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Opt out of communications</strong><br>
+          <span style="color: var(--color-text-muted);">You can opt out of marketing emails at any time by replying to any email with "unsubscribe" or contacting us directly. You cannot opt out of transactional emails related to purchases you've made (order confirmations, download links, refund confirmations).</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Portability</strong><br>
+          <span style="color: var(--color-text-muted);">You can request a copy of your data in a portable format.</span>
+        </div>
+      </li>
+    </ul>
+
+    <p style="margin-top: var(--space-6);">To exercise any of these rights, email us at <a href="mailto:loco@endianengine.com" style="color: var(--color-blue); text-decoration: none;">loco@endianengine.com</a>. We will respond within 30 days. We may need to verify your identity before fulfilling your request.</p>
+  </section>
+
+  <!-- 8. Security -->
+  <section class="legal-section" id="security">
+    <div class="section-num">08</div>
+    <h2 class="section-title">Security</h2>
+    <p>We take reasonable measures to protect your personal information from unauthorized access, use, alteration, or destruction. These measures include:</p>
+    <ul>
+      <li>Using HTTPS (TLS encryption) for all data transmitted between your browser and our website</li>
+      <li>Not storing payment information on our servers — delegating all payment handling to Stripe, which is PCI-DSS compliant</li>
+      <li>Limiting access to personal data to only those who need it to operate the business</li>
+    </ul>
+    <p>However, no method of transmission over the internet or electronic storage is 100% secure. While we strive to protect your data, we cannot guarantee absolute security. In the event of a data breach that affects your personal information, we will notify you as required by applicable law.</p>
+    <div class="callout callout-orange">
+      <p><strong>If you suspect a security issue</strong> related to our site or software, please contact us immediately at <strong>loco@endianengine.com</strong>.</p>
+    </div>
+  </section>
+
+  <!-- 9. Policy Changes -->
+  <section class="legal-section" id="policy-changes">
+    <div class="section-num">09</div>
+    <h2 class="section-title">Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. When we make changes, we will update the effective date at the top of this page. For significant changes, we will make a reasonable effort to notify users — for example, via email if we have your address on file, or by posting a notice on our website.</p>
+    <p>Your continued use of our website or products after changes are posted constitutes your acceptance of the updated Privacy Policy. We encourage you to review this policy periodically.</p>
+  </section>
+
+  <!-- 10. Contact -->
+  <section class="legal-section" id="contact">
+    <div class="section-num">10</div>
+    <h2 class="section-title">Contact Us</h2>
+    <p>If you have any questions, concerns, or requests related to this Privacy Policy or your personal data, please contact us:</p>
+    <div class="contact-block">
+      <p><strong>Endian Engine LLC</strong></p>
+      <p>Kalamazoo, Michigan, USA</p>
+      <p>Email: <a href="mailto:loco@endianengine.com">loco@endianengine.com</a></p>
+      <p>Website: <a href="https://endianengine.com">endianengine.com</a></p>
+    </div>
+    <p style="margin-top: var(--space-6);">We aim to respond to all privacy-related inquiries within 30 days.</p>
+  </section>
+
+  <!-- 11. Legal Compliance -->
+  <section class="legal-section" id="legal-compliance">
+    <div class="section-num">11</div>
+    <h2 class="section-title">Michigan / US Law Compliance</h2>
+    <p>This Privacy Policy is governed by the laws of the United States and the State of Michigan. We comply with applicable federal and Michigan state privacy laws, including the Michigan Identity Theft Protection Act (MCL 445.63 et seq.) with respect to the safeguarding of personal information and breach notification requirements.</p>
+    <p>If we experience a security breach involving your unencrypted personal information, we will notify you as required by Michigan law — generally within a reasonable time period after discovery of the breach.</p>
+    <p>If you are located outside the United States, please be aware that your information may be transferred to, stored, and processed in the United States, where data protection laws may differ from those in your country.</p>
+  </section>
+
+  <!-- 12. CCPA -->
+  <section class="legal-section" id="ccpa">
+    <div class="section-num">12</div>
+    <h2 class="section-title">California Privacy Rights (CCPA)</h2>
+    <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA). This section describes those rights and how to exercise them.</p>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Categories of Personal Information Collected</h3>
+    <p>In the past 12 months, we may have collected the following categories of personal information:</p>
+    <ul>
+      <li><strong>Identifiers:</strong> Email address, IP address</li>
+      <li><strong>Commercial information:</strong> Records of software purchased</li>
+      <li><strong>Internet activity:</strong> Browsing history on our site (via analytics)</li>
+    </ul>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">Your California Rights</h3>
+    <p>As a California resident, you have the right to:</p>
+    <ul>
+      <li><strong>Know</strong> what personal information we collect, use, disclose, and sell</li>
+      <li><strong>Delete</strong> your personal information (subject to certain exceptions)</li>
+      <li><strong>Opt out of the sale</strong> of your personal information — <em>Note: We do not sell personal information.</em></li>
+      <li><strong>Non-discrimination</strong> — we will not discriminate against you for exercising your CCPA rights</li>
+    </ul>
+
+    <div class="callout">
+      <p><strong>We do not sell personal information.</strong> We do not sell, trade, or otherwise transfer your personal information to outside parties for monetary or other valuable consideration.</p>
+    </div>
+
+    <h3 style="font-family: var(--font-display); font-size: var(--text-base); color: var(--color-text); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: var(--space-3); margin-top: var(--space-6);">How to Exercise California Rights</h3>
+    <p>To submit a verifiable consumer request under the CCPA, contact us at <a href="mailto:loco@endianengine.com" style="color: var(--color-blue); text-decoration: none;">loco@endianengine.com</a>. We will respond within 45 days as required by the CCPA. You may make a request up to twice per 12-month period at no charge.</p>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-tagline">Order Drives Execution</div>
+    <div class="footer-copyright">&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="https://endianengine.com">Home</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:loco@endianengine.com">Contact</a>
+    </div>
+    <div class="footer-attribution">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMobile = document.getElementById('nav-mobile');
+
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navMobile.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', navToggle.classList.contains('open'));
+});
+
+// Close mobile nav on link click
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navMobile.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+</script>
+</body>
+</html>
