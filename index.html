@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Endian Engine — Order Drives Execution</title>
+<meta name="description" content="Endian Engine builds systems that transform structured data into actionable insight. Software studio based in Kalamazoo, Michigan.">
+<meta property="og:title" content="Endian Engine — Order Drives Execution">
+<meta property="og:description" content="We build systems that transform structured data into actionable insight.">
+<meta property="og:image" content="./assets/logo-main.jpg">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+:root {
+  /* Type Scale */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Endian Engine Dark Palette */
+  --color-bg:           #0a0a0f;
+  --color-surface:      #0f0f18;
+  --color-surface-2:    #141420;
+  --color-surface-3:    #1a1a2a;
+  --color-border:       #2a2a3a;
+  --color-border-hover: #3a3a50;
+  --color-text:         #e0e0e8;
+  --color-text-muted:   #8888a0;
+  --color-text-faint:   #555570;
+  --color-orange:       #FF6B00;
+  --color-orange-glow:  rgba(255, 107, 0, 0.15);
+  --color-blue:         #3B82F6;
+  --color-blue-glow:    rgba(59, 130, 246, 0.15);
+  --color-green:        #22c55e;
+  --color-yellow:       #eab308;
+  --color-red:          #ef4444;
+
+  /* Fonts */
+  --font-display: 'JetBrains Mono', 'Courier New', monospace;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Transitions */
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.5);
+  --shadow-orange: 0 0 30px rgba(255,107,0,0.2);
+  --shadow-blue: 0 0 30px rgba(59,130,246,0.2);
+
+  /* Content widths */
+  --content-default: 960px;
+  --content-wide: 1200px;
+}
+
+body {
+  min-height: 100dvh;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
+ul[role="list"], ol[role="list"] { list-style: none; }
+input, button, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.15; font-family: var(--font-display); }
+p, li, figcaption { text-wrap: pretty; max-width: 72ch; }
+
+::selection {
+  background: rgba(255, 107, 0, 0.25);
+  color: var(--color-text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-orange);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+button { cursor: pointer; background: none; border: none; }
+
+a, button, [role="button"], input, textarea, select {
+  transition: color var(--transition-interactive),
+              background var(--transition-interactive),
+              border-color var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+/* ========== GRID BACKGROUND ========== */
+#grid-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* ========== HEADER / NAV ========== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.header--scrolled {
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.header-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.header-logo img {
+  height: 36px;
+  width: auto;
+  border-radius: var(--radius-sm);
+}
+
+.header-logo-text {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+}
+
+.nav-desktop {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.nav-desktop a {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-desktop a:hover {
+  color: var(--color-orange);
+  background: var(--color-orange-glow);
+}
+
+.nav-desktop a.active {
+  color: var(--color-orange);
+}
+
+/* Mobile hamburger */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+}
+
+.nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4);
+  z-index: 99;
+}
+
+.nav-mobile.open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.nav-mobile a {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.nav-mobile a:hover,
+.nav-mobile a:active {
+  color: var(--color-orange);
+  background: var(--color-orange-glow);
+}
+
+@media (max-width: 768px) {
+  .nav-desktop { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  position: relative;
+  z-index: 1;
+  padding: clamp(var(--space-12), 8vw, var(--space-32)) var(--space-6);
+}
+
+.section-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+}
+
+.section-heading {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.section-heading .accent {
+  color: var(--color-orange);
+}
+
+.section-subtext {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 65ch;
+  line-height: 1.7;
+}
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-32) var(--space-6) var(--space-16);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero-logo {
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto var(--space-8);
+  border-radius: var(--radius-lg);
+  filter: drop-shadow(0 0 40px rgba(255, 107, 0, 0.15));
+}
+
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--color-orange), #ff9b4e, var(--color-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  max-width: 580px;
+  margin: 0 auto var(--space-10);
+  line-height: 1.7;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-orange), #e05500);
+  padding: var(--space-3) var(--space-8);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  transition: transform var(--transition-interactive), box-shadow var(--transition-interactive);
+  box-shadow: 0 4px 20px rgba(255, 107, 0, 0.3);
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 107, 0, 0.4);
+}
+
+.hero-cta:active {
+  transform: translateY(0);
+}
+
+.hero-cta svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.hero-cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* Scan line across hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-orange), transparent);
+  animation: scanline 4s ease-in-out infinite;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+@keyframes scanline {
+  0%, 100% { top: 0; opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  50% { top: 100%; }
+}
+
+/* ========== PRODUCT CARDS ========== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.product-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  transition: transform var(--transition-interactive),
+              border-color var(--transition-interactive),
+              box-shadow var(--transition-interactive);
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-lg);
+}
+
+.product-card-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-surface-2);
+}
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.product-card:hover .product-card-image img {
+  transform: scale(1.03);
+}
+
+.product-card-body {
+  padding: var(--space-5);
+}
+
+.product-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.product-card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge--green {
+  color: var(--color-green);
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.badge--yellow {
+  color: var(--color-yellow);
+  background: rgba(234, 179, 8, 0.12);
+  border: 1px solid rgba(234, 179, 8, 0.25);
+}
+
+.badge--blue {
+  color: var(--color-blue);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.product-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.product-card-platform {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  margin-top: var(--space-3);
+  letter-spacing: 0.05em;
+}
+
+/* Image carousel for multi-screenshot products */
+.product-card-images {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--color-surface-2);
+}
+
+.product-card-images img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.product-card-images img.active {
+  opacity: 1;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-1);
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background var(--transition-interactive), transform var(--transition-interactive);
+}
+
+.carousel-dot.active {
+  background: var(--color-orange);
+  transform: scale(1.3);
+}
+
+/* ========== DOWNLOADS ========== */
+.downloads-section {
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.downloads-message {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 65ch;
+  line-height: 1.75;
+  margin-bottom: var(--space-8);
+}
+
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-4);
+}
+
+.download-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.download-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-faint);
+}
+
+.download-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.download-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.download-name {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.download-status {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* ========== ABOUT ========== */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  align-items: center;
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.about-text p {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  margin-bottom: var(--space-4);
+}
+
+.about-text .aside {
+  color: var(--color-text-faint);
+  font-style: italic;
+  font-size: var(--text-sm);
+  border-left: 2px solid var(--color-orange);
+  padding-left: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-visual img {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-visual::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.1), transparent, rgba(59, 130, 246, 0.1));
+  pointer-events: none;
+}
+
+/* ========== CONTACT ========== */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.contact-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.contact-detail-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-orange);
+}
+
+.contact-detail-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.contact-detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-detail-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.contact-detail-value {
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+
+.contact-detail-value a {
+  color: var(--color-orange);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.contact-detail-value a:hover {
+  color: #ff9b4e;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.form-group label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-faint);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  transition: border-color var(--transition-interactive), box-shadow var(--transition-interactive);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-orange);
+  box-shadow: 0 0 0 3px var(--color-orange-glow);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-orange), #e05500);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-interactive), box-shadow var(--transition-interactive);
+  box-shadow: 0 2px 10px rgba(255, 107, 0, 0.25);
+  align-self: flex-start;
+}
+
+.form-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.35);
+}
+
+.form-submit:active {
+  transform: translateY(0);
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-10) var(--space-6);
+}
+
+.footer-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  text-align: center;
+}
+
+.footer-tagline {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.footer-copyright {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-links a:hover {
+  color: var(--color-orange);
+}
+
+.footer-attribution {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.footer-attribution a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+.footer-attribution a:hover {
+  color: var(--color-orange);
+}
+
+/* ========== SCROLL REVEAL ANIMATIONS ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.stagger > .reveal:nth-child(2) { transition-delay: 60ms; }
+.stagger > .reveal:nth-child(3) { transition-delay: 120ms; }
+.stagger > .reveal:nth-child(4) { transition-delay: 180ms; }
+.stagger > .reveal:nth-child(5) { transition-delay: 240ms; }
+.stagger > .reveal:nth-child(6) { transition-delay: 300ms; }
+.stagger > .reveal:nth-child(7) { transition-delay: 360ms; }
+
+/* ========== EXIT INTENT TOAST ========== */
+.exit-toast {
+  position: fixed;
+  top: var(--space-20);
+  right: var(--space-6);
+  z-index: 200;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  max-width: 380px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  transform: translateX(calc(100% + var(--space-6)));
+  transition: transform 0.4s var(--ease-out);
+}
+
+.exit-toast.show {
+  transform: translateX(0);
+}
+
+.exit-toast-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.exit-toast-close {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-faint);
+  transition: color var(--transition-interactive), background var(--transition-interactive);
+}
+
+.exit-toast-close:hover {
+  color: var(--color-text);
+  background: var(--color-surface-3);
+}
+
+/* ========== SECTION DIVIDER ========== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  margin: 0;
+  border: none;
+}
+
+/* ========== GLOW LINE ========== */
+.glow-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-orange), var(--color-blue), transparent);
+  opacity: 0.4;
+}
+</style>
+</head>
+<body>
+
+<!-- Animated Grid Background -->
+<canvas id="grid-canvas" aria-hidden="true"></canvas>
+
+<!-- Header -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#home" class="header-logo" aria-label="Endian Engine Home">
+      <img src="./assets/logo-icon.jpg" alt="Endian Engine logo" width="36" height="36" loading="eager">
+      <span class="header-logo-text">Endian Engine</span>
+    </a>
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="#home" class="active">Home</a>
+      <a href="#products">Products</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+  <a href="#home">Home</a>
+  <a href="#products">Products</a>
+  <a href="#downloads">Downloads</a>
+  <a href="#about">About</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <img src="./assets/logo-main.jpg" alt="Endian Engine — gear and structured data blocks logo" class="hero-logo" width="560" height="auto" loading="eager">
+    <h1 class="hero-tagline">Order Drives Execution</h1>
+    <p class="hero-subtitle">We build systems that transform structured data into actionable insight.</p>
+    <a href="#products" class="hero-cta">
+      Explore Our Software
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="section-inner">
+    <h2 class="section-heading reveal"><span class="accent">//</span> Products</h2>
+    <p class="section-subtext reveal">Tools that make complex data accessible. From nuclear physics to cryptocurrency to demographics.</p>
+
+    <div class="products-grid stagger">
+
+      <!-- 3D Dynamic Lattice Nuclide Viewer -->
+      <article class="product-card reveal">
+        <div class="product-card-images" data-carousel>
+          <img src="./assets/nuclide-1.jpg" alt="3D Nuclide Viewer showing upgraded scatter plot" class="active" loading="lazy">
+          <img src="./assets/nuclide-2.jpg" alt="Nuclide Viewer Z-N axis view" loading="lazy">
+          <img src="./assets/nuclide-3.jpg" alt="Nuclide Viewer N-Z axis view" loading="lazy">
+          <div class="carousel-dots">
+            <button class="carousel-dot active" aria-label="Slide 1"></button>
+            <button class="carousel-dot" aria-label="Slide 2"></button>
+            <button class="carousel-dot" aria-label="Slide 3"></button>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">3D Dynamic Lattice Nuclide Viewer <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v0.5.5.0</span></h3>
+            <span class="badge badge--green">Free — Web App</span>
+          </div>
+          <p class="product-card-desc">An interactive 3D scatter plot of 3,342 known nuclides spanning Z=0 through 118 (Hydrogen through Oganesson). Dynamic axis selection, geometry presets, decay-mode coloring, decay arrows with hover detail, and expanded filtering. Neutron-rich isotopes glow in blues. Proton-rich burn in reds and oranges. Alpha emitters shine gold. Stable nuclides stand as solid silver spheres.</p>
+          <p class="product-card-platform">Platform: Web (Plotly/Dash)</p>
+        </div>
+      </article>
+
+      <!-- Bitcoin Metronome -->
+      <article class="product-card reveal">
+        <div class="product-card-image">
+          <img src="./assets/btc-metronome-feature.jpg" alt="Bitcoin Metronome feature graphic showing circular display" loading="lazy">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">Bitcoin Metronome</h3>
+            <span class="badge badge--yellow">Coming to Google Play</span>
+          </div>
+          <p class="product-card-desc">Real-time Bitcoin cycle visualization. Track Bitcoin's rhythmic market patterns through an elegant circular display.</p>
+          <p class="product-card-platform">Platform: Android</p>
+        </div>
+      </article>
+
+      <!-- WorldDataMap -->
+      <article class="product-card reveal">
+        <div class="product-card-image">
+          <img src="./assets/worlddatamap.jpg" alt="WorldDataMap 3D globe with data columns" loading="lazy">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">WorldDataMap</h3>
+            <span class="badge badge--green">Free — Web App</span>
+          </div>
+          <p class="product-card-desc">Interactive 3D globe with 222 data columns and 312,000 data points. Explore countries, capitals, cities, and US counties overlaid on a rotating Earth with lat/lon grid lines.</p>
+          <p class="product-card-platform">Platform: Web (Plotly)</p>
+        </div>
+      </article>
+
+      <!-- USA Census 3D County Viewer -->
+      <article class="product-card reveal">
+        <div class="product-card-image">
+          <img src="./assets/census-viewer.jpg" alt="USA Census 3D County Viewer showing Kalamazoo area" loading="lazy">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">USA Census 3D County Viewer</h3>
+            <span class="badge badge--green">Free — Web App</span>
+          </div>
+          <p class="product-card-desc">All 3,131 US counties visualized in 3D space. Population, growth, age, migration, and diversity data from 2020-2024 Census estimates. Filter, sort, and fly through America's demographic landscape.</p>
+          <p class="product-card-platform">Platform: Web (Plotly)</p>
+        </div>
+      </article>
+
+      <!-- GPS Globe Viewer -->
+      <article class="product-card reveal">
+        <div class="product-card-image">
+          <img src="./assets/gps-globe.jpg" alt="GPS Globe Viewer with lat/lon grid" loading="lazy">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">GPS Globe Viewer</h3>
+            <span class="badge badge--green">Free — Web App</span>
+          </div>
+          <p class="product-card-desc">A clean 3D globe with precision lat/lon grid overlay. 65,341 surface cells mapping the Earth. Use it standalone or as the foundation for your own data layers.</p>
+          <p class="product-card-platform">Platform: Web</p>
+        </div>
+      </article>
+
+      <!-- Audio Sleep Patch -->
+      <article class="product-card reveal">
+        <div class="product-card-images" data-carousel>
+          <img src="./assets/audio-sleep-patch.jpg" alt="Audio Sleep Patch main interface" class="active" loading="lazy">
+          <img src="./assets/audio-sleep-patch-about.jpg" alt="Audio Sleep Patch about screen" loading="lazy">
+          <div class="carousel-dots">
+            <button class="carousel-dot active" aria-label="Slide 1"></button>
+            <button class="carousel-dot" aria-label="Slide 2"></button>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">Audio Sleep Patch <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v0.2.20.26</span></h3>
+            <span class="badge badge--blue">Free — Windows</span>
+          </div>
+          <p class="product-card-desc">Keeps your audio devices awake by periodically playing a very low-volume audio signal to prevent hardware from entering sleep or power-saving modes. Lives in your system tray.</p>
+          <p class="product-card-platform">Platform: Windows</p>
+        </div>
+      </article>
+
+      <!-- MyStupidApp -->
+      <article class="product-card reveal">
+        <div class="product-card-images" data-carousel>
+          <img src="./assets/mystupidapp-1.jpg" alt="MyStupidApp sunset wallpaper screenshot 1" class="active" loading="lazy">
+          <img src="./assets/mystupidapp-2.jpg" alt="MyStupidApp sunset wallpaper screenshot 2" loading="lazy">
+          <div class="carousel-dots">
+            <button class="carousel-dot active" aria-label="Slide 1"></button>
+            <button class="carousel-dot" aria-label="Slide 2"></button>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-header">
+            <h3 class="product-card-title">MyStupidApp</h3>
+            <span class="badge badge--yellow">Coming to Google Play</span>
+          </div>
+          <p class="product-card-desc">A beautiful animated sunset live wallpaper for Android. Windmill spins, birds fly, the moon glows, and lens flares dance — all rendered in real-time. Because sometimes software should just be pretty.</p>
+          <p class="product-card-platform">Platform: Android</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- DOWNLOADS -->
+<section class="section downloads-section" id="downloads">
+  <div class="section-inner">
+    <h2 class="section-heading reveal"><span class="accent">//</span> Downloads</h2>
+    <p class="downloads-message reveal">We offer direct APK and installer downloads for our software. We know — downloading from a random website takes trust. We're white hat developers. No malware, no tracking, no hidden nonsense. If you're not comfortable downloading, that's okay. Come back when you're ready — we'll be here.</p>
+
+    <div class="downloads-grid stagger">
+      <div class="download-item reveal">
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="download-info">
+          <div class="download-name">3D Nuclide Viewer</div>
+          <div class="download-status">Coming Soon</div>
+        </div>
+      </div>
+      <div class="download-item reveal">
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="download-info">
+          <div class="download-name">Bitcoin Metronome APK</div>
+          <div class="download-status">Coming Soon</div>
+        </div>
+      </div>
+      <div class="download-item reveal">
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="download-info">
+          <div class="download-name">Audio Sleep Patch</div>
+          <div class="download-status">Coming Soon</div>
+        </div>
+      </div>
+      <div class="download-item reveal">
+        <div class="download-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <div class="download-info">
+          <div class="download-name">MyStupidApp APK</div>
+          <div class="download-status">Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <h2 class="section-heading reveal"><span class="accent">//</span> About <span class="accent">Endian Engine</span></h2>
+
+    <div class="about-layout">
+      <div class="about-text reveal">
+        <p>Endian Engine is a software studio based in Kalamazoo, Michigan. We build tools that make complex data accessible — from nuclear physics to cryptocurrency to census demographics.</p>
+        <p>Founded in 2026 by Todd Clifton, we believe that the best software transforms structured data into visual insight that anyone can explore.</p>
+        <p>Our tools are built with obsessive attention to accuracy and visual clarity. Whether it's 3,342 nuclides plotted in 3D or every county in America mapped by demographic data, we don't cut corners on the data.</p>
+        <div class="aside">And yes, the CEO talks to AI all day. The software writes itself. Sort of.</div>
+      </div>
+      <div class="about-visual reveal">
+        <img src="./assets/tritium-orbital.jpg" alt="Stylized 3D orbital visualization of tritium (3H) showing four-lobe angular probability distribution" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <h2 class="section-heading reveal"><span class="accent">//</span> Contact</h2>
+    <p class="section-subtext reveal">Got a question, a bug report, or just want to say hi? We're all ears.</p>
+
+    <div class="contact-layout">
+      <div class="contact-info reveal">
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span class="contact-detail-label">Email</span>
+            <span class="contact-detail-value"><a href="mailto:loco@endianengine.com">loco@endianengine.com</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span class="contact-detail-label">Location</span>
+            <span class="contact-detail-value">Kalamazoo, Michigan</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <span class="contact-detail-label">Company</span>
+            <span class="contact-detail-value">Endian Engine LLC</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Form submission is not yet connected. Email us at loco@endianengine.com');">
+        <div class="form-group">
+          <label for="contact-name">Name</label>
+          <input type="text" id="contact-name" name="name" placeholder="Your name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email</label>
+          <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" placeholder="What's on your mind?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-tagline">Order Drives Execution</div>
+    <div class="footer-copyright">&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+    <div class="footer-links">
+      <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+      <a href="#" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+    </div>
+    <div class="footer-attribution">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Exit Intent Toast -->
+<div class="exit-toast" id="exit-toast" role="alert">
+  <p class="exit-toast-text">Not ready yet? No pressure. Bookmark us — we'll have something new when you come back.</p>
+  <button class="exit-toast-close" aria-label="Dismiss" onclick="document.getElementById('exit-toast').classList.remove('show')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ============ GRID CANVAS BACKGROUND ============
+  const canvas = document.getElementById('grid-canvas');
+  const ctx = canvas.getContext('2d');
+  let animFrame;
+  let particles = [];
+  const GRID_SIZE = 50;
+  const PARTICLE_COUNT = 40;
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 1.5 + 0.5,
+        alpha: Math.random() * 0.4 + 0.1,
+        color: Math.random() > 0.5 ? '255, 107, 0' : '59, 130, 246'
+      });
+    }
+  }
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw grid lines
+    ctx.strokeStyle = 'rgba(40, 40, 65, 0.3)';
+    ctx.lineWidth = 0.5;
+
+    for (let x = 0; x < canvas.width; x += GRID_SIZE) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+
+    for (let y = 0; y < canvas.height; y += GRID_SIZE) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+
+    // Draw grid intersections
+    ctx.fillStyle = 'rgba(60, 60, 90, 0.25)';
+    for (let x = 0; x < canvas.width; x += GRID_SIZE) {
+      for (let y = 0; y < canvas.height; y += GRID_SIZE) {
+        ctx.beginPath();
+        ctx.arc(x, y, 1, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Draw and update particles
+    for (let p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+      ctx.fill();
+    }
+
+    // Connect nearby particles with lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 150) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255, 107, 0, ${0.06 * (1 - dist / 150)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    animFrame = requestAnimationFrame(drawGrid);
+  }
+
+  resizeCanvas();
+  initParticles();
+  drawGrid();
+  window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+  // ============ HEADER SCROLL STATE ============
+  const header = document.getElementById('header');
+  let lastScrollY = 0;
+
+  function updateHeader() {
+    const sy = window.scrollY;
+    if (sy > 50) {
+      header.classList.add('header--scrolled');
+    } else {
+      header.classList.remove('header--scrolled');
+    }
+    lastScrollY = sy;
+  }
+
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // ============ ACTIVE NAV LINK ============
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-desktop a, .nav-mobile a');
+
+  function updateActiveNav() {
+    const scrollY = window.scrollY + 120;
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const height = section.offsetHeight;
+      const id = section.getAttribute('id');
+      if (scrollY >= top && scrollY < top + height) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // ============ MOBILE NAV TOGGLE ============
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMobile = document.getElementById('nav-mobile');
+
+  navToggle.addEventListener('click', () => {
+    navToggle.classList.toggle('open');
+    navMobile.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', navToggle.classList.contains('open'));
+  });
+
+  navMobile.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      navMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ============ SCROLL REVEAL ============
+  const revealElements = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // ============ IMAGE CAROUSELS ============
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const images = carousel.querySelectorAll('img');
+    const dots = carousel.querySelectorAll('.carousel-dot');
+    let current = 0;
+    let interval;
+
+    function showSlide(index) {
+      images.forEach((img, i) => {
+        img.classList.toggle('active', i === index);
+      });
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+      current = index;
+    }
+
+    function nextSlide() {
+      showSlide((current + 1) % images.length);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        showSlide(i);
+        clearInterval(interval);
+        interval = setInterval(nextSlide, 4000);
+      });
+    });
+
+    interval = setInterval(nextSlide, 4000);
+  });
+
+  // ============ EXIT INTENT (Desktop Only) ============
+  let exitShown = false;
+
+  document.addEventListener('mouseout', (e) => {
+    if (exitShown) return;
+    if (e.clientY <= 5 && e.relatedTarget === null) {
+      document.getElementById('exit-toast').classList.add('show');
+      exitShown = true;
+    }
+  });
+
+})();
+</script>
+
+</body>
+</html>
