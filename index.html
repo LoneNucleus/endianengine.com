@@ -1389,6 +1389,12 @@ a, button, [role="button"], input, textarea, select {
   </div>
 </section>
 
+<!-- HIT COUNTER -->
+<div class="hit-counter" id="hit-counter">
+  <div class="hit-counter-label">NOW SERVING #</div>
+  <div class="hit-counter-digits" id="hit-counter-digits"></div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
@@ -1629,6 +1635,95 @@ a, button, [role="button"], input, textarea, select {
     }
   });
 
+})();
+</script>
+
+<!-- Hit Counter -->
+<style>
+.hit-counter {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 900;
+  background: #0a0a0a;
+  border: 2px solid #333;
+  border-style: inset;
+  padding: 6px 10px 8px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,255,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  animation: counterFadeIn 1s ease 3s forwards;
+}
+
+@keyframes counterFadeIn {
+  to { opacity: 1; }
+}
+
+.hit-counter-label {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: #00cc00;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 4px rgba(0,204,0,0.4);
+}
+
+.hit-counter-digits {
+  display: flex;
+  gap: 2px;
+}
+
+.hit-counter-digit {
+  width: 18px;
+  height: 24px;
+  background: #050505;
+  border: 1px solid #222;
+  border-style: inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #00dd00;
+  text-shadow: 0 0 6px rgba(0,221,0,0.6);
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .hit-counter {
+    bottom: 10px;
+    left: 10px;
+    padding: 4px 7px 6px;
+  }
+  .hit-counter-label { font-size: 7px; }
+  .hit-counter-digit { width: 14px; height: 19px; font-size: 12px; }
+}
+</style>
+
+<script>
+(function() {
+  var BASE = 4831;
+  var key = 'ee_hits';
+  var stored = localStorage.getItem(key);
+  var count;
+  if (stored) {
+    count = parseInt(stored, 10) + 1;
+  } else {
+    count = BASE + Math.floor(Math.random() * 20);
+  }
+  localStorage.setItem(key, count);
+  var str = String(count).padStart(6, '0');
+  var container = document.getElementById('hit-counter-digits');
+  for (var i = 0; i < str.length; i++) {
+    var d = document.createElement('div');
+    d.className = 'hit-counter-digit';
+    d.textContent = str[i];
+    container.appendChild(d);
+  }
 })();
 </script>
 
