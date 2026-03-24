@@ -1656,6 +1656,8 @@ a, button, [role="button"], input, textarea, select {
   gap: 4px;
   opacity: 0;
   animation: counterFadeIn 1s ease 3s forwards;
+  transition: transform 2.5s ease-in-out;
+  transform: translateX(0);
 }
 
 @keyframes counterFadeIn {
@@ -1697,7 +1699,6 @@ a, button, [role="button"], input, textarea, select {
   .hit-counter {
     bottom: 10px;
     left: 10px;
-    padding: 4px 7px 6px;
   }
   .hit-counter-label { font-size: 7px; }
   .hit-counter-digit { width: 14px; height: 19px; font-size: 12px; }
@@ -1724,6 +1725,22 @@ a, button, [role="button"], input, textarea, select {
     d.textContent = str[i];
     container.appendChild(d);
   }
+
+  // Wander between corners
+  var el = document.getElementById('hit-counter');
+  var onRight = false;
+  function getSlideDistance() {
+    return window.innerWidth - el.offsetWidth - 32;
+  }
+  setTimeout(function moveCounter() {
+    onRight = !onRight;
+    if (onRight) {
+      el.style.transform = 'translateX(' + getSlideDistance() + 'px)';
+    } else {
+      el.style.transform = 'translateX(0)';
+    }
+    setTimeout(moveCounter, 90000 + Math.random() * 60000);
+  }, 30000);
 })();
 </script>
 
