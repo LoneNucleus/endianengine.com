@@ -1901,6 +1901,22 @@ a, button, [role="button"], input, textarea, select {
   }, 30000);
 })();
 </script>
+<script>
+let scrollTracked = false;
 
+window.addEventListener('scroll', function() {
+  if (scrollTracked) return;
+
+  const scrollPosition = window.innerHeight + window.scrollY;
+  const pageHeight = document.body.offsetHeight;
+
+  if (scrollPosition >= pageHeight * 0.9) {
+    if (window.plausible) {
+      plausible('scroll_bottom');
+    }
+    scrollTracked = true;
+  }
+});
+</script>
 </body>
 </html>
