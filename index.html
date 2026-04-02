@@ -446,6 +446,33 @@ a, button, [role="button"], input, textarea, select {
   50% { top: 100%; }
 }
 /* ========== Feature Bitcoin Box ========== */
+.featured-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-orange), #e05500);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(255,107,0,0.25);
+  transition: transform var(--transition-interactive), box-shadow var(--transition-interactive);
+}
+
+.featured-download-link {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color var(--transition-interactive);
+}
+  
   .featured-download-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(255,107,0,0.35);
