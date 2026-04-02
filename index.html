@@ -956,6 +956,112 @@ a, button, [role="button"], input, textarea, select {
   transform: translateY(0);
 }
 
+
+.contact-quick-copy {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.contact-quick-copy-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-orange);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-2);
+}
+
+.contact-quick-copy-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.contact-email-card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+}
+
+.contact-email-top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.contact-email-address {
+  font-size: var(--text-base);
+  color: var(--color-text);
+  word-break: break-word;
+}
+
+.contact-email-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.contact-email-actions .form-submit {
+  align-self: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.contact-copy-btn {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: rgba(255,255,255,0.02);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: transform var(--transition-interactive), border-color var(--transition-interactive), color var(--transition-interactive), box-shadow var(--transition-interactive);
+}
+
+.contact-copy-btn:hover {
+  transform: translateY(-1px);
+  color: #fff;
+  border-color: rgba(255, 107, 0, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.12);
+}
+
+.contact-copy-btn:active {
+  transform: translateY(0);
+}
+
+.contact-copy-status {
+  min-height: 1.2em;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  color: var(--color-orange);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .contact-email-actions {
+    flex-direction: column;
+  }
+
+  .contact-email-actions .form-submit,
+  .contact-copy-btn {
+    width: 100%;
+  }
+}
+
+
 /* ========== FOOTER ========== */
 .footer {
   position: relative;
@@ -1480,21 +1586,36 @@ a, button, [role="button"], input, textarea, select {
         </div>
       </div>
 
-      <form class="contact-form reveal" onsubmit="event.preventDefault(); plausible('contact_form_submit'); alert('Form submission is not yet connected. Email us at support@endianengine.com');">
-        <div class="form-group">
-          <label for="contact-name">Name</label>
-          <input type="text" id="contact-name" name="name" placeholder="Your name" autocomplete="name">
+      <div class="contact-form reveal">
+        <div class="contact-quick-copy">
+          <p class="contact-quick-copy-title">Direct Email</p>
+          <p class="contact-quick-copy-text">Use your own email service. Open a message with one click, or copy the address and paste it into whatever email service you use.</p>
         </div>
-        <div class="form-group">
-          <label for="contact-email">Email</label>
-          <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email">
+
+        <div class="contact-email-card">
+          <div class="contact-email-top">
+            <span class="contact-detail-label">Support</span>
+            <span class="contact-email-address">support@endianengine.com</span>
+          </div>
+          <div class="contact-email-actions">
+            <a href="mailto:support@endianengine.com?subject=Endian%20Engine%20Support" class="form-submit" onclick="plausible('email_click')">Open Email</a>
+            <button type="button" class="contact-copy-btn" data-copy-email="support@endianengine.com">Copy Email</button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="contact-message">Message</label>
-          <textarea id="contact-message" name="message" placeholder="What's on your mind?"></textarea>
+
+        <div class="contact-email-card">
+          <div class="contact-email-top">
+            <span class="contact-detail-label">Info</span>
+            <span class="contact-email-address">info@endianengine.com</span>
+          </div>
+          <div class="contact-email-actions">
+            <a href="mailto:info@endianengine.com?subject=Endian%20Engine%20Inquiry" class="form-submit" onclick="plausible('email_click_info')">Open Email</a>
+            <button type="button" class="contact-copy-btn" data-copy-email="info@endianengine.com">Copy Email</button>
+          </div>
         </div>
-        <button type="submit" class="form-submit">Send Message</button>
-      </form>
+
+        <div class="contact-copy-status" id="contact-copy-status" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -1894,6 +2015,60 @@ a, button, [role="button"], input, textarea, select {
   .hit-counter-speaker { width: 11px; height: 11px; }
 }
 </style>
+
+
+<script>
+(function() {
+  var buttons = document.querySelectorAll('.contact-copy-btn');
+  var status = document.getElementById('contact-copy-status');
+  var statusTimer;
+
+  function setStatus(message) {
+    if (!status) return;
+    status.textContent = message;
+    if (statusTimer) clearTimeout(statusTimer);
+    statusTimer = setTimeout(function() {
+      status.textContent = '';
+    }, 2200);
+  }
+
+  function fallbackCopy(text) {
+    var area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'absolute';
+    area.style.left = '-9999px';
+    document.body.appendChild(area);
+    area.select();
+    try {
+      document.execCommand('copy');
+      setStatus('Email copied');
+      if (window.plausible) window.plausible('email_copy_click');
+    } catch (err) {
+      setStatus('Copy failed');
+    }
+    document.body.removeChild(area);
+  }
+
+  buttons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var email = button.getAttribute('data-copy-email');
+      if (!email) return;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(function() {
+          setStatus('Email copied');
+          if (window.plausible) window.plausible('email_copy_click');
+        }).catch(function() {
+          fallbackCopy(email);
+        });
+      } else {
+        fallbackCopy(email);
+      }
+    });
+  });
+})();
+</script>
 
 <script>
 (function() {
