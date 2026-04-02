@@ -630,8 +630,8 @@ a, button, [role="button"], input, textarea, select {
 
 .downloads-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: var(--space-4);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .download-item {
@@ -1280,67 +1280,72 @@ a, button, [role="button"], input, textarea, select {
     <!-- VIDEO WALKTHROUGH -->
 
     <!-- DOWNLOAD BUBBLES -->
+<!-- DOWNLOAD BUBBLES -->
 <div class="downloads-grid stagger">
-      </div>
-      <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/btc-metronome-17/Bitcoin.Metronome.v17.03.29.26.01_SPECTRUM.apk" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_btc_click')">
-        <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-        </div>
-        <div class="download-info">
-          <div class="download-name" style="color:#ffffff;">Bitcoin Metronome v17</div>
-          <div class="download-size">Android APK sideload</div>
-          <div class="download-status" style="color:var(--color-green);">Available</div>
-          <div class="download-hash">SHA-256: 3A58844FA50AEF7A16F96D187156118382129072679F834A02559B2907B8FBC3</div>
-        </div>
-      </a>
-<a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-sleep-patch-v02.03.14.26.11/Audio.Sleep.Patch.v02.03.14.26.11.exe" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_sleep_patch_click')">
-  <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-      <polyline points="7 10 12 15 17 10"/>
-      <line x1="12" y1="15" x2="12" y2="3"/>
-    </svg>
-  </div>
-  <div class="download-info">
-    <div class="download-name" style="color:#ffffff;">Audio Sleep Patch</div>
-    <div class="download-size">49.4 MB &middot; Windows</div>
-    <div class="download-status" style="color:var(--color-green);">Available</div>
-    <div class="download-hash">SHA-256: a3a3baa15f54e33a3daac82fb3a2b49c5c4f4335901295770253bb72c53028ab</div>
-  </div>
-</a>
-      <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-clock-v03.03.14.26.03/Audio.Clock.v03.03.14.26.03.exe" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_audio_clock_click')">
-        <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-        </div>
-        <div class="download-info">
-          <div class="download-name" style="color:#ffffff;">Audio Clock</div>
-          <div class="download-size">49.6 MB &middot; Windows</div>
-          <div class="download-status" style="color:var(--color-green);">Available</div>
-          <div class="download-hash">SHA-256: 13319f6c7ae33c85b2b897a4860d5b0fbb86ad110f69c2ce4d4eb08fd7f77020</div>
-        </div>
-      </a>
-  <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/MySTUPIDapp/MySTUPIDapp_V4_1_sign.apk" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_audio_clock_click')">
-        <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        </div>
-        <div class="download-info" style="text-align:left;">
-          <div class="download-name" style="color:#ffffff;">My STUPID app v4.1</div>
-          <div class="download-size">Android APK sideload</div>
-          <div class="download-status" style="color:var(--color-green);">Available</div>
-          <div class="download-hash">SHA-256: C844F3B7C4B77898157DA6BD6C1AD469D829218B3D59E6198399BBB5709C74D4</div>
-        </div>
-      </a>
-        </div>
-      </div>
+  <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/btc-metronome-17/Bitcoin.Metronome.v17.03.29.26.01_SPECTRUM.apk" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_btc_click')">
+    <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
     </div>
+    <div class="download-info">
+      <div class="download-name" style="color:#ffffff;">Bitcoin Metronome v17</div>
+      <div class="download-size">Android APK sideload</div>
+      <div class="download-status" style="color:var(--color-green);">Available</div>
+      <div class="download-hash">SHA-256: 3A58844FA50AEF7A16F96D187156118382129072679F834A02559B2907B8FBC3</div>
+    </div>
+  </a>
+
+  <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-sleep-patch-v02.03.14.26.11/Audio.Sleep.Patch.v02.03.14.26.11.exe" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_sleep_patch_click')">
+    <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </div>
+    <div class="download-info">
+      <div class="download-name" style="color:#ffffff;">Audio Sleep Patch</div>
+      <div class="download-size">49.4 MB &middot; Windows</div>
+      <div class="download-status" style="color:var(--color-green);">Available</div>
+      <div class="download-hash">SHA-256: a3a3baa15f54e33a3daac82fb3a2b49c5c4f4335901295770253bb72c53028ab</div>
+    </div>
+  </a>
+
+  <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/audio-clock-v03.03.14.26.03/Audio.Clock.v03.03.14.26.03.exe" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_audio_clock_click')">
+    <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </div>
+    <div class="download-info">
+      <div class="download-name" style="color:#ffffff;">Audio Clock</div>
+      <div class="download-size">49.6 MB &middot; Windows</div>
+      <div class="download-status" style="color:var(--color-green);">Available</div>
+      <div class="download-hash">SHA-256: 13319f6c7ae33c85b2b897a4860d5b0fbb86ad110f69c2ce4d4eb08fd7f77020</div>
+    </div>
+  </a>
+
+  <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/MySTUPIDapp/MySTUPIDapp_V4_1_sign.apk" class="download-item download-active reveal" style="text-decoration:none;" onclick="plausible('downloads_audio_clock_click')">
+    <div class="download-icon" style="background:rgba(255,107,0,0.15);color:var(--color-orange);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </div>
+    <div class="download-info" style="text-align:left;">
+      <div class="download-name" style="color:#ffffff;">My STUPID app v4.1</div>
+      <div class="download-size">Android APK sideload</div>
+      <div class="download-status" style="color:var(--color-green);">Available</div>
+      <div class="download-hash">SHA-256: C844F3B7C4B77898157DA6BD6C1AD469D829218B3D59E6198399BBB5709C74D4</div>
+    </div>
+  </a>
+</div>
 
     <!-- Android Sideloading Note -->
     <div class="reveal" style="margin-top:var(--space-8); margin-left:auto; margin-right:auto; text-align:center; padding:var(--space-4) var(--space-5); background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.2); border-radius:var(--radius-lg); max-width:640px;">      <p style="font-family:var(--font-display);font-size:var(--text-xs);font-weight:600;color:var(--color-blue);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:var(--space-2);">Android APK Install Note</p>
