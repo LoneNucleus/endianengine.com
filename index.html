@@ -1559,7 +1559,10 @@ a, button, [role="button"], input, textarea, select {
       <div class="contact-info reveal">
         <div class="contact-detail">
           <div class="contact-detail-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="20" height="16" x="2" y="4" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
           </div>
           <div class="contact-detail-text">
             <span class="contact-detail-label">Email</span>
@@ -1568,7 +1571,10 @@ a, button, [role="button"], input, textarea, select {
         </div>
         <div class="contact-detail">
           <div class="contact-detail-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
           </div>
           <div class="contact-detail-text">
             <span class="contact-detail-label">Location</span>
@@ -1586,36 +1592,19 @@ a, button, [role="button"], input, textarea, select {
         </div>
       </div>
 
-      <div class="contact-form reveal">
-        <div class="contact-quick-copy">
-          <p class="contact-quick-copy-title">Direct Email</p>
-          <p class="contact-quick-copy-text">Use your own email service. Open a message with one click, or copy the address and paste it into whatever email service you use.</p>
-        </div>
+<div class="contact-form reveal">
+  <div class="contact-quick-copy">
+    <p class="contact-quick-copy-title">Support</p>
+    <p class="contact-quick-copy-text">Open your email app or copy the address.</p>
+  </div>
 
-        <div class="contact-email-card">
-          <div class="contact-email-top">
-            <span class="contact-detail-label">Support</span>
-            <span class="contact-email-address">support@endianengine.com</span>
-          </div>
-          <div class="contact-email-actions">
-            <a href="mailto:support@endianengine.com?subject=Endian%20Engine%20Support" class="form-submit" onclick="plausible('email_click')">Open Email</a>
-            <button type="button" class="contact-copy-btn" data-copy-email="support@endianengine.com">Copy Email</button>
-          </div>
-        </div>
+  <div class="contact-email-actions">
+    <a href="mailto:support@endianengine.com?subject=Endian%20Engine%20Support" class="form-submit" onclick="plausible('email_click')">Open Email</a>
+    <button type="button" class="contact-copy-btn" data-copy-email="support@endianengine.com">Copy Email</button>
+  </div>
 
-        <div class="contact-email-card">
-          <div class="contact-email-top">
-            <span class="contact-detail-label">Info</span>
-            <span class="contact-email-address">info@endianengine.com</span>
-          </div>
-          <div class="contact-email-actions">
-            <a href="mailto:info@endianengine.com?subject=Endian%20Engine%20Inquiry" class="form-submit" onclick="plausible('email_click_info')">Open Email</a>
-            <button type="button" class="contact-copy-btn" data-copy-email="info@endianengine.com">Copy Email</button>
-          </div>
-        </div>
-
-        <div class="contact-copy-status" id="contact-copy-status" aria-live="polite"></div>
-      </div>
+  <div class="contact-copy-status" id="contact-copy-status" aria-live="polite"></div>
+</div>
     </div>
   </div>
 </section>
