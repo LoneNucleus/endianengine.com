@@ -634,6 +634,18 @@ a, button, [role="button"], input, textarea, select {
   gap: 24px;
 }
 
+@media (max-width: 1024px) {
+  .downloads-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .downloads-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .download-item {
   display: flex;
   align-items: center;
