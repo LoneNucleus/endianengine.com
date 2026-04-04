@@ -1031,6 +1031,40 @@ a, button, [role="button"], input, textarea, select {
   pointer-events: none;
 }
 
+
+.about-manifesto {
+  margin-bottom: var(--space-6);
+  padding: var(--space-5);
+  background: linear-gradient(180deg, rgba(255,107,0,0.08), rgba(59,130,246,0.04));
+  border: 1px solid rgba(255,107,0,0.22);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.about-manifesto-kicker {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.about-manifesto-text {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  margin: 0 0 var(--space-3) 0;
+}
+
+.about-manifesto-text:last-child {
+  margin-bottom: 0;
+}
+
+.about-manifesto strong {
+  color: var(--color-text);
+}
+
 /* ========== CONTACT ========== */
 .contact-layout {
   display: grid;
@@ -1794,6 +1828,19 @@ a, button, [role="button"], input, textarea, select {
 
     <div class="about-layout">
       <div class="about-text reveal">
+        <div class="about-manifesto">
+          <p class="about-manifesto-kicker">What is an Endian?</p>
+          <p class="about-manifesto-text">
+            An Endian is someone who values science, numbers, structure, and understanding how things work. Someone who believes in learning something new every day — and teaching something new every day — for life.
+          </p>
+          <p class="about-manifesto-text">
+            To us, life is not just a way to get somewhere. It is a journey through time, and precision matters. One second is always one second. We study what we do before we do it, we do things right the first time, and we believe planning and organization are essential to keeping order in our work and in our lives.
+          </p>
+          <p class="about-manifesto-text">
+            <strong>Order drives execution.</strong> At Endian Engine LLC, we build systems that transform structured data into actionable insight.
+          </p>
+        </div>
+
         <p>Endian Engine is a software studio based in Kalamazoo, Michigan. We build tools that make complex data accessible — from nuclear physics to cryptocurrency to census demographics.</p>
         <p>Founded in 2026, we believe that the best software transforms structured data into visual insight that anyone can explore.</p>
         <p>Our tools are built with obsessive attention to accuracy and visual clarity. Whether it's 3,342 nuclides plotted in 3D or every county in America mapped by demographic data, we don't cut corners on the data.</p>
