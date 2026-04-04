@@ -572,9 +572,21 @@ a, button, [role="button"], input, textarea, select {
 /* ========== PRODUCT CARDS ========== */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-6);
   margin-top: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1977,7 +1989,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="/terms.html">Terms of Service</a>
     </div>
     <p style="font-size: var(--text-xs); color: var(--color-text-faint); max-width: 45ch; margin: 0 auto; line-height: 1.2;">
-      v01.04.04.26.08 19:34
+      v01.04.04.26.09 19:45
     </p>
   </div>
 </footer>
