@@ -1472,29 +1472,36 @@ a, button, [role="button"], input, textarea, select {
 
 .ee-inline-mark {
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.2em;
-  height: 0.95em;
-  margin-right: 0.45em;
-  vertical-align: -0.08em;
+  align-items: baseline;
+  gap: 0.02em;
+  margin-right: 0.42em;
+  vertical-align: -0.06em;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.08em;
 }
 
-.ee-inline-mark svg {
-  width: 100%;
-  height: 100%;
+.ee-inline-mark .mark-i {
+  color: #66a3ff;
+  font-weight: 700;
 }
 
-.ee-inline-mark .mark-blue {
-  fill: var(--color-blue);
+.ee-inline-mark .mark-bang {
+  color: #ff8a2b;
+  font-weight: 700;
 }
 
-.ee-inline-mark .mark-orange {
-  fill: var(--color-orange);
+.ee-inline-mark .mark-colon {
+  color: #ff5a2a;
+  font-weight: 700;
+  margin-left: -0.05em;
 }
 
-.ee-inline-mark .mark-red {
-  fill: #ff5a2a;
+.ee-inline-mark--tight {
+  letter-spacing: -0.1em;
 }
 
 /* ========== GLOW LINE ========== */
@@ -1510,17 +1517,6 @@ a, button, [role="button"], input, textarea, select {
 <!-- Animated Grid Background -->
 <canvas id="grid-canvas" aria-hidden="true"></canvas>
 
-
-<svg width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden" aria-hidden="true" focusable="false">
-  <symbol id="ee-i-mark-symbol" viewBox="0 0 112 42">
-    <circle class="mark-blue" cx="12" cy="9" r="5"/>
-    <rect class="mark-blue" x="7" y="17" width="10" height="18" rx="5"/>
-    <rect class="mark-orange" x="40" y="6" width="10" height="23" rx="5"/>
-    <circle class="mark-orange" cx="45" cy="35" r="5"/>
-    <circle class="mark-red" cx="80" cy="14" r="5"/>
-    <circle class="mark-red" cx="80" cy="30" r="5"/>
-  </symbol>
-</svg>
 
 
 <!-- Header -->
@@ -1577,11 +1573,7 @@ a, button, [role="button"], input, textarea, select {
     <h2 class="section-heading reveal"><span class="accent">//</span> Products</h2>
     <p class="section-subtext reveal">Some products are available as direct downloads today. Others are being rebuilt as secure SaaS systems for the next phase of <span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span>.</p>
 <div class="info-note reveal" style="max-width: 700px; margin: 1.5rem auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-  <p class="info-note-title" style="margin: 0 0 0.5rem 0; text-align: center; width: 100%;"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>Platform Transition Notice</p>
+  <p class="info-note-title" style="margin: 0 0 0.5rem 0; text-align: center; width: 100%;"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Platform Transition Notice</p>
   <p class="info-note-text" style="margin: 0; text-align: center; width: 100%;">
     Some <span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span> software is available now as direct downloads.
     Selected data products are being rebuilt as secure SaaS systems during this transition.
@@ -1707,11 +1699,7 @@ a, button, [role="button"], input, textarea, select {
           <p class="product-card-desc">Keep track of time without breaking focus. This app speaks the current time every 10 minutes, or at randomized intervals of approximately 8–12 minutes, using the Windows text-to-speech voices already installed on your computer. Select from your available system voices, enable Random Mode, and control the app from the system tray. Great for long coding sessions, late-night work, or anytime you need a spoken time check. Additional voices may be installed through Microsoft, but they are not included with this app.</p>
           <p class="product-card-platform">Platform: Windows 10/11</p>
         <div class="mini-instruction">
-          <p class="mini-instruction-title"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>Auto-Start on Boot</p>
+          <p class="mini-instruction-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Auto-Start on Boot</p>
           <p class="mini-instruction-text">
             Press <kbd>Win+R</kbd>, type <code>shell:startup</code>, press Enter.
           Copy the .exe into that folder. It will launch automatically every time Windows starts.
@@ -1739,11 +1727,7 @@ a, button, [role="button"], input, textarea, select {
           </p>
           <p class="product-card-platform">Platform: Windows 10/11</p>
         <div class="mini-instruction">
-         <p class="mini-instruction-title"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>Auto-Start on Boot</p>
+         <p class="mini-instruction-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Auto-Start on Boot</p>
           <p class="mini-instruction-text">
            Press <kbd>Win+R</kbd>, type <code>shell:startup</code>, press Enter.
             Copy the .exe into that folder. It will launch automatically every time Windows starts.
@@ -1884,11 +1868,7 @@ a, button, [role="button"], input, textarea, select {
     
     <!-- Android Sideloading Note -->
       <div class="reveal info-note">
-  <p class="info-note-title"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>Android APK Install Note</p>
+  <p class="info-note-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Android APK Install Note</p>
   <p class="info-note-text">
     To install APK files, enable <strong>Install from unknown sources</strong> on your Android device.
     Go to <strong>Settings &rarr; Security</strong> (or
@@ -1913,11 +1893,7 @@ a, button, [role="button"], input, textarea, select {
     <div class="about-layout">
       <div class="about-text reveal">
         <div class="about-manifesto">
-          <p class="about-manifesto-kicker"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>What is an Endian?</p>
+          <p class="about-manifesto-kicker"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>What is an Endian?</p>
           <p class="about-manifesto-text">
             An Endian is someone who values science, numbers, structure, and understanding how things work. Someone who believes in learning something new every day — and teaching something new every day — for life.
           </p>
@@ -2003,11 +1979,7 @@ a, button, [role="button"], input, textarea, select {
 
 <div class="contact-form reveal">
   <div class="contact-quick-copy">
-    <p class="contact-quick-copy-title"><span class="ee-inline-mark" aria-hidden="true">
-  <svg viewBox="0 0 112 42" focusable="false">
-    <use href="#ee-i-mark-symbol"></use>
-  </svg>
-</span>General Contact</p>
+    <p class="contact-quick-copy-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>General Contact</p>
     <p class="contact-quick-copy-text">Use this address for general questions, company contact, and routing.</p>
   </div>
 
@@ -2074,7 +2046,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="/terms.html">Terms of Service</a>
     </div>
     <p style="font-size: var(--text-xs); color: var(--color-text-faint); max-width: 45ch; margin: 0 auto; line-height: 1.2;">
-      v01.04.07.26.02
+      v01.04.07.26.01
     </p>
   </div>
 </footer>
