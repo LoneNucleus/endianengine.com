@@ -1472,36 +1472,110 @@ a, button, [role="button"], input, textarea, select {
 
 .ee-inline-mark {
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.02em;
-  margin-right: 0.42em;
-  vertical-align: -0.06em;
+  align-items: flex-end;
+  gap: 0.06em;
+  margin-right: 0.30em;
+  vertical-align: -0.08em;
   white-space: nowrap;
-  font-family: var(--font-body);
-  font-size: 0.95em;
-  font-weight: 700;
+  font-size: 1em;
   line-height: 1;
-  letter-spacing: -0.08em;
+}
+
+.ee-inline-mark .mark-i,
+.ee-inline-mark .mark-bang,
+.ee-inline-mark .mark-colon {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
 }
 
 .ee-inline-mark .mark-i {
-  color: #66a3ff;
-  font-weight: 700;
+  width: 0.18em;
+  height: 0.96em;
+}
+
+.ee-inline-mark .mark-i::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.26em;
+  width: 0.11em;
+  height: 0.56em;
+  border-radius: 0.03em;
+  background: #66a3ff;
+}
+
+.ee-inline-mark .mark-i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.02em;
+  width: 0.10em;
+  height: 0.10em;
+  border-radius: 0.02em;
+  background: #66a3ff;
 }
 
 .ee-inline-mark .mark-bang {
-  color: #ff8a2b;
-  font-weight: 700;
+  width: 0.18em;
+  height: 0.96em;
+}
+
+.ee-inline-mark .mark-bang::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0.02em;
+  width: 0.11em;
+  height: 0.62em;
+  border-radius: 0.03em;
+  background: linear-gradient(180deg, #ff9a3d 0%, #ff7a1a 100%);
+}
+
+.ee-inline-mark .mark-bang::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0.02em;
+  width: 0.10em;
+  height: 0.10em;
+  border-radius: 0.02em;
+  background: #ff7a1a;
 }
 
 .ee-inline-mark .mark-colon {
-  color: #ff5a2a;
-  font-weight: 700;
-  margin-left: -0.05em;
+  width: 0.12em;
+  height: 0.96em;
+  margin-left: -0.01em;
+}
+
+.ee-inline-mark .mark-colon::before,
+.ee-inline-mark .mark-colon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0.08em;
+  height: 0.08em;
+  border-radius: 0.02em;
+  background: #ff5a2a;
+}
+
+.ee-inline-mark .mark-colon::before {
+  top: 0.30em;
+}
+
+.ee-inline-mark .mark-colon::after {
+  top: 0.58em;
 }
 
 .ee-inline-mark--tight {
-  letter-spacing: -0.1em;
+  gap: 0.045em;
 }
 
 /* ========== GLOW LINE ========== */
@@ -2046,7 +2120,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="/terms.html">Terms of Service</a>
     </div>
     <p style="font-size: var(--text-xs); color: var(--color-text-faint); max-width: 45ch; margin: 0 auto; line-height: 1.2;">
-      v01.04.07.26.03
+      v01.04.07.26.01
     </p>
   </div>
 </footer>
