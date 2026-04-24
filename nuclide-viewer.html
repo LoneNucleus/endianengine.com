@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nuclide Viewer | Endian Engine</title>
-  <meta name="description" content="The Nuclide Viewer is being rebuilt as a secure SaaS product by Endian Engine." />
+  <title>Interactive Nuclide Chart and Isotope Database | Endian Engine</title>
+  <meta name="description" content="Learn how nuclide charts map isotopes by proton and neutron count, explain nuclear stability, and show radioactive decay relationships." />
+  <link rel="canonical" href="https://endianengine.com/nuclide-viewer.html" />
   <style>
     :root {
       --bg-1: #07111e;
@@ -155,6 +156,35 @@
       font-size: 0.99rem;
     }
 
+    .content {
+      margin: 26px auto 0;
+      max-width: 700px;
+      text-align: left;
+      display: grid;
+      gap: 14px;
+    }
+
+    .content article {
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .content h2 {
+      margin: 0 0 8px;
+      color: var(--text);
+      font-size: 1.12rem;
+      line-height: 1.28;
+    }
+
+    .content p {
+      margin: 0;
+      color: #d6e1f1;
+      line-height: 1.7;
+      font-size: 0.99rem;
+    }
+
     .actions {
       margin-top: 28px;
       display: flex;
@@ -210,16 +240,29 @@
       <span class="word engine">ENGINE</span>
     </div>
 
-    <div class="eyebrow">Secure Rebuild</div>
-    <h1>3D Dynamic Lattice Nuclide Viewer</h1>
+    <div class="eyebrow">Nuclear Data Reference</div>
+    <h1>Interactive Nuclide Chart and Isotope Database</h1>
     <p class="subtitle">
-      This public static demo has been retired while Endian Engine rebuilds it as a secure SaaS product.
+      A nuclide chart maps atomic nuclei by proton count, neutron count, stability, and decay behavior. Endian Engine is rebuilding the full interactive viewer as a secure SaaS product, but this page now remains useful as a public reference for the data model behind the tool.
     </p>
 
-    <section class="panel">
-      <p>
-        Public demo access is currently disabled during platform transition. The next version will move to protected infrastructure with a stronger data model, improved controls, and a cleaner long-term product architecture.
-      </p>
+    <section class="content" aria-label="Interactive Nuclide Chart and Isotope Database reference information">
+      <article>
+        <h2>What is a nuclide chart?</h2>
+        <p>A nuclide chart is a map of known atomic nuclei. Each position represents a specific nuclide: a nucleus with a defined number of protons and neutrons. This makes the chart different from a standard periodic table, because it shows isotope-level structure instead of only element-level structure.</p>
+      </article>
+      <article>
+        <h2>How the chart is read</h2>
+        <p>Nuclide charts are usually organized with proton count on one axis and neutron count on the other. Stable nuclei form a recognizable band, while unstable nuclides appear around that band and decay toward more stable configurations.</p>
+      </article>
+      <article>
+        <h2>Decay and stability</h2>
+        <p>Radioactive decay changes one nuclide into another. Alpha decay, beta decay, gamma emission, and related transitions can be represented as movement across the chart. That makes a nuclide chart useful for studying decay chains, isotope relationships, and nuclear data patterns.</p>
+      </article>
+      <article>
+        <h2>Platform status</h2>
+        <p>The original public static viewer has been retired while Endian Engine rebuilds the system with protected access, cleaner controls, and a stronger long-term data architecture. The goal is to preserve the learning value while moving the full interactive dataset into a safer SaaS environment.</p>
+      </article>
     </section>
 
     <div class="actions">
