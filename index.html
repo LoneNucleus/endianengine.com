@@ -1483,8 +1483,7 @@ a, button, [role="button"], input, textarea, select {
 }
 
 .ee-inline-mark .mark-i,
-.ee-inline-mark .mark-bang,
-.ee-inline-mark .mark-colon {
+.ee-inline-mark .mark-bang {
   position: relative;
   display: inline-block;
   font-size: 0;
@@ -1549,31 +1548,6 @@ a, button, [role="button"], input, textarea, select {
   background: #ff7a1a;
 }
 
-.ee-inline-mark .mark-colon {
-  width: 0.12em;
-  height: 0.96em;
-  margin-left: -0.01em;
-}
-
-.ee-inline-mark .mark-colon::before,
-.ee-inline-mark .mark-colon::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0.08em;
-  height: 0.08em;
-  border-radius: 0.02em;
-  background: #ff5a2a;
-}
-
-.ee-inline-mark .mark-colon::before {
-  top: 0.30em;
-}
-
-.ee-inline-mark .mark-colon::after {
-  top: 0.58em;
-}
 
 .ee-inline-mark--tight {
   gap: 0.045em;
@@ -1648,7 +1622,7 @@ a, button, [role="button"], input, textarea, select {
     <h2 class="section-heading reveal"><span class="accent">//</span> Products</h2>
     <p class="section-subtext reveal">Some products are available as direct downloads today. Others are being rebuilt as secure SaaS systems for the next phase of <span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span>.</p>
 <div class="info-note reveal" style="max-width: 700px; margin: 1.5rem auto 0; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-  <p class="info-note-title" style="margin: 0 0 0.5rem 0; text-align: center; width: 100%;"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Platform Transition Notice</p>
+  <p class="info-note-title" style="margin: 0 0 0.5rem 0; text-align: center; width: 100%;"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i"></span><span class="mark-bang"></span></span>Platform Transition Notice</p>
   <p class="info-note-text" style="margin: 0; text-align: center; width: 100%;">
     Some <span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span> software is available now as direct downloads.
     Selected data products are being rebuilt as secure SaaS systems during this transition.
@@ -1777,7 +1751,7 @@ a, button, [role="button"], input, textarea, select {
           <p class="product-card-desc">Audio Clock keeps time present without pulling you out of what you are doing. The free demo speaks the current time every 10 minutes using Windows text-to-speech voices. Paid editions are staged but not live yet; the landing page explains the product family and keeps the demo download easy to find.</p>
           <p class="product-card-platform">Platform: Windows 10/11 · <a href="https://github.com/LoneNucleus/endianengine.com/releases/download/AUDIO_CLOCK_DEMO/AudioClockDEMO.exe" style="color:var(--color-blue);text-decoration:none;">Direct Demo EXE</a></p>
           <div class="mini-instruction">
-            <p class="mini-instruction-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Auto-Start on Boot</p>
+            <p class="mini-instruction-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i"></span><span class="mark-bang"></span></span>Auto-Start on Boot</p>
             <p class="mini-instruction-text">Press <kbd>Win+R</kbd>, type <code>shell:startup</code>, press Enter. Copy the .exe or a shortcut into that folder to launch it automatically when Windows starts.</p>
           </div>
         </div>
@@ -1901,7 +1875,7 @@ a, button, [role="button"], input, textarea, select {
     
     <!-- Android Sideloading Note -->
       <div class="reveal info-note">
-  <p class="info-note-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>Android APK Install Note</p>
+  <p class="info-note-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i"></span><span class="mark-bang"></span></span>Android APK Install Note</p>
   <p class="info-note-text">
     To install APK files, enable <strong>Install from unknown sources</strong> on your Android device.
     Go to <strong>Settings &rarr; Security</strong> (or
@@ -2012,7 +1986,7 @@ a, button, [role="button"], input, textarea, select {
 
 <div class="contact-form reveal">
   <div class="contact-quick-copy">
-    <p class="contact-quick-copy-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i">i</span><span class="mark-bang">!</span><span class="mark-colon">:</span></span>General Contact</p>
+    <p class="contact-quick-copy-title"><span class="ee-inline-mark ee-inline-mark--tight" aria-hidden="true"><span class="mark-i"></span><span class="mark-bang"></span></span>General Contact</p>
     <p class="contact-quick-copy-text">Use this address for general questions, company contact, and routing.</p>
   </div>
 
@@ -2083,7 +2057,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
       <a href="mailto:loco@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
     </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.05.17.26.07 · ABOUT SECTION CLEANUP</div>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.05.17.26.08 · INLINE MARK CLEANUP</div>
   </div>
 </footer>
 
