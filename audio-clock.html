@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Clock — Endian Engine</title>
+  <meta name="description" content="Audio Clock is a small Windows utility that speaks the time aloud so you can stay aware of the hour without breaking focus. Download the free demo and preview the coming product family.">
+  <link rel="canonical" href="https://endianengine.com/audio-clock.html">
+
+  <meta property="og:title" content="Audio Clock — Time, spoken without breaking focus">
+  <meta property="og:description" content="A small Windows utility that speaks the time aloud. Download the free demo now; full editions are coming soon.">
+  <meta property="og:url" content="https://endianengine.com/audio-clock.html">
+  <meta property="og:image" content="https://endianengine.com/assets/audio-clock.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Endian Engine">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0a0f; --surface:#0f0f18; --surface-2:#141420; --surface-3:#1a1a2a;
+      --border:#2a2a3a; --border-hot:rgba(255,107,0,.38); --text:#e0e0e8;
+      --muted:#9999ad; --faint:#5f6074; --orange:#ff6b00; --blue:#3b82f6;
+      --green:#22c55e; --yellow:#eab308; --red:#ef4444;
+      --mono:'JetBrains Mono','Courier New',monospace; --body:'Inter','Helvetica Neue',sans-serif;
+      --radius:18px; --shadow:0 24px 80px rgba(0,0,0,.45);
+    }
+    html { scroll-behavior:smooth; scroll-padding-top:88px; }
+    body { min-height:100vh; background:radial-gradient(circle at 25% 0%, rgba(59,130,246,.16), transparent 30%), radial-gradient(circle at 82% 6%, rgba(255,107,0,.16), transparent 34%), var(--bg); color:var(--text); font-family:var(--body); line-height:1.6; }
+    a { color:inherit; }
+    .brand-wordmark { white-space:nowrap; }
+    .brand-endian { color:var(--blue); }
+    .brand-engine { background:linear-gradient(135deg,#ff5a2a,#ff6b00,#ff9b4e); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter:blur(16px); background:rgba(10,10,15,.82); border-bottom:1px solid var(--border); }
+    .topbar-inner { max-width:1160px; margin:0 auto; padding:16px 22px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .logo { font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; font-weight:700; }
+    .nav { display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav a { font-family:var(--mono); font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+    .nav a:hover { color:var(--orange); }
+    .shell { max-width:1160px; margin:0 auto; padding:0 22px; }
+    .hero { padding:92px 0 58px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr); gap:34px; align-items:center; }
+    .kicker { font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); margin-bottom:14px; }
+    h1 { font-family:var(--mono); font-size:clamp(2.3rem,6vw,5.4rem); line-height:.95; letter-spacing:-.05em; margin-bottom:18px; }
+    .subtitle { color:var(--muted); font-size:clamp(1.02rem,2vw,1.28rem); max-width:62ch; margin-bottom:24px; }
+    .statement { border-left:3px solid var(--orange); padding-left:16px; color:#fff; font-family:var(--mono); font-size:1rem; margin:24px 0; }
+    .actions { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 18px; border-radius:999px; font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; border:1px solid var(--border); }
+    .btn-primary { background:linear-gradient(135deg,var(--orange),#ff8a2a); color:#111; font-weight:800; border-color:transparent; }
+    .btn-secondary { background:rgba(255,255,255,.04); color:var(--text); }
+    .btn-disabled { color:var(--faint); background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.08); cursor:not-allowed; }
+    .hero-card { border:1px solid var(--border-hot); background:linear-gradient(180deg,rgba(255,107,0,.10),rgba(59,130,246,.08)); border-radius:28px; overflow:hidden; box-shadow:var(--shadow); }
+    .hero-card img { display:block; width:100%; height:auto; }
+    .hero-caption { padding:16px 18px; font-family:var(--mono); font-size:12px; color:var(--muted); border-top:1px solid var(--border); }
+    section { padding:56px 0; }
+    .section-head { max-width:760px; margin-bottom:22px; }
+    .section-kicker { font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--orange); text-transform:uppercase; margin-bottom:10px; }
+    h2 { font-family:var(--mono); font-size:clamp(1.65rem,3vw,2.55rem); line-height:1.05; letter-spacing:-.035em; margin-bottom:12px; }
+    h3 { font-family:var(--mono); font-size:1rem; letter-spacing:.02em; margin-bottom:10px; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; gap:16px; }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .grid-4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .panel { background:rgba(20,20,32,.78); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+    .panel.hot { border-color:var(--border-hot); background:linear-gradient(180deg,rgba(255,107,0,.12),rgba(20,20,32,.78)); }
+    .panel p, .panel li { color:var(--muted); font-size:.94rem; }
+    ul { padding-left:18px; }
+    li + li { margin-top:7px; }
+    .family-card { display:flex; flex-direction:column; min-height:100%; }
+    .family-card img { width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:14px; border:1px solid var(--border); margin-bottom:14px; background:#111; }
+    .badge { display:inline-flex; align-self:flex-start; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:5px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.16); color:var(--muted); margin-bottom:12px; }
+    .badge.green { color:var(--green); background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.25); }
+    .badge.yellow { color:var(--yellow); background:rgba(234,179,8,.10); border-color:rgba(234,179,8,.25); }
+    .price { font-family:var(--mono); color:#fff; margin:8px 0 12px; }
+    .coming { opacity:.58; filter:saturate(.65); }
+    .download-card { display:grid; grid-template-columns:minmax(0,1.2fr) auto; gap:24px; align-items:center; padding:26px; border-radius:26px; border:1px solid rgba(34,197,94,.32); background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(59,130,246,.08)); box-shadow:var(--shadow); }
+    .hash { margin-top:12px; font-family:var(--mono); font-size:12px; color:var(--faint); overflow-wrap:anywhere; }
+    .fineprint { margin-top:12px; color:var(--faint); font-size:.86rem; }
+    .mini-note { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.035); border-radius:16px; padding:16px; color:var(--muted); font-size:.92rem; }
+    .footer { border-top:1px solid var(--border); color:var(--faint); font-size:.86rem; padding:28px 0; text-align:center; }
+    .footer a { color:var(--muted); text-decoration:none; }
+    @media (max-width:900px) { .hero-grid, .download-card { grid-template-columns:1fr; } .grid-3, .grid-4 { grid-template-columns:1fr 1fr; } .download-card .actions { justify-content:flex-start; } }
+    @media (max-width:620px) { .topbar-inner { align-items:flex-start; flex-direction:column; } .grid-3, .grid-4 { grid-template-columns:1fr; } .hero { padding-top:54px; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="logo" href="./index.html"><span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span></a>
+      <nav class="nav" aria-label="Audio Clock navigation">
+        <a href="./index.html">Home</a>
+        <a href="#demo">Demo</a>
+        <a href="#family">Editions</a>
+        <a href="#download">Download</a>
+        <a href="./bitcoin-metronome.html">BTC Metronome</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="kicker">Windows utility · Free demo available</div>
+          <h1>Audio Clock</h1>
+          <p class="subtitle">A small desktop utility that speaks the time so you can stay aware of the hour without staring at the clock. Useful while coding, gaming, cooking, resting, or wandering through a task for three hours and pretending that was the plan.</p>
+          <div class="statement">Time, spoken gently enough to be useful and annoying enough to work.</div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/AUDIO_CLOCK_DEMO/AudioClockDEMO.exe">Download Free Demo</a>
+            <a class="btn btn-secondary" href="#family">See Editions</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="./assets/audio-clock.jpg" alt="Audio Clock product artwork" loading="eager">
+          <div class="hero-caption">Focus timer? Not exactly. Alarm clock? Not really. A spoken time-awareness tool? Yes.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="idea">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">The idea</div>
+          <h2>Keep time present without breaking focus.</h2>
+          <p class="muted">Most clocks ask you to look away from what you are doing. Audio Clock does the small boring job of saying the time out loud at intervals, using the Windows text-to-speech voices already installed on your computer.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="panel hot"><h3>Spoken time checks</h3><p>Audio Clock speaks the current time on a schedule so time stays visible to your ears.</p></div>
+          <div class="panel"><h3>Low-friction desktop utility</h3><p>Designed for Windows 10/11. Download the demo, run the EXE, and decide whether the behavior fits your day.</p></div>
+          <div class="panel"><h3>Focus-friendly</h3><p>Useful during games, coding sessions, long work blocks, sleep routines, and rooms where glancing at a screen is inconvenient.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo">
+      <div class="shell">
+        <div class="download-card">
+          <div>
+            <div class="section-kicker">Available now</div>
+            <h2>Audio Clock DEMO</h2>
+            <p class="muted">The free demo speaks the current time every 10 minutes. It previews the core idea before the paid editions go live.</p>
+            <div class="hash">SHA-256: 91F670323C030DB3E2D74CFEC85D95C147CF924CFE8D3523EF25E1CC16F14167</div>
+            <p class="fineprint">This is a Windows EXE direct download from the Endian Engine GitHub release. Windows may show a downloaded-app warning. Only run software you intended to download, and verify the hash when practical.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/AUDIO_CLOCK_DEMO/AudioClockDEMO.exe">Download Demo EXE</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="family">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Product family</div>
+          <h2>The paid editions are staged, not live yet.</h2>
+          <p class="muted">The sales lanes below are intentionally disabled for now. Return soon when live purchase links are available. The demo is the only live download on this page today.</p>
+        </div>
+        <div class="grid grid-4">
+          <article class="panel family-card hot">
+            <img src="./assets/DEMO1.jpg" alt="Audio Clock Demo banner" loading="lazy">
+            <span class="badge green">Available now</span>
+            <h3>Audio Clock DEMO</h3>
+            <p class="price">Free</p>
+            <p>Speaks the time every 10 minutes. A practical preview of the Audio Clock idea.</p>
+            <div class="actions" style="margin-top:16px;"><a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/AUDIO_CLOCK_DEMO/AudioClockDEMO.exe">Download</a></div>
+          </article>
+          <article class="panel family-card coming">
+            <img src="./assets/INTL1.jpg" alt="Audio Clock International edition artwork" loading="lazy">
+            <span class="badge yellow">Return soon</span>
+            <h3>Audio Clock International</h3>
+            <p class="price">Planned: $4.99</p>
+            <p>International-focused edition using supported Windows speech voices and language-aware time behavior.</p>
+            <div class="actions" style="margin-top:16px;"><span class="btn btn-disabled">Purchase not live</span></div>
+          </article>
+          <article class="panel family-card coming">
+            <img src="./assets/EN.jpg" alt="Audio Clock English edition artwork" loading="lazy">
+            <span class="badge yellow">Return soon</span>
+            <h3>Audio Clock English</h3>
+            <p class="price">Planned: $5.99</p>
+            <p>English-focused edition for people who want a straightforward spoken-time utility with fuller controls.</p>
+            <div class="actions" style="margin-top:16px;"><span class="btn btn-disabled">Purchase not live</span></div>
+          </article>
+          <article class="panel family-card coming">
+            <img src="./assets/USA.jpg" alt="Audio Clock USA edition artwork" loading="lazy">
+            <span class="badge yellow">Return soon</span>
+            <h3>Audio Clock USA</h3>
+            <p class="price">Planned: $6.99</p>
+            <p>USA-oriented edition with fuller spoken-time behavior for the main Audio Clock line.</p>
+            <div class="actions" style="margin-top:16px;"><span class="btn btn-disabled">Purchase not live</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="sleep-patch">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Side utility</div>
+          <h2>Audio Sleep Patch is also in the lane.</h2>
+          <p class="muted">A related small utility for keeping audio behavior awake/ready in a Windows environment. It is not live for purchase on this page yet.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="panel family-card coming">
+            <img src="./assets/audio-sleep-patch-banner.jpg" alt="Audio Sleep Patch banner" loading="lazy">
+            <span class="badge yellow">Return soon</span>
+            <h3>Audio Sleep Patch</h3>
+            <p class="price">Planned: small utility price</p>
+            <p>Expected to become a simple companion tool once the sales/download lane is active.</p>
+          </div>
+          <div class="panel"><h3>Install note</h3><p>For automatic startup, press <strong>Win+R</strong>, type <strong>shell:startup</strong>, then place the EXE or a shortcut in that folder.</p></div>
+          <div class="panel"><h3>Voice note</h3><p>Audio Clock uses Windows text-to-speech voices. Available voices depend on what is installed on your computer.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="shell">
+        <div class="mini-note">
+          <strong>Plain-language status:</strong> Audio Clock DEMO is live and free. Paid editions are displayed as planned sales lanes but are disabled until the purchase system is ready. This page is here now because the demo exists now, and because a product with a working landing page is less awkward than a random EXE floating in the downloads section.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">© 2026 Endian Engine · Order Drives Execution · <a href="./privacy.html">Privacy</a> · <a href="./terms.html">Terms</a></div>
+  </footer>
+</body>
+</html>

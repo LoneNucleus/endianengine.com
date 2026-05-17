@@ -1,0 +1,25 @@
+Endian Engine brochure site patch
+Version: v01.05.17.26.02
+Label: AUDIO CLOCK LANDING
+
+Changed files:
+- index.html
+- audio-clock.html
+- sitemap.xml
+
+Summary:
+- Added a public Audio Clock landing page.
+- Added Audio Clock navigation links on desktop and mobile nav.
+- Updated the Audio Clock product card to point to the landing page.
+- Kept Audio Clock DEMO as the only live Audio Clock download.
+- Added grayed/disabled coming-soon sales lanes for International, English, USA, and Audio Sleep Patch.
+- Updated sitemap.xml with https://endianengine.com/audio-clock.html.
+
+Live download:
+- AudioClockDEMO.exe
+- SHA-256: 91F670323C030DB3E2D74CFEC85D95C147CF924CFE8D3523EF25E1CC16F14167
+
+Notes:
+- Paid purchase links are intentionally not live in this patch.
+- The page states that full editions should be checked again later.
+- No SaaS, billing, Stripe, or live API changes are included.
