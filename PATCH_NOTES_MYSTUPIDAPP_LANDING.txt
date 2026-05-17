@@ -1,0 +1,22 @@
+Endian Engine brochure site patch
+MYSTUPIDAPP LANDING
+Date: 2026-05-17
+
+Page-specific versioning:
+- New page mystupidapp.html: v01.05.17.26.01 · MYSTUPIDAPP LANDING
+- Updated index.html only: v01.05.17.26.04 · MYSTUPIDAPP LANDING LINK
+- Unchanged pages keep their existing visible versions.
+
+Changed files:
+- index.html
+- mystupidapp.html
+- sitemap.xml
+- PATCH_NOTES_MYSTUPIDAPP_LANDING.txt
+
+Summary:
+- Added a free MyStupidApp landing page.
+- Reframed MyStupidApp as a stupidly pretty Android cover-screen/screen-hider app.
+- Added direct APK download and SHA-256 hash.
+- Added plain-language warning that it is not a lock screen, privacy tool, or security product.
+- Updated the index product card and download bubble to point people toward the landing page.
+- Added MyStupidApp to the index navigation.

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyStupidApp — Endian Engine</title>
+  <meta name="description" content="MyStupidApp is a free Android APK that shows a stupidly pretty animated cover screen: sunset, windmill, barn, moon, birds, and just enough motion to hide what was on your phone.">
+  <link rel="canonical" href="https://endianengine.com/mystupidapp.html">
+
+  <meta property="og:title" content="MyStupidApp — A stupidly pretty Android screen-hider">
+  <meta property="og:description" content="Free Android APK. Open it when you want a simple animated cover screen. It is not security. It is just MyStupidApp.">
+  <meta property="og:url" content="https://endianengine.com/mystupidapp.html">
+  <meta property="og:image" content="https://endianengine.com/assets/mystupidapp-1.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Endian Engine">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --bg:#0a0a0f; --surface:#0f0f18; --surface-2:#141420; --surface-3:#1a1a2a;
+      --border:#2a2a3a; --border-hot:rgba(255,107,0,.40); --text:#e0e0e8;
+      --muted:#9999ad; --faint:#5f6074; --orange:#ff6b00; --blue:#3b82f6;
+      --green:#22c55e; --yellow:#eab308; --red:#ef4444;
+      --mono:'JetBrains Mono','Courier New',monospace; --body:'Inter','Helvetica Neue',sans-serif;
+      --radius:18px; --shadow:0 24px 80px rgba(0,0,0,.45);
+    }
+    html { scroll-behavior:smooth; scroll-padding-top:88px; }
+    body {
+      min-height:100vh;
+      background:radial-gradient(circle at 20% 0%, rgba(255,107,0,.20), transparent 32%), radial-gradient(circle at 86% 10%, rgba(59,130,246,.18), transparent 34%), var(--bg);
+      color:var(--text); font-family:var(--body); line-height:1.6;
+    }
+    a { color:inherit; }
+    .brand-wordmark { white-space:nowrap; }
+    .brand-endian { color:var(--blue); }
+    .brand-engine { background:linear-gradient(135deg,#ff5a2a,#ff6b00,#ff9b4e); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .topbar { position:sticky; top:0; z-index:10; backdrop-filter:blur(16px); background:rgba(10,10,15,.82); border-bottom:1px solid var(--border); }
+    .topbar-inner { max-width:1160px; margin:0 auto; padding:16px 22px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+    .logo { font-family:var(--mono); font-size:13px; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; font-weight:700; }
+    .nav { display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end; }
+    .nav a { font-family:var(--mono); font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+    .nav a:hover { color:var(--orange); }
+    .shell { max-width:1160px; margin:0 auto; padding:0 22px; }
+    .hero { padding:92px 0 58px; }
+    .hero-grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,.94fr); gap:34px; align-items:center; }
+    .kicker { font-family:var(--mono); font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--orange); margin-bottom:14px; }
+    h1 { font-family:var(--mono); font-size:clamp(2.4rem,6vw,5.35rem); line-height:.95; letter-spacing:-.055em; margin-bottom:18px; }
+    .subtitle { color:var(--muted); font-size:clamp(1.02rem,2vw,1.28rem); max-width:65ch; margin-bottom:24px; }
+    .statement { border-left:3px solid var(--orange); padding-left:16px; color:#fff; font-family:var(--mono); font-size:1rem; margin:24px 0; }
+    .actions { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 18px; border-radius:999px; font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; border:1px solid var(--border); }
+    .btn-primary { background:linear-gradient(135deg,var(--orange),#ff8a2a); color:#111; font-weight:800; border-color:transparent; }
+    .btn-secondary { background:rgba(255,255,255,.04); color:var(--text); }
+    .hero-card { border:1px solid var(--border-hot); background:linear-gradient(180deg,rgba(255,107,0,.12),rgba(59,130,246,.08)); border-radius:28px; overflow:hidden; box-shadow:var(--shadow); }
+    .hero-card img { display:block; width:100%; height:auto; }
+    .hero-caption { padding:16px 18px; font-family:var(--mono); font-size:12px; color:var(--muted); border-top:1px solid var(--border); }
+    section { padding:56px 0; }
+    .section-head { max-width:820px; margin-bottom:22px; }
+    .section-kicker { font-family:var(--mono); font-size:12px; letter-spacing:.16em; color:var(--orange); text-transform:uppercase; margin-bottom:10px; }
+    h2 { font-family:var(--mono); font-size:clamp(1.65rem,3vw,2.55rem); line-height:1.05; letter-spacing:-.035em; margin-bottom:12px; }
+    h3 { font-family:var(--mono); font-size:1rem; letter-spacing:.02em; margin-bottom:10px; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; gap:16px; }
+    .grid-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .grid-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .panel { background:rgba(20,20,32,.78); border:1px solid var(--border); border-radius:var(--radius); padding:20px; }
+    .panel.hot { border-color:var(--border-hot); background:linear-gradient(180deg,rgba(255,107,0,.13),rgba(20,20,32,.78)); }
+    .panel p, .panel li { color:var(--muted); font-size:.94rem; }
+    ul { padding-left:18px; }
+    li + li { margin-top:7px; }
+    .download-card { display:grid; grid-template-columns:minmax(0,1.2fr) auto; gap:24px; align-items:center; padding:26px; border-radius:26px; border:1px solid rgba(34,197,94,.32); background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(59,130,246,.08)); box-shadow:var(--shadow); }
+    .hash { margin-top:12px; font-family:var(--mono); font-size:12px; color:var(--faint); overflow-wrap:anywhere; }
+    .fineprint { margin-top:12px; color:var(--faint); font-size:.86rem; }
+    .image-strip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .image-strip img { width:100%; aspect-ratio:9/16; object-fit:cover; border-radius:18px; border:1px solid var(--border); background:#111; }
+    .warning { border:1px solid rgba(234,179,8,.28); background:rgba(234,179,8,.08); border-radius:16px; padding:18px; color:var(--muted); }
+    .footer { border-top:1px solid var(--border); color:var(--faint); font-size:.86rem; padding:28px 0; text-align:center; }
+    .footer a { color:var(--muted); text-decoration:none; }
+    @media (max-width:900px) { .hero-grid, .download-card { grid-template-columns:1fr; } .grid-3, .grid-2 { grid-template-columns:1fr; } }
+    @media (max-width:620px) { .topbar-inner { align-items:flex-start; flex-direction:column; } .hero { padding-top:54px; } .image-strip { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="logo" href="./index.html"><span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span></a>
+      <nav class="nav" aria-label="MyStupidApp navigation">
+        <a href="./index.html">Home</a>
+        <a href="#what">What It Is</a>
+        <a href="#uses">Uses</a>
+        <a href="#download">Download</a>
+        <a href="./audio-clock.html">Audio Clock</a>
+        <a href="./bitcoin-metronome.html">BTC Metronome</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="kicker">Free Android APK · stupid on purpose</div>
+          <h1>MyStupidApp</h1>
+          <p class="subtitle">A free Android app that is mostly just a stupidly pretty animated cover screen. Windmill. Barn. Moon. Birds. Sunset. It runs, it sits there, and it hides what was on your phone because sometimes that is the whole job.</p>
+          <div class="statement">It is just a picture. But it is an app. That is why it is stupid. That is also why it works.</div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/MySTUPIDapp/MySTUPIDapp_V4_1_sign.apk">Download Free APK</a>
+            <a class="btn btn-secondary" href="#what">Explain the stupidity</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <img src="./assets/mystupidapp-1.jpg" alt="MyStupidApp animated sunset screen with windmill and barn" loading="eager">
+          <div class="hero-caption">A bored Saturday project that accidentally became a perfectly useful stupid screen-hider.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="what">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">What it is</div>
+          <h2>A dumb little cover screen for Android.</h2>
+          <p class="muted">MyStupidApp started as a bored weekend experiment. First there was a walking stick figure. Then other dumb things happened. Eventually the stick figure lost the argument and the app became an animated scene: spinning windmill, flying birds, moon, barn, sunset, and motion that gives your screen something harmless to show.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="panel hot"><h3>Open it</h3><p>Launch the APK on Android when you want a full-screen visual cover instead of whatever was previously visible.</p></div>
+          <div class="panel"><h3>Let it sit</h3><p>It stays up as a simple animated scene. Touching it is not the point. It is there to be looked at, ignored, or used as a casual screen cover.</p></div>
+          <div class="panel"><h3>Swipe away</h3><p>When you are done, close it like any other Android app. Swipe up or use your normal app switcher behavior.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="uses">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Actual use cases, somehow</div>
+          <h2>It does almost nothing, which is why it is easy to understand.</h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="panel"><h3>Casual screen hider</h3><p>Open it when you want your phone to show a harmless animated scene instead of the app, message, browser, or chaos underneath.</p></div>
+          <div class="panel"><h3>Desk toy</h3><p>Leave it running while the phone sits nearby. It is more interesting than a black rectangle and less useful than a spreadsheet.</p></div>
+          <div class="panel"><h3>Freebie app</h3><p>No sales lane. No deep platform strategy. Just a free Android thing that exists because not every app has to justify its own annual report.</p></div>
+          <div class="panel"><h3>Endian Engine sanity check</h3><p>Even a serious software shop can keep one dumb little artifact around as proof that experiments are allowed.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell image-strip">
+        <img src="./assets/mystupidapp-1.jpg" alt="MyStupidApp screenshot one" loading="lazy">
+        <img src="./assets/mystupidapp-2.jpg" alt="MyStupidApp screenshot two" loading="lazy">
+        <img src="./assets/mystupidapp-icon.jpg" alt="MyStupidApp icon artwork" loading="lazy">
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="shell">
+        <div class="download-card">
+          <div>
+            <div class="section-kicker">Available now</div>
+            <h2>Download MyStupidApp v4.1</h2>
+            <p class="muted">Free Android APK sideload. Download it, install it on Android if you are comfortable sideloading APKs, and run it when you want the stupid picture app to cover the screen.</p>
+            <div class="hash">SHA-256: C844F3B7C4B77898157DA6BD6C1AD469D829218B3D59E6198399BBB5709C74D4</div>
+            <p class="fineprint">This is a direct APK download from the Endian Engine GitHub release. Android may warn you about installing apps from outside the Play Store. That is normal sideload behavior; only install software you intended to download.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/MySTUPIDapp/MySTUPIDapp_V4_1_sign.apk">Download Free APK</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="shell">
+        <div class="warning">
+          <strong>Plain-language warning:</strong> MyStupidApp is not a lock screen, privacy shield, password tool, security product, or serious anti-snooping system. It can visually cover your screen while it is running. It does not protect secrets, encrypt anything, block notifications, or stop someone from leaving the app if they have your phone. It is a stupid app that hides your stuff in the casual, visual sense. That is the entire technology stack.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-legal-footer" style="margin-top:64px; padding:28px 18px; border-top:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.28); color:rgba(230,235,245,.72); font-family:Inter, Segoe UI, Arial, sans-serif; text-align:center;">
+  <div style="max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:10px; align-items:center;">
+    <div style="font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.82);">Order Drives Execution</div>
+    <div>&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+    <nav aria-label="Legal and site links" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:.92rem;">
+      <a href="./index.html" style="color:inherit; text-decoration:none;">Home</a>
+      <a href="./privacy.html" style="color:inherit; text-decoration:none;">Privacy Policy</a>
+      <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
+      <a href="mailto:loco@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
+    </nav>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.05.17.26.01 · MYSTUPIDAPP LANDING</div>
+  </div>
+</footer>
+</body>
+</html>
