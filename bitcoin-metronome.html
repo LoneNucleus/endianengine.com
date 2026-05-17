@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bitcoin Metronome — Endian Engine</title>
+  <meta name="description" content="Bitcoin Metronome is a timing instrument for the four-year Bitcoin machine. Explore hashing, signatures, blocks, difficulty, halving, and cycle timing in one visual dissection table.">
+  <link rel="canonical" href="https://endianengine.com/bitcoin-metronome.html">
+
+  <meta property="og:title" content="Bitcoin Metronome — The Clock Inside the Bitcoin Machine">
+  <meta property="og:description" content="Bitcoin is a machine made from older parts. Bitcoin Metronome listens for the heartbeat.">
+  <meta property="og:url" content="https://endianengine.com/bitcoin-metronome.html">
+  <meta property="og:image" content="https://endianengine.com/assets/btc-metronome-feature.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Endian Engine">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0a0f; --surface:#0f0f18; --surface-2:#141420; --surface-3:#1a1a2a;
+      --border:#2a2a3a; --border-hot:rgba(255,107,0,.38); --text:#e0e0e8;
+      --muted:#9999ad; --faint:#5f6074; --orange:#ff6b00; --blue:#3b82f6;
+      --green:#22c55e; --yellow:#eab308; --red:#ef4444;
+      --mono:'JetBrains Mono','Courier New',monospace; --body:'Inter','Helvetica Neue',sans-serif;
+      --radius:18px; --shadow:0 24px 80px rgba(0,0,0,.45);
+    }
+    html { scroll-behavior:smooth; scroll-padding-top:88px; }
+    body { min-height:100vh; font-family:var(--body); color:var(--text); background:
+      radial-gradient(circle at 20% 10%, rgba(255,107,0,.12), transparent 28%),
+      radial-gradient(circle at 80% 0%, rgba(59,130,246,.11), transparent 26%),
+      linear-gradient(180deg, #09090e 0%, #0a0a0f 48%, #08080c 100%); line-height:1.65; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.22; background-image:
+      linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size:48px 48px; mask-image:linear-gradient(to bottom, black, transparent 88%); }
+    a { color:inherit; }
+    img { max-width:100%; display:block; }
+    .shell { width:min(1160px, calc(100% - 32px)); margin:0 auto; position:relative; z-index:1; }
+    .topbar { position:sticky; top:0; z-index:10; border-bottom:1px solid rgba(255,255,255,.08); background:rgba(10,10,15,.82); backdrop-filter:blur(16px); }
+    .topbar-inner { height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; font-family:var(--mono); font-weight:700; letter-spacing:.05em; text-transform:uppercase; }
+    .brand img { width:38px; height:38px; border-radius:10px; }
+    .brand .endian { color:var(--blue); } .brand .engine { color:var(--orange); }
+    .nav { display:flex; align-items:center; gap:16px; font-family:var(--mono); font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); }
+    .nav a { text-decoration:none; } .nav a:hover { color:var(--orange); }
+
+    .hero { padding:72px 0 46px; }
+    .hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:.72rem; color:var(--orange); text-transform:uppercase; letter-spacing:.18em; border:1px solid rgba(255,107,0,.24); background:rgba(255,107,0,.08); padding:7px 10px; border-radius:999px; margin-bottom:18px; }
+    h1 { font-family:var(--mono); font-size:clamp(2.55rem, 7vw, 5.8rem); line-height:.96; letter-spacing:-.06em; margin-bottom:18px; }
+    .gradient-text { background:linear-gradient(135deg, #fff 0%, #ffb26b 42%, #65a1ff 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .hero-sub { font-size:clamp(1.05rem, 2vw, 1.35rem); color:var(--muted); max-width:63ch; margin-bottom:24px; }
+    .thesis { font-family:var(--mono); font-size:clamp(1rem, 2vw, 1.45rem); color:#fff; border-left:3px solid var(--orange); padding:14px 0 14px 18px; margin:24px 0; background:linear-gradient(90deg, rgba(255,107,0,.08), transparent); }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:46px; padding:12px 17px; border-radius:12px; font-family:var(--mono); font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:.8rem; text-decoration:none; border:1px solid transparent; }
+    .btn-primary { background:linear-gradient(135deg, var(--orange), #e05500); color:white; box-shadow:0 0 28px rgba(255,107,0,.22); }
+    .btn-secondary { border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.045); color:#fff; }
+    .btn:hover { transform:translateY(-1px); }
+    .hero-card { position:relative; border:1px solid var(--border-hot); border-radius:24px; background:linear-gradient(145deg, rgba(255,107,0,.08), rgba(59,130,246,.07)); padding:16px; box-shadow:var(--shadow); overflow:hidden; }
+    .hero-card::before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 30% 0%, rgba(255,107,0,.22), transparent 38%); pointer-events:none; }
+    .hero-card img { border-radius:18px; border:1px solid rgba(255,255,255,.1); position:relative; z-index:1; }
+    .machine-tags { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px; position:relative; z-index:1; }
+    .machine-tags span { font-family:var(--mono); font-size:.72rem; color:var(--muted); border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:8px 10px; background:rgba(0,0,0,.18); }
+
+    section { padding:46px 0; }
+    .section-head { margin-bottom:22px; }
+    .section-kicker { font-family:var(--mono); color:var(--orange); font-size:.75rem; text-transform:uppercase; letter-spacing:.16em; margin-bottom:8px; }
+    h2 { font-family:var(--mono); font-size:clamp(1.75rem, 4vw, 3rem); line-height:1.08; letter-spacing:-.04em; }
+    .muted { color:var(--muted); max-width:78ch; }
+
+    .dissection-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    details.part { border:1px solid var(--border); border-radius:var(--radius); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.025)); overflow:hidden; }
+    details.part[open] { border-color:var(--border-hot); box-shadow:0 0 24px rgba(255,107,0,.08); }
+    details.part summary { list-style:none; cursor:pointer; padding:18px; display:flex; justify-content:space-between; gap:16px; font-family:var(--mono); font-weight:700; }
+    details.part summary::-webkit-details-marker { display:none; }
+    details.part summary::after { content:"+"; color:var(--orange); } details.part[open] summary::after { content:"–"; }
+    .part-body { padding:0 18px 18px; color:var(--muted); font-size:.96rem; }
+    .part-role { display:inline-block; font-family:var(--mono); font-size:.65rem; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:8px; }
+
+    .metronome-panel { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .panel { border:1px solid var(--border); border-radius:var(--radius); padding:20px; background:rgba(20,20,32,.82); }
+    .panel h3 { font-family:var(--mono); font-size:1.15rem; margin-bottom:10px; color:#fff; }
+    .panel ul { list-style:none; display:grid; gap:9px; color:var(--muted); }
+    .panel li { padding-left:18px; position:relative; }
+    .panel li::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--orange); position:absolute; left:0; top:.62em; }
+
+    .download-card { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; border:1px solid rgba(34,197,94,.35); border-radius:24px; padding:24px; background:linear-gradient(135deg, rgba(34,197,94,.08), rgba(255,107,0,.08)); }
+    .download-card h2 { margin-bottom:8px; }
+    .hash { margin-top:14px; padding:12px; border-radius:10px; background:rgba(0,0,0,.28); color:var(--muted); font-family:var(--mono); font-size:.72rem; overflow-wrap:anywhere; }
+    .fineprint { font-size:.84rem; color:var(--faint); margin-top:12px; max-width:76ch; }
+    .footer { border-top:1px solid rgba(255,255,255,.08); padding:34px 0; color:var(--faint); font-family:var(--mono); font-size:.78rem; }
+
+    @media (max-width: 860px) {
+      .hero-grid, .metronome-panel, .download-card { grid-template-columns:1fr; }
+      .dissection-grid { grid-template-columns:1fr; }
+      .nav { display:none; }
+      .machine-tags { grid-template-columns:1fr; }
+      .download-card { align-items:stretch; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a href="./index.html" class="brand" aria-label="Endian Engine home">
+        <img src="./assets/logo-icon.jpg" alt="Endian Engine logo">
+        <span><span class="endian">Endian</span> <span class="engine">Engine</span></span>
+      </a>
+      <nav class="nav" aria-label="Bitcoin Metronome navigation">
+        <a href="./index.html">Home</a>
+        <a href="#machine">Machine</a>
+        <a href="#metronome">Metronome</a>
+        <a href="#download">Download</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Free Android APK · v22 Nested Drift</div>
+          <h1><span class="gradient-text">Bitcoin Metronome</span></h1>
+          <p class="hero-sub">A timing instrument for the four-year Bitcoin machine. It does not publish buy/sell signals. It watches rhythm: halving reset, cycle position, seasonal posture, and drift.</p>
+          <div class="thesis">The past is priced. The future is timed.</div>
+          <p class="muted">Bitcoin is a Frankenstein machine made from older parts: hashing, signatures, Merkle trees, peer-to-peer networking, proof-of-work, difficulty adjustment, and incentives. The invention was the stitch pattern. Bitcoin Metronome listens for the heartbeat.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#download">Download APK</a>
+            <a class="btn btn-secondary" href="#machine">Open the Dissection Table</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Bitcoin Metronome visual card">
+          <img src="./assets/btc-metronome-feature.jpg" alt="Bitcoin Metronome circular timing display">
+          <div class="machine-tags" aria-label="Timing layers">
+            <span>Halving reset</span><span>Cycle posture</span><span>Season drift</span><span>Safe-zone read</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="machine">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">Bitcoin Dissection Table</div>
+          <h2>The machine is not magic. It is parts under tension.</h2>
+          <p class="muted">Click each part. This is the simple mechanical map behind the timing instrument.</p>
+        </div>
+        <div class="dissection-grid">
+          <details class="part" open><summary>Hashing</summary><div class="part-body"><span class="part-role">Fingerprint</span><p>SHA-256 turns data into a fixed-size fingerprint. Change the data and the fingerprint changes. Blocks use this to make history expensive to rewrite.</p></div></details>
+          <details class="part"><summary>Signatures</summary><div class="part-body"><span class="part-role">Authority</span><p>Private keys authorize spending. Public keys let the network verify the authorization without learning the private key.</p></div></details>
+          <details class="part"><summary>Merkle Trees</summary><div class="part-body"><span class="part-role">Compression</span><p>Transactions are folded into a Merkle root: one compact commitment that represents the block's transaction set.</p></div></details>
+          <details class="part"><summary>UTXO Set</summary><div class="part-body"><span class="part-role">Spendable State</span><p>Bitcoin does not track account balances like a bank ledger. It tracks unspent outputs: pieces of value that can be spent if the correct signature is supplied.</p></div></details>
+          <details class="part"><summary>Mempool</summary><div class="part-body"><span class="part-role">Waiting Room</span><p>Valid transactions wait in node mempools before miners choose some of them for the next block.</p></div></details>
+          <details class="part"><summary>Blocks</summary><div class="part-body"><span class="part-role">Time Capsules</span><p>Blocks batch transactions, link to the previous block, and add work. The chain becomes a timeline with a cost attached.</p></div></details>
+          <details class="part"><summary>Difficulty</summary><div class="part-body"><span class="part-role">Tempo Control</span><p>Difficulty retargeting tries to keep the long-run block rhythm near ten minutes, even when mining power changes.</p></div></details>
+          <details class="part"><summary>Halving</summary><div class="part-body"><span class="part-role">Supply Clock</span><p>Every 210,000 blocks, new issuance steps down. This gives Bitcoin its four-year machine rhythm.</p></div></details>
+          <details class="part"><summary>Nodes</summary><div class="part-body"><span class="part-role">Rule Judges</span><p>Nodes enforce the rules. Miners propose blocks; nodes decide whether those blocks are valid.</p></div></details>
+          <details class="part"><summary>Miners</summary><div class="part-body"><span class="part-role">Block Proposers</span><p>Miners spend energy to find valid blocks. They earn subsidy and fees when the network accepts the block.</p></div></details>
+          <details class="part"><summary>Fees</summary><div class="part-body"><span class="part-role">Toll + Anti-Spam</span><p>Fees prioritize block space and help discourage spam. Over time, they matter more as subsidy falls.</p></div></details>
+          <details class="part"><summary>Incentives</summary><div class="part-body"><span class="part-role">The Stitching</span><p>The pieces work because the incentives make cheating costly and following the rules useful.</p></div></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="metronome">
+      <div class="shell">
+        <div class="section-head">
+          <div class="section-kicker">The Instrument Layer</div>
+          <h2>Bitcoin Metronome watches timing, not hype.</h2>
+          <p class="muted">This app treats the halving as a clock reset and the cycle as a timing structure. Prices are context. Timing is the main instrument.</p>
+        </div>
+        <div class="metronome-panel">
+          <div class="panel">
+            <h3>What it watches</h3>
+            <ul>
+              <li>Halving reset and block-era position</li>
+              <li>Four-year cycle posture</li>
+              <li>Macro, Cycle, Safe Zone, and Season drift readings</li>
+              <li>UNDER / NEAR / OVER diagnostic states</li>
+              <li>Scale Read and Posture summaries</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>What it does not do</h3>
+            <ul>
+              <li>No financial advice</li>
+              <li>No buy or sell signals</li>
+              <li>No future price targets</li>
+              <li>No trading-bot promises</li>
+              <li>No pretending the future is known</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="download">
+      <div class="shell">
+        <div class="download-card">
+          <div>
+            <div class="section-kicker">Download</div>
+            <h2>Bitcoin Metronome v22 NESTED DRIFT</h2>
+            <p class="muted">Free Android APK sideload. This is a direct download from the Endian Engine GitHub release.</p>
+            <div class="hash">SHA-256: 6BAD08C7112A2799B99073B1651764094A3E28034BCD954978A39797D730DB21</div>
+            <p class="fineprint">Android may warn before installing APK files downloaded outside the Play Store. Only install software you intended to download, and verify the file hash when practical. Bitcoin Metronome is an educational timing instrument, not financial advice.</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://github.com/LoneNucleus/endianengine.com/releases/download/btc-metronome-v22/Bitcoin_Metronome_v22_NESTED_DRIFT.apk">Download APK</a>
+            <a class="btn btn-secondary" href="https://github.com/LoneNucleus/endianengine.com/releases/tag/btc-metronome-v22" target="_blank" rel="noopener noreferrer">Release Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">© 2026 Endian Engine · Order Drives Execution · <a href="./privacy.html">Privacy</a> · <a href="./terms.html">Terms</a></div>
+  </footer>
+</body>
+</html>
