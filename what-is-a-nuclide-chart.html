@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>What Is a Nuclide Chart? Isotopes, Stability, and Decay | Endian Engine</title>
+  <meta name="description" content="A plain-language guide to nuclide charts: how isotopes are mapped by protons and neutrons, why the band of stability matters, and how radioactive decay moves across the chart." />
+  <link rel="canonical" href="https://endianengine.com/what-is-a-nuclide-chart.html" />
+
+  <meta property="og:title" content="What Is a Nuclide Chart?">
+  <meta property="og:description" content="Learn how nuclide charts organize isotopes, stability, and radioactive decay relationships.">
+  <meta property="og:url" content="https://endianengine.com/what-is-a-nuclide-chart.html">
+  <meta property="og:image" content="https://endianengine.com/assets/nuclide-1.jpg">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Endian Engine">
+
+  <style>
+    :root {
+      --bg-1: #07111e;
+      --bg-2: #10243f;
+      --panel: rgba(10, 18, 32, 0.82);
+      --border: rgba(255,255,255,0.12);
+      --text: #eef4ff;
+      --muted: #aebdd5;
+      --blue: #57a6ff;
+      --orange: #ff7043;
+      --yellow: #ffd28a;
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(87,166,255,0.22), transparent 30%),
+        radial-gradient(circle at 82% 6%, rgba(255,112,67,0.18), transparent 28%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      line-height: 1.65;
+    }
+
+    a { color: var(--blue); }
+
+    main {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 4vw, 48px);
+    }
+
+    .brand {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 28px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+
+    .brand .endian { color: var(--blue); }
+    .brand .engine { color: var(--orange); }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,210,138,0.32);
+      border-radius: 999px;
+      background: rgba(255,210,138,0.10);
+      color: var(--yellow);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 16px;
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .intro {
+      margin: 0 0 28px;
+      max-width: 780px;
+      color: #d6e1f1;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 34px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .toc a {
+      display: inline-flex;
+      padding: 8px 12px;
+      border: 1px solid rgba(87,166,255,0.26);
+      border-radius: 999px;
+      background: rgba(87,166,255,0.10);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    article {
+      display: grid;
+      gap: 28px;
+    }
+
+    section {
+      padding-top: 4px;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0 0 14px;
+      color: #d6e1f1;
+    }
+
+    .callout {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border: 1px solid rgba(255,255,255,0.11);
+      border-left: 4px solid var(--orange);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 4px;
+    }
+
+    .card {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.035);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+      padding-top: 26px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 16px;
+      border: 1px solid rgba(87,166,255,0.30);
+      border-radius: 14px;
+      background: rgba(87,166,255,0.12);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .btn.primary {
+      border-color: rgba(255,112,67,0.42);
+      background: linear-gradient(135deg, rgba(255,112,67,0.32), rgba(87,166,255,0.16));
+    }
+
+    @media (max-width: 760px) {
+      main { padding: 24px 0; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="panel">
+      <a class="brand" href="/" aria-label="Endian Engine home">
+        <span class="endian">Endian</span>
+        <span class="engine">Engine</span>
+      </a>
+
+      <div class="eyebrow">Nuclide Chart Guide</div>
+      <h1>What Is a Nuclide Chart?</h1>
+      <p class="intro">
+        A nuclide chart is a map of atomic nuclei. Instead of organizing atoms only by element name, it shows each isotope by its proton count, neutron count, stability, and decay behavior.
+      </p>
+
+      <ul class="toc" aria-label="Page sections">
+        <li><a href="#nuclide">What is a nuclide?</a></li>
+        <li><a href="#chart">How the chart works</a></li>
+        <li><a href="#stability">Band of stability</a></li>
+        <li><a href="#decay">Radioactive decay</a></li>
+        <li><a href="#uses">Why it matters</a></li>
+      </ul>
+
+      <article>
+        <section id="nuclide">
+          <h2>What is a nuclide?</h2>
+          <p>
+            A nuclide is a specific kind of atomic nucleus. It is defined by how many protons and neutrons it contains. Protons determine the element. Neutrons determine which isotope of that element you are looking at.
+          </p>
+          <p>
+            For example, carbon always has 6 protons. Carbon-12 has 6 neutrons. Carbon-14 has 8 neutrons. Both are carbon, but they are different nuclides because their nuclei are different.
+          </p>
+          <div class="callout">
+            <p><strong>Simple version:</strong> an element tells you the proton count; a nuclide tells you the exact nucleus.</p>
+          </div>
+        </section>
+
+        <section id="chart">
+          <h2>How a nuclide chart works</h2>
+          <p>
+            A nuclide chart places nuclei on a grid. One direction represents proton count. The other direction represents neutron count. Each square or point represents a nuclide.
+          </p>
+          <p>
+            This layout makes isotope relationships visible. Nuclides from the same element line up by proton count. Nuclides with different neutron counts appear beside them. The chart turns a long table of nuclear data into a map.
+          </p>
+        </section>
+
+        <section id="stability">
+          <h2>The band of stability</h2>
+          <p>
+            Stable nuclides do not all have the same neutron-to-proton ratio, but they form a recognizable path through the chart. This path is often called the band of stability.
+          </p>
+          <p>
+            Light stable nuclei often have similar proton and neutron counts. Heavier stable nuclei usually need more neutrons than protons. Nuclides too far from the stability band tend to be radioactive.
+          </p>
+          <div class="grid">
+            <div class="card">
+              <strong>Stable nuclides</strong>
+              Nuclei that do not readily decay under normal conditions.
+            </div>
+            <div class="card">
+              <strong>Neutron-rich nuclides</strong>
+              Nuclei with extra neutrons compared with nearby stable isotopes.
+            </div>
+            <div class="card">
+              <strong>Proton-rich nuclides</strong>
+              Nuclei with fewer neutrons or extra protons compared with stability.
+            </div>
+          </div>
+        </section>
+
+        <section id="decay">
+          <h2>Radioactive decay as movement across the chart</h2>
+          <p>
+            Radioactive decay changes one nuclide into another. On a nuclide chart, that change can be understood as movement from one location to another.
+          </p>
+          <p>
+            Beta decay changes the balance between protons and neutrons. Alpha decay removes a small helium nucleus from a larger nucleus. Gamma emission releases energy without changing the proton or neutron count.
+          </p>
+          <p>
+            Because decay changes nuclear identity, a nuclide chart is useful for following decay chains and understanding how unstable nuclei move toward more stable arrangements.
+          </p>
+        </section>
+
+        <section id="uses">
+          <h2>Why nuclide charts matter</h2>
+          <p>
+            Nuclide charts are used in nuclear physics, radiation safety, isotope production, medical imaging, nuclear medicine, education, and research. They help people see relationships that are hard to understand from text tables alone.
+          </p>
+          <p>
+            Endian Engine is rebuilding its 3D Dynamic Lattice Nuclide Viewer as a secure SaaS product. The goal is to keep the visual value of a nuclide chart while adding better filtering, safer data delivery, and clearer isotope exploration.
+          </p>
+        </section>
+      </article>
+
+      <div class="actions">
+        <a class="btn primary" href="./nuclide-viewer.html">View Nuclide Viewer Status</a>
+        <a class="btn" href="/">Return to EndianEngine.com</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
