@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPS Globe Viewer for Spatial Data | Endian Engine</title>
+  <meta name="description" content="Learn how a GPS globe viewer can support spatial data visualization, coordinate review, mapping concepts, and geographic pattern analysis." />
+  <link rel="canonical" href="https://endianengine.com/globe-viewer.html" />
+  <style>
+    :root {
+      --bg-1: #09101f;
+      --bg-2: #1a2347;
+      --panel: rgba(10, 15, 32, 0.80);
+      --border: rgba(255,255,255,0.10);
+      --text: #eef3ff;
+      --muted: #b8c1da;
+      --blue: #61a8ff;
+      --orange: #ff7f50;
+      --badge-bg: rgba(255, 190, 92, 0.14);
+      --badge-border: rgba(255, 190, 92, 0.35);
+      --badge-text: #ffd28a;
+      --button-bg: rgba(97, 168, 255, 0.14);
+      --button-border: rgba(97, 168, 255, 0.30);
+      --button-hover: rgba(97, 168, 255, 0.22);
+      --shadow: 0 18px 60px rgba(0,0,0,0.36);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(97,168,255,0.18), transparent 36%),
+        radial-gradient(circle at bottom right, rgba(255,127,80,0.13), transparent 34%),
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 820px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      padding: 34px 30px 28px;
+      text-align: center;
+      position: relative;
+    }
+
+    .brand-mark {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 132px;
+      height: 42px;
+      opacity: 0.92;
+      pointer-events: none;
+    }
+
+    .brand-mark .word {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-family: "Courier New", monospace;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .brand-mark .endian {
+      color: var(--blue);
+      text-shadow: 0 0 14px rgba(97,168,255,0.32);
+      animation: fadeEndian 12s infinite;
+    }
+
+    .brand-mark .engine {
+      color: var(--orange);
+      text-shadow: 0 0 14px rgba(255,127,80,0.30);
+      animation: fadeEngine 12s infinite;
+    }
+
+    @keyframes fadeEndian {
+      0%, 45% { opacity: 1; }
+      50%, 95% { opacity: 0.12; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes fadeEngine {
+      0%, 45% { opacity: 0.12; }
+      50%, 95% { opacity: 1; }
+      100% { opacity: 0.12; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--badge-text);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.04;
+    }
+
+    .subtitle {
+      margin: 14px auto 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 1.03rem;
+      line-height: 1.72;
+    }
+
+    .panel {
+      margin: 26px auto 0;
+      max-width: 690px;
+      padding: 18px 18px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+    }
+
+    .panel p {
+      margin: 0;
+      color: #d8deef;
+      line-height: 1.7;
+      font-size: 0.99rem;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 190px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-1px);
+    }
+
+    .foot {
+      margin-top: 22px;
+      color: #94a0bd;
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 28px 18px 22px; }
+      .brand-mark {
+        position: static;
+        margin: 0 auto 8px;
+        width: 150px;
+      }
+      .brand-mark .word {
+        justify-content: center;
+      }
+    }
+      a { color: var(--blue); }
+    a:hover { color: var(--orange); }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="brand-mark" aria-hidden="true">
+      <span class="word endian">ENDIAN</span>
+      <span class="word engine">ENGINE</span>
+    </div>
+
+    <div class="eyebrow">Spatial Data Reference</div>
+    <h1>GPS Globe Viewer for Spatial Data</h1>
+    <p class="subtitle">
+      A globe-based viewer helps place coordinates, movement, and regional patterns into geographic context. Endian Engine is rebuilding the full interactive globe as a secure SaaS product, while this page remains available as a public reference for the concept.
+    </p>
+
+    <section class="content" aria-label="GPS Globe Viewer for Spatial Data reference information">
+      <article>
+        <h2>What a GPS globe viewer does</h2>
+        <p>A GPS globe viewer displays location data on a three-dimensional earth model. This makes coordinate relationships easier to understand than a flat list of latitude and longitude values.</p>
+      </article>
+      <article>
+        <h2>Why globe context helps</h2>
+        <p>Some spatial patterns are easier to see when they are placed on the planet itself. Distance, clustering, hemispheres, routes, and regional relationships become more intuitive when shown on a globe instead of only in a table.</p>
+      </article>
+      <article>
+        <h2>Use cases</h2>
+        <p>Globe-based visualization can support mapping demonstrations, location intelligence, geospatial review, education, and early-stage data exploration. The value is not only the visual effect, but the ability to connect raw coordinates to meaningful geographic context.</p>
+      </article>
+      <article>
+        <h2>Platform status</h2>
+        <p>The original public static demo has been retired while Endian Engine rebuilds the viewer with improved rendering controls, protected data handling, and a more durable product structure.</p>
+      </article>
+    </section>
+
+    <div class="actions">
+      <a class="btn" href="/">Return to EndianEngine.com</a>
+    </div>
+
+    <div class="foot">
+      Order drives execution.
+    </div>
+  </main>
+<footer class="site-legal-footer" style="margin-top:64px; padding:28px 18px; border-top:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.28); color:rgba(230,235,245,.72); font-family:Inter, Segoe UI, Arial, sans-serif; text-align:center;">
+  <div style="max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:10px; align-items:center;">
+    <div style="font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.82);">Order Drives Execution</div>
+    <div>&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+    <nav aria-label="Legal and site links" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:.92rem;">
+      <a href="./index.html" style="color:inherit; text-decoration:none;">Home</a>
+      <a href="./privacy.html" style="color:inherit; text-decoration:none;">Privacy Policy</a>
+      <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
+      <a href="mailto:loco@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
+    </nav>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.05.17.26.03 · LEGAL FOOTER PASS</div>
+  </div>
+</footer>
+</body>
+</html>
