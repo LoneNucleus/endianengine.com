@@ -1,291 +1,172 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Nuclide Chart and Isotope Database | Endian Engine</title>
-  <meta name="description" content="Learn how nuclide charts map isotopes by proton and neutron count, explain nuclear stability, and show radioactive decay relationships." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Endian Engine Nuclide Viewer</title>
+  <meta name="description" content="Free public 3D nuclide chart viewer by Endian Engine. Explore nuclides by neutron number, proton number, stability, decay mode, half-life, daughter products, and nuclear data geometry." />
   <link rel="canonical" href="https://endianengine.com/nuclide-viewer.html" />
-  <style>
-    :root {
-      --bg-1: #07111e;
-      --bg-2: #10243f;
-      --panel: rgba(10, 18, 32, 0.78);
-      --border: rgba(255,255,255,0.10);
-      --text: #eef4ff;
-      --muted: #aebdd5;
-      --blue: #57a6ff;
-      --orange: #ff7043;
-      --badge-bg: rgba(255, 190, 92, 0.14);
-      --badge-border: rgba(255, 190, 92, 0.35);
-      --badge-text: #ffd28a;
-      --button-bg: rgba(87, 166, 255, 0.14);
-      --button-border: rgba(87, 166, 255, 0.28);
-      --button-hover: rgba(87, 166, 255, 0.22);
-      --shadow: 0 18px 60px rgba(0,0,0,0.35);
-      --radius: 22px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html, body {
-      margin: 0;
-      min-height: 100%;
-      font-family: Inter, Segoe UI, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(87,166,255,0.18), transparent 36%),
-        radial-gradient(circle at bottom right, rgba(255,112,67,0.14), transparent 34%),
-        linear-gradient(135deg, var(--bg-1), var(--bg-2));
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .shell {
-      width: 100%;
-      max-width: 820px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-      padding: 34px 30px 28px;
-      text-align: center;
-      position: relative;
-    }
-
-    .brand-mark {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      width: 132px;
-      height: 42px;
-      opacity: 0.92;
-      pointer-events: none;
-    }
-
-    .brand-mark .word {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      font-family: "Courier New", monospace;
-      font-weight: 700;
-      font-size: 18px;
-      letter-spacing: 0.20em;
-      text-transform: uppercase;
-      line-height: 1;
-    }
-
-    .brand-mark .endian {
-      color: var(--blue);
-      text-shadow: 0 0 14px rgba(87,166,255,0.32);
-      animation: fadeEndian 12s infinite;
-    }
-
-    .brand-mark .engine {
-      color: var(--orange);
-      text-shadow: 0 0 14px rgba(255,112,67,0.30);
-      animation: fadeEngine 12s infinite;
-    }
-
-    @keyframes fadeEndian {
-      0%, 45% { opacity: 1; }
-      50%, 95% { opacity: 0.12; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes fadeEngine {
-      0%, 45% { opacity: 0.12; }
-      50%, 95% { opacity: 1; }
-      100% { opacity: 0.12; }
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px 0 16px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: var(--badge-bg);
-      border: 1px solid var(--badge-border);
-      color: var(--badge-text);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.04;
-    }
-
-    .subtitle {
-      margin: 14px auto 0;
-      max-width: 680px;
-      color: var(--muted);
-      font-size: 1.03rem;
-      line-height: 1.72;
-    }
-
-    .panel {
-      margin: 26px auto 0;
-      max-width: 690px;
-      padding: 18px 18px 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-    }
-
-    .panel p {
-      margin: 0;
-      color: #d6e1f1;
-      line-height: 1.7;
-      font-size: 0.99rem;
-    }
-
-    .content {
-      margin: 26px auto 0;
-      max-width: 700px;
-      text-align: left;
-      display: grid;
-      gap: 14px;
-    }
-
-    .content article {
-      padding: 18px 18px 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.035);
-    }
-
-    .content h2 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-size: 1.12rem;
-      line-height: 1.28;
-    }
-
-    .content p {
-      margin: 0;
-      color: #d6e1f1;
-      line-height: 1.7;
-      font-size: 0.99rem;
-    }
-
-    .actions {
-      margin-top: 28px;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 190px;
-      padding: 12px 18px;
-      border-radius: 14px;
-      text-decoration: none;
-      color: var(--text);
-      background: var(--button-bg);
-      border: 1px solid var(--button-border);
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .btn:hover {
-      background: var(--button-hover);
-      transform: translateY(-1px);
-    }
-
-    .foot {
-      margin-top: 22px;
-      color: #8ea0bc;
-      font-size: 0.88rem;
-      line-height: 1.6;
-    }
-
-    @media (max-width: 640px) {
-      .shell { padding: 28px 18px 22px; }
-      .brand-mark {
-        position: static;
-        margin: 0 auto 8px;
-        width: 150px;
-      }
-      .brand-mark .word {
-        justify-content: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="./assets/nuclide-viewer/nuclide-viewer.css" />
+  <script src="./assets/nuclide-viewer/vendor/plotly.min.js"></script>
 </head>
 <body>
-  <main class="shell">
-    <div class="brand-mark" aria-hidden="true">
-      <span class="word endian">ENDIAN</span>
-      <span class="word engine">ENGINE</span>
+  <header class="ee-header">
+    <div class="brand">
+      <img src="./assets/nuclide-viewer/EE10s.gif" alt="Endian Engine" />
+      <div>
+        <h1>Nuclide Viewer</h1>
+        <p>Free public nuclear lattice explorer · Endian Engine</p>
+      </div>
     </div>
+    <div class="version">v05.05.31.26.10 · DATA SOURCES AND PROVENANCE</div>
+  </header>
 
-    <div class="eyebrow">Nuclear Data Reference</div>
-    <h1>Interactive Nuclide Chart and Isotope Database</h1>
-    <p class="subtitle">
-      A nuclide chart maps atomic nuclei by proton count, neutron count, stability, and decay behavior. Endian Engine is rebuilding the full interactive viewer as a secure SaaS product, but this page now remains useful as a public reference for the data model behind the tool.
-    </p>
-
-    <section class="content" aria-label="Interactive Nuclide Chart and Isotope Database reference information">
-      <article>
-        <h2>What is a nuclide chart?</h2>
-        <p>A nuclide chart is a map of known atomic nuclei. Each position represents a specific nuclide: a nucleus with a defined number of protons and neutrons. This makes the chart different from a standard periodic table, because it shows isotope-level structure instead of only element-level structure.</p>
-      </article>
-      <article>
-        <h2>How the chart is read</h2>
-        <p>Nuclide charts are usually organized with proton count on one axis and neutron count on the other. Stable nuclei form a recognizable band, while unstable nuclides appear around that band and decay toward more stable configurations.</p>
-      </article>
-      <article>
-        <h2>Decay and stability</h2>
-        <p>Radioactive decay changes one nuclide into another. Alpha decay, beta decay, gamma emission, and related transitions can be represented as movement across the chart. That makes a nuclide chart useful for studying decay chains, isotope relationships, and nuclear data patterns.</p>
-      </article>
-      <article>
-        <h2>Platform status</h2>
-        <p>The original public static viewer has been retired while Endian Engine rebuilds the system with protected access, cleaner controls, and a stronger long-term data architecture. The goal is to preserve the learning value while moving the full interactive dataset into a safer SaaS environment.</p>
-      </article>
+  <main>
+    <section class="hero-strip">
+      <div>
+        <span class="kicker">External data · Static viewer · No login</span>
+        <h2>Explore the chart of nuclides as a nuclear data landscape.</h2>
+      </div>
+      <div id="dataStatus" class="data-status">Loading external data…</div>
     </section>
 
-    <div class="actions">
-      <a class="btn" href="./what-is-a-nuclide-chart.html">Read the Nuclide Chart Guide</a>
-      <a class="btn" href="/">Return to EndianEngine.com</a>
-    </div>
+    <section class="control-panel">
+      <div class="control control-wide">
+        <label for="searchBox">Search</label>
+        <input id="searchBox" type="search" placeholder="Tc, 99Tc, Uranium, Oganesson, beta, alpha..." />
+      </div>
 
-    <div class="foot">
-      Order drives execution.
-    </div>
+      <div class="control control-wide">
+        <label for="presetSelect">View preset</label>
+        <select id="presetSelect"></select>
+      </div>
+
+      <div class="control">
+        <label for="geometryMode">Geometry</label>
+        <select id="geometryMode">
+          <option value="cartesian">Cartesian axes</option>
+          <option value="rotated">Rotated N=Z diamond</option>
+          <option value="terrain">Half-life terrain</option>
+          <option value="energy">Energy elevation</option>
+          <option value="daughter">Daughter displacement</option>
+          <option value="helix">Element helix</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="colorMode">Color</label>
+        <select id="colorMode">
+          <option value="source">Source decay palette</option>
+          <option value="stability">Stability</option>
+          <option value="halfLife">Half-life band</option>
+          <option value="decay">Primary decay</option>
+          <option value="elementZone">Element zone</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="sizeMode">Size</label>
+        <select id="sizeMode">
+          <option value="fixed">Fixed</option>
+          <option value="branchCount">Decay branches</option>
+          <option value="halfLife">Half-life band</option>
+          <option value="gamma">Gamma energy</option>
+          <option value="decayPercent">Primary %</option>
+        </select>
+      </div>
+
+      <div class="control small-control">
+        <label for="showLines">Decay lines</label>
+        <select id="showLines">
+          <option value="off">Off</option>
+          <option value="daughter1">Daughter 1</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="stabilityFilter">Stability</label>
+        <select id="stabilityFilter">
+          <option value="ALL">All</option>
+          <option value="STABLE">Stable</option>
+          <option value="UNSTABLE">Unstable</option>
+        </select>
+      </div>
+
+      <div class="control">
+        <label for="decayFilter">Primary decay</label>
+        <select id="decayFilter"><option value="ALL">All</option></select>
+      </div>
+
+      <div class="control">
+        <label for="halfLifeFilter">Half-life band</label>
+        <select id="halfLifeFilter"><option value="ALL">All</option></select>
+      </div>
+
+      <div class="control numeric-pair">
+        <label>Z range</label>
+        <div>
+          <input id="zMin" type="number" min="0" max="118" placeholder="min" />
+          <input id="zMax" type="number" min="0" max="118" placeholder="max" />
+        </div>
+      </div>
+
+      <div class="control numeric-pair">
+        <label>A range</label>
+        <div>
+          <input id="aMin" type="number" min="0" placeholder="min" />
+          <input id="aMax" type="number" min="0" placeholder="max" />
+        </div>
+      </div>
+
+      <div class="axis-grid">
+        <div class="control"><label for="xAxis">X axis</label><select id="xAxis"></select></div>
+        <div class="control"><label for="yAxis">Y axis</label><select id="yAxis"></select></div>
+        <div class="control"><label for="zAxis">Z axis</label><select id="zAxis"></select></div>
+      </div>
+
+      <div class="button-row">
+        <button id="resetFiltersBtn">Reset filters</button>
+        <button id="cameraTopBtn">Top N/Z</button>
+        <button id="cameraIsoBtn">Isometric</button>
+        <button id="cameraSideBtn">Side</button>
+      </div>
+    </section>
+
+    <section class="viewer-wrap">
+      <div id="nuclideChart"></div>
+
+      <aside class="info-dock">
+        <section class="info-card orientation-card">
+          <h3>Orientation</h3>
+          <p><b>X →</b> <span id="orientationX">N</span></p>
+          <p><b>Y ↑</b> <span id="orientationY">Z</span></p>
+          <p><b>Depth</b> <span id="orientationZ">flat</span></p>
+          <p class="small" id="orientationNote">Default camera starts above the lattice, looking down onto neutron/proton space.</p>
+        </section>
+
+        <section class="info-card selection-card">
+          <h3>Selected nuclide</h3>
+          <div id="selectedNuclide" class="selected-empty">Click a point to inspect it.</div>
+        </section>
+
+        <section class="info-card legend-card">
+          <h3>Legend</h3>
+          <div id="legendContent"></div>
+        </section>
+
+        <section class="info-card sources-card">
+          <h3>Sources</h3>
+          <div id="sourcesContent" class="sources-content">Loading source notes…</div>
+        </section>
+      </aside>
+    </section>
   </main>
-<footer class="site-legal-footer" style="margin-top:64px; padding:28px 18px; border-top:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.28); color:rgba(230,235,245,.72); font-family:Inter, Segoe UI, Arial, sans-serif; text-align:center;">
-  <div style="max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:10px; align-items:center;">
-    <div style="font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.82);">Order Drives Execution</div>
-    <div>&copy; 2026 Endian Engine LLC. All rights reserved.</div>
-    <nav aria-label="Legal and site links" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:.92rem;">
-      <a href="./index.html" style="color:inherit; text-decoration:none;">Home</a>
-      <a href="./privacy.html" style="color:inherit; text-decoration:none;">Privacy Policy</a>
-      <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
-      <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
-    </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.05.26.26.01 · CONTACT EMAIL STANDARD</div>
-  </div>
-</footer>
+
+  <footer>
+    <span>Data loads from external JSON. Sources credited. No subscription. No login. No checkout.</span>
+    <span>Order drives execution.</span>
+  </footer>
+
+  <script src="./assets/nuclide-viewer/nuclide-viewer.js"></script>
 </body>
 </html>

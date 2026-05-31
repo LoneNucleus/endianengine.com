@@ -1,0 +1,30 @@
+{
+  "viewer": "Endian Engine Nuclide Viewer",
+  "version": "v05.05.31.26.10",
+  "releaseLabel": "DATA SOURCES AND PROVENANCE",
+  "sourceSummary": "This public viewer uses a normalized Endian Engine visualization dataset prepared from public evaluated nuclear-data sources.",
+  "primarySources": [
+    {
+      "name": "JENDL-5",
+      "fullName": "Japanese Evaluated Nuclear Data Library version 5",
+      "organization": "Japan Atomic Energy Agency / Nuclear Data Center",
+      "url": "https://wwwndc.jaea.go.jp/jendl/j5/j5.html",
+      "formalCitation": "O. Iwamoto et al., Japanese evaluated nuclear data library version 5: JENDL-5, Journal of Nuclear Science and Technology, 2023. DOI: 10.1080/00223131.2022.2141903",
+      "doi": "10.1080/00223131.2022.2141903",
+      "role": "Primary evaluated nuclear-data source used during the source-data preparation process."
+    },
+    {
+      "name": "Additional source",
+      "fullName": "Pending confirmation",
+      "organization": "Pending confirmation",
+      "url": "",
+      "formalCitation": "Pending confirmation",
+      "doi": "",
+      "role": "Second source used during early preparation; exact public citation to be confirmed before final release if possible."
+    }
+  ],
+  "normalizationNote": "The displayed dataset has been normalized, transformed, simplified, and visually encoded for public interactive visualization. Some values may be rounded, categorized, corrected, or omitted compared with the original evaluated files.",
+  "authorityNote": "Use official evaluated nuclear-data libraries and primary references for authoritative technical, regulatory, medical, reactor, dosimetry, or safety-critical work.",
+  "accessNote": "The public viewer loads data from external JSON files. The nuclide dataset is not embedded as a giant inline HTML database.",
+  "correctionNote": "Curated corrections can be tracked separately in data/curated/nuclide_corrections.csv and regenerated into public JSON assets."
+}
