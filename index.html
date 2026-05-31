@@ -1577,6 +1577,55 @@ a, button, [role="button"], input, textarea, select {
 .product-card--nuclide .carousel-dots {
   bottom: 8px;
 }
+
+/* Nuclide card action/link polish */
+.product-card-images--link {
+  cursor: pointer;
+}
+
+.product-card-images--link:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 4px;
+}
+
+.product-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .7rem;
+  margin-top: .9rem;
+}
+
+.product-card-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: .55rem .85rem;
+  border: 1px solid rgba(77,166,255,.48);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(77,166,255,.15), rgba(255,106,26,.10));
+  color: var(--color-blue);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.product-card-button:hover {
+  color: #fff;
+  border-color: rgba(255,106,26,.65);
+  box-shadow: 0 0 18px rgba(77,166,255,.18);
+}
+
+.product-card-text-link {
+  color: var(--color-blue);
+  text-decoration: none;
+  font-size: .92rem;
+}
+
+.product-card-text-link:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -1685,7 +1734,7 @@ a, button, [role="button"], input, textarea, select {
 
       <!-- 3D Dynamic Lattice Nuclide Viewer -->
       <article class="product-card reveal product-card--nuclide">
-        <div class="product-card-images product-card-images--contain" data-carousel>
+        <div class="product-card-images product-card-images--contain product-card-images--link" data-carousel role="link" tabindex="0" aria-label="Open Nuclide Viewer" onclick="if(!event.target.closest('.carousel-dot')){ window.location.href='./nuclide-viewer.html'; }" onkeydown="if((event.key==='Enter' || event.key===' ') && !event.target.closest('.carousel-dot')){ event.preventDefault(); window.location.href='./nuclide-viewer.html'; }">
                     <img src="./assets/title.png" alt="Endian Engine Nuclide Viewer title and interface preview" class="active" loading="lazy">
           <img src="./assets/neutron_excess.png" alt="Nuclide Viewer neutron excess visualization" loading="lazy">
           <img src="./assets/std_chart.png" alt="Nuclide Viewer standard N/Z chart view" loading="lazy">
@@ -1699,15 +1748,14 @@ a, button, [role="button"], input, textarea, select {
         <div class="product-card-body">
           <div class="product-card-header">
             <h3 class="product-card-title">3D Dynamic Lattice Nuclide Viewer <span style="color:var(--color-text-faint);font-weight:400;font-size:0.8em;">v05.05.31.26.10</span></h3>
-            <span class="badge badge--green">Free Public Viewer</span>
+            <a href="./nuclide-viewer.html" class="badge badge--green" style="text-decoration:none;">Free Public Viewer</a>
           </div>
           <p class="product-card-desc">Free public viewer available. Explore 3,342 nuclides with interactive N/Z chart views, geometry presets, stability and decay filters, daughter-branch inspection, emitted-energy fields, and source/provenance notes. Data is loaded from external JSON and credited to public evaluated nuclear-data sources including JENDL-5 / JAEA.</p>
           <p class="product-card-platform">Platform: Web</p>
-          <p class="product-card-platform">
-            <a href="./nuclide-viewer.html" style="color: var(--color-blue); text-decoration: none; font-weight: 700;">Open Nuclide Viewer</a>
-            <span style="color: var(--color-text-faint);"> · </span>
-            <a href="./what-is-a-nuclide-chart.html" style="color: var(--color-blue); text-decoration: none;">Read: What is a Nuclide Chart?</a>
-          </p>
+          <div class="product-card-actions">
+            <a href="./nuclide-viewer.html" class="product-card-button">Open Nuclide Viewer</a>
+            <a href="./what-is-a-nuclide-chart.html" class="product-card-text-link">Read: What is a Nuclide Chart?</a>
+          </div>
         </div>
       </article>
 
@@ -2390,6 +2438,55 @@ a, button, [role="button"], input, textarea, select {
 
 .product-card--nuclide .carousel-dots {
   bottom: 8px;
+}
+
+/* Nuclide card action/link polish */
+.product-card-images--link {
+  cursor: pointer;
+}
+
+.product-card-images--link:focus-visible {
+  outline: 2px solid var(--color-blue);
+  outline-offset: 4px;
+}
+
+.product-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .7rem;
+  margin-top: .9rem;
+}
+
+.product-card-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: .55rem .85rem;
+  border: 1px solid rgba(77,166,255,.48);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(77,166,255,.15), rgba(255,106,26,.10));
+  color: var(--color-blue);
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.product-card-button:hover {
+  color: #fff;
+  border-color: rgba(255,106,26,.65);
+  box-shadow: 0 0 18px rgba(77,166,255,.18);
+}
+
+.product-card-text-link {
+  color: var(--color-blue);
+  text-decoration: none;
+  font-size: .92rem;
+}
+
+.product-card-text-link:hover {
+  text-decoration: underline;
 }
 </style>
 
