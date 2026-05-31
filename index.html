@@ -1559,6 +1559,24 @@ a, button, [role="button"], input, textarea, select {
   background: linear-gradient(90deg, transparent, var(--color-orange), var(--color-blue), transparent);
   opacity: 0.4;
 }
+
+/* Nuclide card screenshot fit fix */
+.product-card--nuclide .product-card-images {
+  background:
+    radial-gradient(circle at 22% 12%, rgba(77,166,255,.16), transparent 34%),
+    radial-gradient(circle at 78% 28%, rgba(255,106,26,.11), transparent 34%),
+    #05070b;
+}
+
+.product-card--nuclide .product-card-images img {
+  object-fit: contain !important;
+  padding: 10px;
+  background: #05070b;
+}
+
+.product-card--nuclide .carousel-dots {
+  bottom: 8px;
+}
 </style>
 </head>
 <body>
@@ -1666,11 +1684,11 @@ a, button, [role="button"], input, textarea, select {
       </article>
 
       <!-- 3D Dynamic Lattice Nuclide Viewer -->
-      <article class="product-card reveal">
-        <div class="product-card-images" data-carousel>
-          <img src="./assets/nuclide_chart_1.png" alt="Endian Engine Nuclide Viewer interactive nuclear chart" class="active" loading="lazy">
+      <article class="product-card reveal product-card--nuclide">
+        <div class="product-card-images product-card-images--contain" data-carousel>
+          <img src="./assets/title.png" alt="Endian Engine Nuclide Viewer title screenshot" class="active" loading="lazy">
+          <img src="./assets/nuclide_chart_1.png" alt="Endian Engine Nuclide Viewer interactive nuclear chart" loading="lazy">
           <img src="./assets/decay_branch_landscape.png" alt="Nuclide Viewer selected isotope detail panel with decay branches and emitted energies" loading="lazy">
-          <img src="./assets/hourglass.png" alt="Nuclide Viewer abstract hourglass geometry view" loading="lazy">
           <div class="carousel-dots">
             <button class="carousel-dot active" aria-label="Slide 1"></button>
             <button class="carousel-dot" aria-label="Slide 2"></button>
@@ -2349,6 +2367,24 @@ a, button, [role="button"], input, textarea, select {
   .hit-counter-label { font-size: 7px; }
   .hit-counter-digit { width: 14px; height: 19px; font-size: 12px; }
   .hit-counter-speaker { width: 11px; height: 11px; }
+}
+
+/* Nuclide card screenshot fit fix */
+.product-card--nuclide .product-card-images {
+  background:
+    radial-gradient(circle at 22% 12%, rgba(77,166,255,.16), transparent 34%),
+    radial-gradient(circle at 78% 28%, rgba(255,106,26,.11), transparent 34%),
+    #05070b;
+}
+
+.product-card--nuclide .product-card-images img {
+  object-fit: contain !important;
+  padding: 10px;
+  background: #05070b;
+}
+
+.product-card--nuclide .carousel-dots {
+  bottom: 8px;
 }
 </style>
 
