@@ -50,6 +50,7 @@
     .statement { border-left:3px solid var(--orange); padding-left:16px; color:#fff; font-family:var(--mono); font-size:1rem; margin:24px 0; }
     .actions { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
     .btn { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 18px; border-radius:999px; font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; border:1px solid var(--border); }
+    .btn-wide { min-width:190px; }
     .btn-primary { background:linear-gradient(135deg,var(--orange),#ff8a2a); color:#111; font-weight:800; border-color:transparent; }
     .btn-secondary { background:rgba(255,255,255,.04); color:var(--text); }
     .btn-disabled { color:var(--faint); background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.08); cursor:not-allowed; }
@@ -74,6 +75,8 @@
     ul { padding-left:18px; }
     li + li { margin-top:7px; }
     .family-card { display:flex; flex-direction:column; min-height:100%; }
+    .family-card .actions { margin-top:auto; padding-top:16px; }
+    .family-card .actions .btn { width:100%; }
     .family-card img { width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:14px; border:1px solid var(--border); margin-bottom:14px; background:#111; }
     .badge { display:inline-flex; align-self:flex-start; font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:5px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.16); color:var(--muted); margin-bottom:12px; }
     .badge.green { color:var(--green); background:rgba(34,197,94,.10); border-color:rgba(34,197,94,.25); }
@@ -84,9 +87,15 @@
     .hash { margin-top:12px; font-family:var(--mono); font-size:12px; color:var(--faint); overflow-wrap:anywhere; }
     .fineprint { margin-top:12px; color:var(--faint); font-size:.86rem; }
     .mini-note { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.035); border-radius:16px; padding:16px; color:var(--muted); font-size:.92rem; }
+    .trust-card { display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,.45fr); gap:18px; align-items:start; border:1px solid rgba(34,197,94,.28); background:linear-gradient(135deg,rgba(34,197,94,.10),rgba(59,130,246,.07)); border-radius:26px; padding:24px; box-shadow:var(--shadow); }
+    .trust-card p { color:var(--muted); margin-top:10px; }
+    .trust-facts { display:grid; gap:10px; }
+    .trust-fact { border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.035); border-radius:16px; padding:12px 14px; }
+    .trust-label { font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin-bottom:4px; }
+    .trust-value { color:#fff; font-family:var(--mono); font-size:13px; }
     .footer { border-top:1px solid var(--border); color:var(--faint); font-size:.86rem; padding:28px 0; text-align:center; }
     .footer a { color:var(--muted); text-decoration:none; }
-    @media (max-width:900px) { .hero-grid, .download-card { grid-template-columns:1fr; } .grid-3, .grid-4 { grid-template-columns:1fr 1fr; } .download-card .actions { justify-content:flex-start; } }
+    @media (max-width:900px) { .hero-grid, .download-card, .trust-card { grid-template-columns:1fr; } .grid-3, .grid-4 { grid-template-columns:1fr 1fr; } .download-card .actions { justify-content:flex-start; } }
     @media (max-width:620px) { .topbar-inner { align-items:flex-start; flex-direction:column; } .nav { display:none; } .grid-3, .grid-4 { grid-template-columns:1fr; } .hero { padding-top:54px; } }
   </style>
 </head>
@@ -114,7 +123,7 @@
           <p class="subtitle">A small desktop utility that speaks the time so you can stay aware of the hour without staring at the clock. Useful while coding, gaming, cooking, resting, or wandering through a task for three hours and pretending that was the plan.</p>
           <div class="statement">Time, spoken gently enough to be useful and annoying enough to work.</div>
           <div class="actions">
-            <a class="btn btn-primary" href="https://app.endianengine.com/api/audio-clock/demo-download">Download Free Demo</a>
+            <a class="btn btn-primary btn-wide" href="https://app.endianengine.com/api/audio-clock/demo-download">Download Demo ZIP</a>
             <a class="btn btn-secondary" href="#family">See Editions</a>
           </div>
         </div>
@@ -151,7 +160,7 @@
             <p class="fineprint">This demo is delivered through the Endian Engine live download lane. Windows may show a downloaded-app warning. Only run software you intended to download.</p>
           </div>
           <div class="actions">
-            <a class="btn btn-primary" href="https://app.endianengine.com/api/audio-clock/demo-download">Download Demo EXE</a>
+            <a class="btn btn-primary btn-wide" href="https://app.endianengine.com/api/audio-clock/demo-download">Download Demo ZIP</a>
           </div>
         </div>
       </div>
@@ -172,7 +181,7 @@
             <h3>Audio Clock DEMO</h3>
             <p class="price">Free</p>
             <p>Speaks the time every 10 minutes. A practical preview of the Audio Clock idea.</p>
-            <div class="actions" style="margin-top:16px;"><a class="btn btn-primary" href="https://app.endianengine.com/api/audio-clock/demo-download">Download</a></div>
+            <div class="actions"><a class="btn btn-primary" href="https://app.endianengine.com/api/audio-clock/demo-download">Download Demo ZIP</a></div>
           </article>
           <article class="panel family-card">
             <img src="./assets/INTL1.jpg" alt="Audio Clock International edition artwork" loading="lazy">
@@ -180,7 +189,7 @@
             <h3>Audio Clock International</h3>
             <p class="price">$4.99</p>
             <p>International-focused edition using compatible installed Windows voices and language support.</p>
-            <div class="actions" style="margin-top:16px;"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="international" data-default-label="Buy International">Buy International</a></div>
+            <div class="actions"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="international" data-default-label="Buy International">Buy International</a></div>
           </article>
           <article class="panel family-card">
             <img src="./assets/EN.jpg" alt="Audio Clock English edition artwork" loading="lazy">
@@ -188,7 +197,7 @@
             <h3>Audio Clock English</h3>
             <p class="price">$5.99</p>
             <p>English-focused edition for people who want a straightforward spoken-time utility and cleaner voice list.</p>
-            <div class="actions" style="margin-top:16px;"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="english" data-default-label="Buy English">Buy English</a></div>
+            <div class="actions"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="english" data-default-label="Buy English">Buy English</a></div>
           </article>
           <article class="panel family-card">
             <img src="./assets/USA.jpg" alt="Audio Clock USA edition artwork" loading="lazy">
@@ -196,46 +205,38 @@
             <h3>Audio Clock USA</h3>
             <p class="price">$6.99</p>
             <p>USA-oriented edition for the simplest English/USA-focused setup.</p>
-            <div class="actions" style="margin-top:16px;"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="usa" data-default-label="Buy USA">Buy USA</a></div>
+            <div class="actions"><a class="btn btn-primary" href="https://app.endianengine.com/audio-clock" data-audio-clock-product="usa" data-default-label="Buy USA">Buy USA</a></div>
           </article>
         </div>
       </div>
     </section>
-
-    <section id="sleep-patch">
+    <section id="audio-clock-signed-release" aria-labelledby="audio-clock-signed-release-title">
       <div class="shell">
-        <div class="section-head">
-          <div class="section-kicker">Side utility</div>
-          <h2>Audio Sleep Patch is planned as a companion utility.</h2>
-          <p class="muted">A related small utility for keeping audio behavior awake/ready in a Windows environment. It is not live for purchase on this page yet.</p>
-        </div>
-        <div class="grid grid-3">
-          <div class="panel family-card coming">
-            <img src="./assets/audio-sleep-patch-banner.jpg" alt="Audio Sleep Patch banner" loading="lazy">
-            <span class="badge yellow">Return soon</span>
-            <h3>Audio Sleep Patch</h3>
-            <p class="price">Planned: small utility price</p>
-            <p>Expected to become a simple companion tool once the sales/download lane is active.</p>
+        <div class="trust-card">
+          <div>
+            <div class="section-kicker">Signed Windows release</div>
+            <h2 id="audio-clock-signed-release-title">Current release: v01.06.01.26.01</h2>
+            <p>Audio Clock Windows packages are code-signed by <strong>Endian Engine LLC</strong> through Microsoft Trusted Signing / Azure Artifact Signing.</p>
+            <p>Microsoft SmartScreen may still show a reputation warning while this newer signed build earns download reputation. Confirm the publisher is <strong>Endian Engine LLC</strong> before running the app, and only run software you intentionally downloaded from EndianEngine.com.</p>
+            <p class="fineprint">Installer polish and internal app-version alignment are planned for a future build.</p>
           </div>
-          <div class="panel"><h3>Install note</h3><p>For automatic startup, press <strong>Win+R</strong>, type <strong>shell:startup</strong>, then place the EXE or a shortcut in that folder.</p></div>
-          <div class="panel"><h3>Voice note</h3><p>Audio Clock uses Windows text-to-speech voices. Available voices depend on what is installed on your computer.</p></div>
+          <div class="trust-facts" aria-label="Audio Clock release facts">
+            <div class="trust-fact">
+              <div class="trust-label">Release</div>
+              <div class="trust-value">Signed Windows ZIPs</div>
+            </div>
+            <div class="trust-fact">
+              <div class="trust-label">Publisher</div>
+              <div class="trust-value">Endian Engine LLC</div>
+            </div>
+            <div class="trust-fact">
+              <div class="trust-label">Security note</div>
+              <div class="trust-value">Do not disable Windows security</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-
-    <section id="download">
-      <div class="shell">
-        <div class="mini-note">
-          <strong>Plain-language status:</strong> Audio Clock DEMO and paid editions are live. This brochure page sends paid edition buyers to Stripe Checkout; successful purchases return to the secure Endian Engine download lane. Each paid purchase allows up to 3 secure download-link generations, and each generated link expires in about one hour. For help, contact contact@endianengine.com.
-        </div>
-      </div>
-    </section>
-  <section id="audio-clock-smartscreen-note" aria-labelledby="audio-clock-smartscreen-note-title">
-  <h2 id="audio-clock-smartscreen-note-title">Windows SmartScreen note</h2>
-  <p>Audio Clock Windows builds are now code-signed by <strong>Endian Engine LLC</strong> through Microsoft Trusted Signing / Azure Artifact Signing. Microsoft SmartScreen may still show a reputation warning while the signed app builds download reputation, but the current Windows packages are no longer unsigned.</p>
-  <p>If Windows shows a warning, confirm the publisher/signature is <strong>Endian Engine LLC</strong> and only run the app if you intentionally downloaded it from EndianEngine.com. Do not disable Windows Defender or Windows security.</p>
-  <p>Installer polish is planned for future builds.</p>
-</section>
 </main>
 
   <footer class="site-legal-footer" style="margin-top:64px; padding:28px 18px; border-top:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.28); color:rgba(230,235,245,.72); font-family:Inter, Segoe UI, Arial, sans-serif; text-align:center;">
@@ -248,7 +249,7 @@
       <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
       <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
     </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.01.26.01 · SIGNED WINDOWS RELEASE</div>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.03.26.01 · RELEASE COPY AND BUTTON ALIGNMENT</div>
   </div>
 </footer>
 
@@ -306,5 +307,3 @@
   </script>
 </body>
 </html>
-
-
