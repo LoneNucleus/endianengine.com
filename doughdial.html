@@ -12,7 +12,13 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:radial-gradient(circle at top left,#26304e,#101218 45%,#090b10);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-header{padding:20px 24px;border-bottom:1px solid var(--line);background:rgba(16,18,24,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+header{padding:16px 24px 20px;border-bottom:1px solid var(--line);background:rgba(16,18,24,.92);position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+.site-nav-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.site-brand{font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#f3f5fa;text-decoration:none}
+.site-brand span:first-child{color:#8fb8ff}.site-brand span:last-child{color:#f05a28}
+.site-nav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.site-nav a{color:var(--muted);text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.site-nav a:hover{color:#fff;border-color:var(--accent)}
 h1{margin:0 0 4px;font-size:28px}
 .sub{color:var(--muted);font-size:14px}
 main{max-width:1520px;margin:0 auto;padding:18px;display:grid;grid-template-columns:560px 1fr;gap:18px}
@@ -84,6 +90,17 @@ footer{max-width:1520px;margin:0 auto;padding:0 18px 18px;color:var(--muted);fon
 </head>
 <body>
 <header>
+  <div class="site-nav-row">
+    <a class="site-brand" href="./index.html"><span>Endian</span> <span>Engine</span></a>
+    <nav class="site-nav" aria-label="Endian Engine site navigation">
+      <a href="./index.html">Home</a>
+      <a href="./index.html#products">Products</a>
+      <a href="./index.html#downloads">Downloads</a>
+      <a href="./index.html#about">About</a>
+      <a href="./index.html#contact">Contact</a>
+      <a href="./index.html#support">Support Us</a>
+    </nav>
+  </div>
   <h1>DoughDial</h1>
   <div class="sub">A flour-spectrum recipe calculator for pancakes, cakes, quick breads, cookies, and yeast breads from Endian Engine.</div>
 </header>
@@ -347,7 +364,7 @@ This tool is provided for informational, educational, and recipe-planning use on
     DoughDial grew from the cake-cookie-bread idea behind Sara Robinson’s cakie experiment, then expands that spectrum outward to include pancakes and quick breads. Thank you to Sara for the spark. This is a home-kitchen tool, not a commercial baking claim.</div>
 
 <footer>
-DoughDial v01.06.03.26.01 · infused wording polish · Endian Engine · local standalone HTML.
+DoughDial v01.06.03.26.02 · site navigation pass · Endian Engine · public standalone HTML.
 </footer>
 
 <script>
