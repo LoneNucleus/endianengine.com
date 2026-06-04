@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>DoughDial</title>
+<title>DoughDial Classic Baking Calculator</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%0A%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2712%27%20fill%3D%27%230b4f8a%27%2F%3E%0A%3Crect%20y%3D%2754%27%20width%3D%2764%27%20height%3D%2710%27%20fill%3D%27%23f05a28%27%2F%3E%0A%3Ctext%20x%3D%2732%27%20y%3D%2741%27%20text-anchor%3D%27middle%27%20font-family%3D%27Arial%2Csans-serif%27%20font-size%3D%2729%27%20font-weight%3D%27700%27%20fill%3D%27%23ffffff%27%3EDD%3C%2Ftext%3E%0A%3C%2Fsvg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -102,18 +102,17 @@ footer{max-width:1520px;margin:0 auto;padding:0 18px 18px;color:var(--muted);fon
     </nav>
   </div>
   <h1>DoughDial</h1>
-  <div class="sub">A flour-spectrum recipe calculator for pancakes, cakes, quick breads, cookies, and yeast breads from Endian Engine.</div>
+  <div class="sub"><strong style="display:block;color:#fff;font-size:16px;margin-bottom:4px">Classic Baking Calculator</strong>A flour-spectrum recipe calculator for pancakes, cakes, quick breads, cookies, and yeast breads from Endian Engine.</div>
 </header>
 
 <main>
 <section class="card">
   <div class="note small" id="laneNote">
-    Current lane: <strong>Classic Baking foundation</strong>. Infused Baking will become an optional add-on lane in a later build.
+    Current lane: <strong>Classic Baking Calculator</strong>. Build and scale normal baking recipes from flour, fat, sugar, liquid, eggs, and leavening ratios.
   </div>
 
   <div class="tabs">
     <button id="tabClassic" class="active" onclick="setMode('classic')">Classic Baking</button>
-    <button id="tabInfused" onclick="setMode('infused')">Infused Baking</button>
     <button id="tabAnalyze" onclick="setMode('analyze')">Analyze Recipe</button>
   </div>
 
@@ -147,12 +146,12 @@ footer{max-width:1520px;margin:0 auto;padding:0 18px 18px;color:var(--muted);fon
     </div>
     <div class="row2" style="margin-top:10px">
       <div id="infusedBatchModeRow" style="display:none"><label>Batch sizing mode</label><select id="batchMode" onchange="generateRecipe()">
-        <option value="autoDose" selected>Auto-size from THC target</option>
+        <option value="autoDose" selected>Auto-size from optional target</option>
         <option value="manualFlour">Manual flour base</option>
       </select></div>
       <div><label>Current sizing goal</label><input id="sizingGoal" type="text" value="" readonly></div>
     </div>
-    <div id="infusedBatchModeNote" class="note small" style="display:none">Auto-size from THC target makes the recipe scale to the suggested piece count. Manual flour base lets you force the batch size yourself.</div>
+    <div id="infusedBatchModeNote" class="note small" style="display:none">Optional add-on batch sizing is hidden from the public Classic Baking view. Manual flour base lets you force the batch size yourself.</div>
 
     <h3>Flavor</h3>
     <div class="row2">
@@ -189,7 +188,7 @@ footer{max-width:1520px;margin:0 auto;padding:0 18px 18px;color:var(--muted);fon
     </div>
 
     <div id="infusedTools" style="display:none">
-    <h3>Infused Baking Setup</h3>
+    <h3>Optional Adult / Legal-Use Add-On</h3>
     <div class="note small">
       Use this section only where lawful. Enter the cannabis amount and strength, choose a target strength per piece, then review the suggested piece count.
     </div>
@@ -198,7 +197,7 @@ footer{max-width:1520px;margin:0 auto;padding:0 18px 18px;color:var(--muted);fon
         <option value="on" selected>Include infused-dose math</option>
         <option value="off">Recipe only</option>
       </select></div>
-      <div><label>Plain-English note</label><input type="text" value="Infused Baking automatically includes dose math. Classic Baking stays separate." readonly></div>
+      <div><label>Plain-English note</label><input type="text" value="Optional adult/legal-use add-on math stays separate. Classic Baking stays separate." readonly></div>
     </div>
     <div class="row3" style="margin-top:10px">
       <div class="note small" style="grid-column:1/-1"><strong>Cannabis input</strong><br>Start with the amount and strength of the cannabis being used.</div>
@@ -364,7 +363,7 @@ This tool is provided for informational, educational, and recipe-planning use on
     DoughDial grew from the cake-cookie-bread idea behind Sara Robinson’s cakie experiment, then expands that spectrum outward to include pancakes and quick breads. Thank you to Sara for the spark. This is a home-kitchen tool, not a commercial baking claim.</div>
 
 <footer>
-DoughDial v01.06.03.26.02 · site navigation pass · Endian Engine · public standalone HTML.
+DoughDial v01.06.04.26.01 · public classic cleanup · Endian Engine · public standalone HTML.
 </footer>
 
 <script>
@@ -403,7 +402,8 @@ function setMode(m){
   if (infusedOvenNotice) infusedOvenNotice.style.display = infused ? 'block' : 'none';
 
   document.getElementById('tabClassic').classList.toggle('active', classic);
-  document.getElementById('tabInfused').classList.toggle('active', infused);
+  const tabInfused = document.getElementById('tabInfused');
+  if (tabInfused) tabInfused.classList.toggle('active', infused);
   document.getElementById('tabAnalyze').classList.toggle('active', analyze);
 
   const thcMode = document.getElementById('thcMode');
