@@ -1,0 +1,8 @@
+# Local-only working folders
+_LOCAL_EXPERIMENTS/
+_UPLOADS/
+
+# Local OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
