@@ -1,157 +1,5178 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>DoughDial — Maintenance</title>
-  <meta name="description" content="DoughDial is temporarily offline while Endian Engine rebuilds the calculator from verified recipe anchors.">
-  <link rel="canonical" href="https://endianengine.com/doughdial.html">
-  <style>
-    :root{
-      --bg:#05070b;
-      --panel:#101722;
-      --panel2:#151f2d;
-      --text:#eef4ff;
-      --muted:#aab7ca;
-      --blue:#5aa7ff;
-      --fire:#ff7a3d;
-      --line:rgba(255,255,255,.14);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(circle at 20% 10%,rgba(90,167,255,.18),transparent 34rem),
-        radial-gradient(circle at 80% 80%,rgba(255,122,61,.12),transparent 32rem),
-        var(--bg);
-      color:var(--text);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px;
-    }
-    main{
-      width:min(880px,100%);
-      border:1px solid var(--line);
-      background:linear-gradient(180deg,rgba(16,23,34,.96),rgba(10,14,22,.96));
-      border-radius:24px;
-      padding:34px;
-      box-shadow:0 24px 80px rgba(0,0,0,.45);
-    }
-    .brand{
-      font-size:.82rem;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:28px;
-    }
-    .brand strong:first-child{color:var(--blue)}
-    .brand strong:last-child{color:var(--fire)}
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.45rem;
-      border:1px solid rgba(255,122,61,.45);
-      color:#ffd3bf;
-      background:rgba(255,122,61,.1);
-      border-radius:999px;
-      padding:.45rem .8rem;
-      font-size:.86rem;
-      font-weight:700;
-      margin-bottom:18px;
-    }
-    h1{
-      margin:0;
-      font-size:clamp(2.2rem,7vw,4.5rem);
-      line-height:.95;
-      letter-spacing:-.06em;
-    }
-    h2{
-      margin:14px 0 0;
-      font-size:clamp(1.2rem,3vw,1.85rem);
-      color:#fff;
-    }
-    p{
-      color:var(--muted);
-      line-height:1.6;
-      font-size:1.04rem;
-      max-width:68ch;
-    }
-    .panel{
-      margin-top:24px;
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.035);
-    }
-    .actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:26px;
-    }
-    a{
-      color:inherit;
-    }
-    .button{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:44px;
-      padding:0 18px;
-      border-radius:999px;
-      border:1px solid rgba(90,167,255,.55);
-      background:rgba(90,167,255,.12);
-      color:#d9ecff;
-      text-decoration:none;
-      font-weight:750;
-    }
-    .button.secondary{
-      border-color:rgba(255,255,255,.2);
-      background:rgba(255,255,255,.055);
-      color:var(--text);
-    }
-    footer{
-      margin-top:28px;
-      color:rgba(238,244,255,.52);
-      font-size:.82rem;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DoughDial | Endian Engine</title>
+<style>
+:root{
+  --blue:#3B82F6;
+  --orange:#FF6B00;
+  --white:#FFFFFF;
+  --bg:#080B10;
+  --panel:#111827;
+  --panel2:#172033;
+  --line:rgba(255,255,255,.14);
+  --text:#F8FAFC;
+  --muted:#B7C2D0;
+  --soft:#E5E7EB;
+  --green:#16A34A;
+  --greenDark:#052E16;
+  --danger:#EF4444;
+  --warn:#F59E0B;
+  --shadow:0 18px 60px rgba(0,0,0,.35);
+  --radius:18px;
+}
+
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  min-height:100%;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(59,130,246,.20), transparent 32rem),
+    radial-gradient(circle at 85% 5%, rgba(255,107,0,.16), transparent 28rem),
+    var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+body{padding:18px}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background-image:url("assets/cannabis-svg.svg");
+  background-size:92px 92px;
+  background-position:0 0, 46px 46px;
+  filter:drop-shadow(0 0 8px rgba(74,222,128,.20));
+  transition:opacity .35s ease;
+  z-index:0;
+}
+
+body.mode-adult{
+  background:
+    radial-gradient(circle at 12% 0%, rgba(34,197,94,.24), transparent 30rem),
+    radial-gradient(circle at 82% 10%, rgba(22,163,74,.18), transparent 26rem),
+    radial-gradient(circle at 50% 90%, rgba(59,130,246,.10), transparent 30rem),
+    #031A0D;
+}
+
+body.mode-adult::before{
+  opacity:.075;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+.app{
+  position:relative;
+  z-index:1;
+  max-width:1500px;
+  margin:0 auto;
+}
+
+.brand-bar{
+  height:8px;
+  border-radius:999px;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  margin:0 0 18px;
+  box-shadow:var(--shadow);
+}
+.brand-bar span:nth-child(1){background:var(--blue)}
+.brand-bar span:nth-child(2){background:var(--orange)}
+.brand-bar span:nth-child(3){background:var(--white)}
+
+.hero{
+  border:1px solid var(--line);
+  background:linear-gradient(145deg, rgba(17,24,39,.96), rgba(23,32,51,.92));
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:18px;
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(2rem,5vw,4.2rem);
+  letter-spacing:-.06em;
+  line-height:.95;
+}
+
+.hero .tag{
+  color:var(--orange);
+  font-weight:800;
+  font-size:clamp(1.1rem,2vw,1.55rem);
+  margin-top:6px;
+}
+
+.hero p{
+  max-width:840px;
+  color:var(--muted);
+  font-size:1.03rem;
+  line-height:1.55;
+  margin:12px 0 0;
+}
+
+.version{
+  color:#93A4B8;
+  font-size:.9rem;
+  margin-top:14px;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+  align-items:start;
+}
+
+.controls-col,
+.recipe-col,
+.side-col,
+.panel,
+.hero{
+  min-width:0;
+}
+
+.panel{
+  border:1px solid var(--line);
+  background:rgba(17,24,39,.92);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.panel h2,.panel h3{
+  margin:0 0 12px;
+  letter-spacing:-.03em;
+}
+
+.panel h2{font-size:1.35rem}
+.panel h3{font-size:1.05rem}
+
+.subtle{
+  color:var(--muted);
+  font-size:.95rem;
+  line-height:1.45;
+}
+
+.control-row{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px;
+  align-items:center;
+  margin:10px 0;
+}
+
+.big-number{
+  width:140px;
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:#0B1220;
+  color:var(--text);
+  text-align:right;
+  font-weight:800;
+  font-size:1.2rem;
+}
+
+.unit-label{
+  color:var(--muted);
+  font-weight:700;
+}
+
+.dial-row{
+  display:grid;
+  grid-template-columns:116px 1fr 82px;
+  gap:12px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.dial-row:last-child{border-bottom:0}
+
+.dial-row label{
+  font-weight:750;
+}
+
+input[type="range"]{
+  width:100%;
+  accent-color:var(--orange);
+}
+
+.dial-num{
+  width:78px;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#0B1220;
+  color:var(--text);
+  text-align:right;
+  font-weight:750;
+}
+
+.btn-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:12px;
+}
+
+button{
+  border:1px solid var(--line);
+  color:var(--text);
+  background:#0B1220;
+  border-radius:999px;
+  padding:10px 13px;
+  cursor:pointer;
+  font-weight:750;
+}
+
+button:hover{
+  border-color:rgba(255,255,255,.34);
+  transform:translateY(-1px);
+}
+
+.primary{
+  background:linear-gradient(135deg,var(--blue),#1D4ED8);
+}
+
+.orange{
+  background:linear-gradient(135deg,var(--orange),#C2410C);
+}
+
+.green{
+  background:linear-gradient(135deg,var(--green),#15803D);
+}
+
+.select,input.custom{
+  width:100%;
+  padding:11px 12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  color:var(--text);
+  background:#0B1220;
+}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+.actual-blend{
+  display:grid;
+  gap:8px;
+  margin-top:8px;
+}
+
+.blend-pill{
+  display:grid;
+  grid-template-columns:110px 1fr 58px;
+  gap:10px;
+  align-items:center;
+  font-size:.93rem;
+}
+
+.blend-bar{
+  height:10px;
+  background:#0B1220;
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.blend-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--blue),var(--orange));
+  width:0%;
+}
+
+.recipe-card{
+  overflow:hidden;
+}
+
+.recipe-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:12px;
+}
+
+.recipe-title{
+  font-size:1.3rem;
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+
+.recipe-meta{
+  color:var(--muted);
+  font-size:.94rem;
+}
+
+.ingredient-table{
+  display:grid;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.ing-row{
+  display:grid;
+  grid-template-columns:1.15fr 1fr 1.25fr;
+  gap:0;
+}
+
+.ing-row > div{
+  padding:11px 12px;
+  border-bottom:1px solid rgba(255,255,255,.09);
+  min-width:0;
+}
+
+.ing-row:last-child > div{border-bottom:0}
+
+.ing-head{
+  background:rgba(59,130,246,.15);
+  font-size:.85rem;
+  color:#D9E8FF;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  font-weight:900;
+}
+
+.ing-name{font-weight:850}
+.ing-amount{font-variant-numeric:tabular-nums}
+.ing-kitchen{color:var(--muted)}
+
+.result-box{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.045);
+  border-radius:16px;
+  padding:14px;
+  margin-top:12px;
+}
+
+.addin-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:10px;
+}
+
+.addin-option{
+  display:grid;
+  grid-template-columns:22px 1fr;
+  gap:8px;
+  align-items:start;
+  padding:8px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+}
+
+.addin-option input{
+  width:18px;
+  height:18px;
+}
+
+.addin-selected{
+  border-color:rgba(59,130,246,.45);
+  background:rgba(59,130,246,.12);
+}
+
+@media (min-width:680px){
+  .addin-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+.result-big{
+  font-size:1.45rem;
+  font-weight:950;
+  letter-spacing:-.04em;
+}
+
+.adult-recipe-callout{
+  display:none;
+  border-color:rgba(59,130,246,.55);
+  background:
+    linear-gradient(135deg, rgba(59,130,246,.25), rgba(5,46,22,.48)),
+    rgba(17,24,39,.96);
+}
+
+.adult-recipe-callout.active{
+  display:block;
+}
+
+.addition-label{
+  color:#D9E8FF;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:.78rem;
+  font-weight:950;
+}
+
+.addition-amount{
+  margin-top:6px;
+  color:#DCFCE7;
+  font-size:clamp(1.7rem,4vw,3.1rem);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:-.05em;
+}
+
+.addition-note{
+  color:var(--soft);
+  margin-top:10px;
+  line-height:1.45;
+}
+
+.adult-dose-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.adult-dose-stat{
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:16px;
+  padding:12px;
+  background:rgba(255,255,255,.055);
+}
+
+.adult-dose-stat .stat-label{
+  color:#D9E8FF;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  font-size:.74rem;
+  font-weight:950;
+}
+
+.adult-dose-stat .stat-value{
+  margin-top:4px;
+  color:#FFFFFF;
+  font-size:clamp(1.25rem,3vw,2.15rem);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:-.04em;
+}
+
+.adult-dose-stat.warning{
+  border-color:rgba(245,158,11,.65);
+  background:rgba(120,53,15,.45);
+}
+
+.adult-dose-stat.danger{
+  border-color:rgba(239,68,68,.65);
+  background:rgba(127,29,29,.50);
+}
+
+.adult-disclaimer{
+  margin-top:14px;
+  padding:11px 12px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:14px;
+  background:rgba(0,0,0,.18);
+  color:var(--soft);
+  font-size:.92rem;
+  line-height:1.45;
+}
+
+@media (min-width:680px){
+  .adult-dose-grid{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+  }
+}
+
+.guidance-list{
+  margin:10px 0 0;
+  padding-left:18px;
+  color:var(--soft);
+  line-height:1.55;
+}
+
+.method-steps{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+
+.method-step{
+  display:grid;
+  grid-template-columns:34px 1fr;
+  gap:10px;
+  align-items:start;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+}
+
+.method-num{
+  width:28px;
+  height:28px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(59,130,246,.28);
+  color:#D9E8FF;
+  font-weight:950;
+}
+
+.method-title{
+  font-weight:900;
+}
+
+.method-text{
+  color:var(--muted);
+  margin-top:3px;
+  line-height:1.45;
+}
+
+.method-adult{
+  border-color:rgba(74,222,128,.38);
+  background:rgba(5,46,22,.42);
+}
+
+.adult-closed{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.ticker{
+  display:none;
+  width:100%;
+  max-width:100%;
+  background:var(--greenDark);
+  border:1px solid rgba(74,222,128,.35);
+  color:#DCFCE7;
+  border-radius:14px;
+  overflow:hidden;
+  white-space:nowrap;
+  font-size:18px;
+  font-weight:850;
+  margin:0 0 14px;
+  contain:layout paint;
+}
+
+.ticker.active{display:block}
+
+.ticker-track{
+  display:flex;
+  width:max-content;
+  max-width:none;
+  animation:tickerLoop 34s linear infinite;
+  will-change:transform;
+}
+
+.ticker-line{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  padding:10px 28px;
+}
+
+.ticker-leaf{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 0 5px rgba(74,222,128,.45));
+}
+
+@keyframes tickerLoop{
+  0%{transform:translate3d(0,0,0)}
+  100%{transform:translate3d(-50%,0,0)}
+}
+
+.adult-panel{
+  display:none;
+  border-color:rgba(74,222,128,.35);
+}
+
+.adult-panel.active{
+  display:block;
+  background:linear-gradient(145deg, rgba(5,46,22,.74), rgba(17,24,39,.94));
+}
+
+.decarb-screen{
+  display:none;
+}
+
+.decarb-screen.active{
+  display:block;
+}
+
+.hide-when-decarb.hidden{
+  display:none;
+}
+
+.decarb-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+}
+
+.decarb-img{
+  width:100%;
+  max-width:760px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background:#fff;
+}
+
+.checklist{
+  display:grid;
+  gap:10px;
+}
+
+.check-item{
+  display:grid;
+  grid-template-columns:28px 1fr;
+  gap:10px;
+  align-items:start;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  padding:10px;
+}
+
+.check-item input{
+  width:20px;
+  height:20px;
+}
+
+.decarb-check-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.check-item.completed{
+  opacity:.55;
+  background:rgba(255,255,255,.025);
+}
+
+.check-item.completed span,
+.check-item.completed .check-main{
+  text-decoration:line-through;
+}
+
+.timer-tools{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+
+.timer-display{
+  font-weight:950;
+  font-variant-numeric:tabular-nums;
+  color:#DCFCE7;
+}
+
+.timer-alert{
+  display:none;
+  margin-top:8px;
+  color:#FEF3C7;
+  font-weight:850;
+}
+
+.timer-alert.active{
+  display:block;
+}
+
+.timer-stop{
+  display:none;
+}
+
+.timer-stop.active{
+  display:inline-block;
+}
+
+.check-item.timer-done{
+  border-color:rgba(245,158,11,.7);
+  background:rgba(120,53,15,.35);
+}
+
+.decarb-complete{
+  display:none;
+  margin-top:14px;
+  padding:16px;
+  border:1px solid rgba(74,222,128,.45);
+  border-radius:16px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(74,222,128,.25), transparent 18rem),
+    rgba(5,46,22,.72);
+  color:#DCFCE7;
+}
+
+.decarb-complete.active{
+  display:block;
+}
+
+.decarb-complete-title{
+  font-size:clamp(1.5rem,4vw,2.6rem);
+  line-height:1;
+  font-weight:1000;
+  letter-spacing:-.05em;
+}
+
+.footer{
+  margin-top:18px;
+  color:var(--muted);
+  text-align:center;
+  line-height:1.5;
+}
+
+.endian-mark{
+  margin:18px auto 8px;
+  max-width:420px;
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  overflow:hidden;
+}
+
+.endian-mark img{
+  max-height:54px;
+  max-width:100%;
+}
+
+.fallback-mark{
+  font-weight:950;
+  letter-spacing:.18em;
+}
+.fallback-mark .e1{color:var(--blue)}
+.fallback-mark .e2{color:var(--orange)}
+
+.legal{
+  font-size:.83rem;
+  max-width:900px;
+  margin:10px auto 0;
+}
+
+@media (min-width:720px){
+  .grid-2{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media (min-width:680px){
+  body{padding:12px}
+  .layout{
+    grid-template-columns:minmax(260px,.92fr) minmax(330px,1.08fr);
+  }
+  .controls-col{grid-column:1}
+  .recipe-col{grid-column:2}
+  .side-col{grid-column:1 / -1}
+  .wide-span{grid-column:1 / -1}
+}
+
+@media (min-width:1060px){
+  body{padding:14px}
+  .layout{
+    grid-template-columns:minmax(280px,.86fr) minmax(360px,1fr) minmax(280px,.86fr);
+  }
+  .controls-col{grid-column:1}
+  .recipe-col{grid-column:2}
+  .side-col{grid-column:3}
+  .wide-span{grid-column:1 / -1}
+}
+
+@media (min-width:1420px){
+  body{padding:18px}
+  .layout{
+    grid-template-columns:minmax(330px,.85fr) minmax(430px,1fr) minmax(330px,.8fr);
+    gap:18px;
+  }
+}
+
+@media (min-width:680px) and (max-width:1180px){
+  .hero,.panel{padding:14px}
+  .hero h1{font-size:clamp(2rem,4vw,3.2rem)}
+  .dial-row{grid-template-columns:104px 1fr 72px;gap:9px}
+  .dial-num{width:72px}
+  .ing-row{grid-template-columns:1fr .9fr 1.1fr}
+  .ing-row > div{padding:9px 10px}
+}
+
+@media (max-width:560px){
+  body{padding:10px}
+  .hero,.panel{padding:14px}
+  .dial-row{
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+  .dial-num{
+    width:100%;
+  }
+  .ing-row{
+    grid-template-columns:1fr;
+  }
+  .ing-head{
+    display:none;
+  }
+  .ing-row > div{
+    border-bottom:0;
+    padding:7px 10px;
+  }
+  .ing-row{
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+  .ing-row:last-child{border-bottom:0}
+  .recipe-head{
+    flex-direction:column;
+  }
+}
+
+.addin-option{
+  cursor:pointer;
+}
+
+.addin-option input{
+  accent-color:var(--orange);
+}
+
+.addin-option.addin-selected{
+  border-color:rgba(74,222,128,.68) !important;
+  background:rgba(5,46,22,.56) !important;
+  box-shadow:0 0 0 1px rgba(74,222,128,.18) inset;
+}
+
+.addin-option.addin-selected span::after{
+  content:"  ✓";
+  color:#86EFAC;
+  font-weight:950;
+}
+
+
+/* v32 stable add-in selected-state polish */
+.addin-option{
+  cursor:pointer;
+}
+
+.addin-option input{
+  accent-color:var(--orange);
+}
+
+.addin-option.addin-selected{
+  border-color:rgba(74,222,128,.68) !important;
+  background:rgba(5,46,22,.56) !important;
+  box-shadow:0 0 0 1px rgba(74,222,128,.18) inset;
+}
+
+.addin-option.addin-selected span::after{
+  content:"  ✓";
+  color:#86EFAC;
+  font-weight:950;
+}
+
+
+/* v37: empty blend state */
+.dd37-empty-panel > *:not(.dd37-empty-note){
+  display:none !important;
+}
+
+.dd37-empty-note{
+  display:block !important;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(255,255,255,.055);
+  border-radius:16px;
+  padding:14px;
+  color:var(--soft);
+}
+
+.dd37-empty-note strong{
+  display:block;
+  color:var(--text);
+  margin-bottom:5px;
+}
+
+
+
+/* v02.06.17.26.02: homepage-aligned Endian shell */
+.app{
+  padding-top:68px;
+}
+
+.brand-bar{
+  display:none !important;
+}
+
+.brand-wordmark{
+  display:inline-block;
+  white-space:nowrap;
+  font:inherit;
+  letter-spacing:inherit;
+  text-transform:inherit;
+}
+
+.brand-wordmark .brand-endian{
+  color:var(--blue);
+}
+
+.brand-wordmark .brand-engine{
+  background:linear-gradient(135deg, #ff5a2a 0%, var(--orange) 50%, #ff9b4e 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  color:transparent;
+}
+
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  background:rgba(8,11,16,.88);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:box-shadow .3s ease;
+}
+
+.header.header--scrolled{
+  box-shadow:0 2px 20px rgba(0,0,0,.5);
+}
+
+.header-inner{
+  max-width:1500px;
+  margin:0 auto;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+
+.header-logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:var(--text);
+  min-width:0;
+}
+
+.header-logo img{
+  height:36px;
+  width:auto;
+  border-radius:8px;
+  flex:0 0 auto;
+}
+
+.header-logo-text{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size:.92rem;
+  font-weight:800;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+  color:var(--orange);
+}
+
+.nav-desktop{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+}
+
+.nav-desktop a,
+.nav-mobile a{
+  font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  text-decoration:none;
+  padding:8px 10px;
+  border-radius:8px;
+}
+
+.nav-desktop a:hover,
+.nav-mobile a:hover,
+.nav-mobile a:active{
+  color:var(--orange);
+  background:rgba(255,107,0,.15);
+}
+
+.nav-desktop a.active{
+  color:var(--orange);
+}
+
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  padding:8px !important;
+  cursor:pointer;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  min-height:auto !important;
+}
+
+.nav-toggle span{
+  display:block;
+  width:24px;
+  height:2px;
+  background:var(--text);
+  transition:transform .3s ease, opacity .3s ease;
+}
+
+.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+
+.nav-mobile{
+  display:none;
+  position:fixed;
+  top:60px;
+  left:0;
+  right:0;
+  z-index:99;
+  background:rgba(8,11,16,.96);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  padding:14px 18px;
+}
+
+.nav-mobile.open{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.site-hero{
+  padding:18px 20px;
+}
+
+.site-hero h1{
+  font-size:clamp(2rem,4.2vw,3.55rem);
+}
+
+.site-legal-footer a:hover{
+  color:var(--orange) !important;
+}
+
+@media (max-width:768px){
+  .app{
+    padding-top:64px;
+  }
+
+  .nav-desktop{
+    display:none;
+  }
+
+  .nav-toggle{
+    display:flex;
+  }
+
+  .header-inner{
+    padding:10px 14px;
+  }
+
+  .header-logo-text{
+    font-size:.82rem;
+  }
+}
+
+
+/* v02.06.17.26.03: active/empty blend cleanup */
+.dd06172603-collapsed{
+  display:none !important;
+}
+
+
+/* v02.06.17.26.06: static Ready to Cook actions */
+#readyPrintBtn{
+  border-color:rgba(59,130,246,.58);
+  background:rgba(59,130,246,.16);
+}
+
+#readyPrintBtn:hover{
+  border-color:rgba(255,107,0,.75);
+}
+
+
+/* v02.06.17.26.08: Ready action feedback */
+#readyActionStatus{
+  min-height:1.35em;
+}
+
+#readyActionStatus.ready-ok{
+  color:#86EFAC;
+  font-weight:800;
+}
+
+#readyActionStatus.ready-warn{
+  color:#FBBF24;
+  font-weight:800;
+}
+
+
+/* v02.06.17.26.13: cook / bake time estimates */
+#cookTimeEstimateBox{
+  border-color:rgba(255,107,0,.32);
+  background:rgba(255,107,0,.075);
+}
+
+#cookTimeEstimateBox strong{
+  color:var(--soft);
+}
+
+</style>
 </head>
 <body>
-  <main>
-    <div class="brand"><strong>Endian</strong> <strong>Engine</strong></div>
-
-    <div class="badge">Temporarily Offline</div>
-
-    <h1>DoughDial</h1>
-    <h2>Classic Baking Calculator</h2>
-
-    <p>
-      DoughDial is temporarily offline while the calculator is rebuilt from verified recipe anchors.
-      The public page was opened too early, and Endian Engine is correcting the recipe math before making it available again.
-    </p>
-
-    <div class="panel">
-      <p>
-        The rebuild will focus on normal baking first: pancakes, cakes, quick breads, cookies, and bread / loaf-style recipes.
-        Portion controls such as scoop or disher size will be separated from recipe scaling so changing a portion size changes yield, not the recipe itself.
-      </p>
-      <p>
-        Please check back after the rebuild pass is complete.
-      </p>
+<div class="app">
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="./index.html" class="header-logo" aria-label="Endian Engine Home">
+        <span class="header-logo-text"><span class="brand-wordmark"><span class="brand-endian">Endian</span> <span class="brand-engine">Engine</span></span></span>
+      </a>
+      <nav class="nav-desktop" aria-label="Main navigation">
+        <a href="./index.html">Home</a>
+        <a href="./index.html#products" class="active">Products</a>
+        <a href="./index.html#downloads">Downloads</a>
+        <a href="./index.html#about">About</a>
+        <a href="./index.html#contact">Contact</a>
+        <a href="./index.html#support">Support Us</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" type="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+  </header>
 
-    <div class="actions">
-      <a class="button" href="./index.html">Return to Endian Engine</a>
-      <a class="button secondary" href="mailto:contact@endianengine.com">Contact Endian Engine</a>
-    </div>
+  <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile navigation">
+    <a href="./index.html">Home</a>
+    <a href="./index.html#products">Products</a>
+    <a href="./index.html#downloads">Downloads</a>
+    <a href="./index.html#about">About</a>
+    <a href="./index.html#contact">Contact</a>
+    <a href="./index.html#support">Support Us</a>
+  </nav>
 
-    <footer>
-      DoughDial v01.06.04.26.02 · maintenance rebuild hold · Endian Engine
+<main id="mainApp" class="hide-when-decarb">
+    <section class="hero site-hero">
+      <h1>DoughDial</h1>
+      <div class="tag">Classic Baking Calculator</div>
+      <p>A flour-spectrum recipe calculator for pancakes, cakes, quick breads, cookies, and bread / loaf-style recipes from Endian Engine.</p>
+    </section>
+
+    <section class="layout">
+
+      <div class="controls-col">
+        <section class="panel">
+          <h2>Flour Base</h2>
+          <div class="control-row">
+            <div>
+              <div class="subtle">Recipe amount starts with flour. Portion tools change yield only.</div>
+            </div>
+            <div>
+              <input id="flourG" class="big-number" type="number" min="20" max="3000" step="5" value="120">
+              <span class="unit-label">g</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Recipe Dials</h2>
+          <div class="subtle">Set the dials by feel. DoughDial normalizes the actual recipe blend to 100%.</div>
+
+          <div id="dialRows"></div>
+
+          <div class="btn-row">
+            <button class="primary" id="normalizeBtn">Normalize Dials</button>
+            <button id="zeroBtn">Clear</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Presets</h2>
+          <div class="subtle">Presets only set the dials. You can still adjust every dial afterward.</div>
+          <div id="presetButtons" class="btn-row"></div>
+        </section>
+      </div>
+
+      <div class="recipe-col">
+        <section class="panel">
+          <h2>Actual Recipe Blend</h2>
+          <div id="actualBlend" class="actual-blend"></div>
+        </section>
+
+        <section id="adultRecipeCallout" class="panel adult-recipe-callout" aria-live="polite"></section>
+
+        <section class="panel recipe-card">
+          <div class="flow-note-v33 subtle" style="margin-bottom:12px">Recipe flow: choose the recipe blend, confirm yield, then follow ingredients and directions. Adult-infused calculations stay separated until opened.</div>
+
+          <div class="recipe-head">
+            <div>
+              <div id="recipeTitle" class="recipe-title">Basic Pancake Direction</div>
+              <div id="recipeMeta" class="recipe-meta"></div>
+            </div>
+          </div>
+
+          <div class="ingredient-table" id="ingredientTable"></div>
+
+          <div class="result-box">
+            <div class="subtle">Estimated yield</div>
+            <div id="yieldResult" class="result-big"></div>
+            <div id="yieldNote" class="subtle"></div>
+          </div>
+        </section>
+
+        <section class="panel" id="methodDirectionsPanel">
+          <h2>Directions</h2>
+          <div id="methodDirections" class="subtle">Recipe directions will appear here.</div>
+        </section>
+
+      </div>
+
+      <div class="side-col">
+        <section class="panel">
+          <h2>Portion / Yield</h2>
+          <div class="subtle">This changes estimated piece count only. It must not change the recipe ingredients.</div>
+
+          <div style="margin-top:12px">
+            <label for="portionSelect"><strong>Portion tool</strong></label>
+            <select id="portionSelect" class="select"></select>
+          </div>
+
+          <div id="customPortionWrap" style="display:none;margin-top:12px">
+            <label for="customPortion"><strong>Custom portion</strong></label>
+            <input id="customPortion" class="custom" type="number" min="1" max="1000" step="1" value="30">
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="decarb-check-head">
+            <h2 style="margin:0">Flavor / Add-ins</h2>
+            <button id="clearAddInsBtn" type="button">Clear Add-ins</button>
+          </div>
+          <p class="subtle">Selectable notes only. These choices show in the recipe copy but do not rebalance recipe math yet.</p>
+
+          <div class="result-box">
+            <strong>Flavorings</strong>
+            <div class="addin-grid">
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Extra vanilla"><span>Extra vanilla</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Cinnamon"><span>Cinnamon</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Nutmeg"><span>Nutmeg</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Pumpkin spice"><span>Pumpkin spice</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Citrus zest"><span>Citrus zest</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Maple note"><span>Maple note</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Flavorings" data-label="Almond extract"><span>Almond extract</span></label>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <strong>Mix-ins</strong>
+            <div class="addin-grid">
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Blueberries"><span>Blueberries</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Chocolate chips"><span>Chocolate chips</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Nuts"><span>Nuts</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Sprinkles"><span>Sprinkles</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Marshmallows"><span>Marshmallows</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Mix-ins" data-label="Dried fruit"><span>Dried fruit</span></label>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <strong>Wet structural add-ins</strong>
+            <div class="subtle">Future target: moisture, fat, and flour rebalancing. For now, these are notes only.</div>
+            <div class="addin-grid">
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Wet structural add-ins" data-label="Banana"><span>Banana</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Wet structural add-ins" data-label="Pumpkin"><span>Pumpkin</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Wet structural add-ins" data-label="Applesauce"><span>Applesauce</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Wet structural add-ins" data-label="Peanut butter"><span>Peanut butter</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Wet structural add-ins" data-label="Yogurt"><span>Yogurt</span></label>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <strong>Finishes / toppings</strong>
+            <div class="addin-grid">
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Finishes / toppings" data-label="Powdered sugar"><span>Powdered sugar</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Finishes / toppings" data-label="Glaze"><span>Glaze</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Finishes / toppings" data-label="Whipped topping"><span>Whipped topping</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Finishes / toppings" data-label="Syrup"><span>Syrup</span></label>
+              <label class="addin-option"><input class="addin-check" type="checkbox" data-group="Finishes / toppings" data-label="Coarse sugar"><span>Coarse sugar</span></label>
+            </div>
+          </div>
+
+          <div id="addinSelectedBox" class="result-box addin-selected">
+            <strong>Selected Flavor / Add-ins</strong>
+            <div class="subtle">None selected.</div>
+          </div>
+        </section>
+        <section class="panel adult-closed" id="adultClosed">
+          <h2>Ready to Cook?</h2>
+          <div class="subtle">Build the Classic recipe first. Then make it normally, or open the separated adult workflow before cooking.</div>
+
+          <div class="btn-row">
+            <button class="orange" id="readyCopyBtn" type="button">Copy Recipe</button>
+            <button class="primary" id="readyPrintBtn" type="button">Print Recipe</button>
+            <button class="green" id="openAdultBtn" type="button">Convert to Adult-Infused Recipe</button>
+          </div>
+          <div id="readyActionStatus" class="subtle" aria-live="polite" style="margin-top:10px"></div>
+        </section>
+        <section class="panel adult-panel" id="adultPanel">
+          <div id="adultTicker" class="ticker">
+            <div class="ticker-track">
+              <span class="ticker-line"><img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Adult Add-On Active <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Infused baking tools are open <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Label clearly <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Check local laws <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Keep away from children and pets <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"></span>
+              <span class="ticker-line"><img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Adult Add-On Active <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Infused baking tools are open <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Label clearly <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Check local laws <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Keep away from children and pets <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"></span>
+              <span class="ticker-line"><img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Adult Add-On Active <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Infused baking tools are open <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Label clearly <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Check local laws <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"> Keep away from children and pets <img class="ticker-leaf" src="assets/cannabis-svg.svg" alt="" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <h2>Adult Add-On Workflow</h2>
+          <p class="subtle">This section reads the current Classic recipe. The full recipe is infused because the decarbed material is mixed into the whole batter or dough.</p>
+
+          <div id="adultRecipeSummary" class="result-box">
+            <strong>Current Classic recipe</strong>
+            <div class="subtle">Recipe summary will appear here.</div>
+          </div>
+
+          <div class="result-box">
+            <strong>Target dose calculator</strong>
+            <div class="subtle">Start with the Classic recipe, then choose the adult serving plan. DoughDial estimates how many grams of decarbed material to add to the full recipe.</div>
+
+            <div class="grid-2" style="margin-top:10px">
+              <label class="subtle">Target mg per adult portion<br><input id="targetMg" class="custom" type="number" value="10" min="1" step="1"></label>
+              <label class="subtle">Adults<br><input id="adultCount" class="custom" type="number" value="1" min="1" step="1"></label>
+              <label class="subtle">Pieces per adult<br><input id="piecesPerAdult" class="custom" type="number" value="1" min="1" step="1"></label>
+              <label class="subtle">Potency % THC<br><input id="potencyPct" class="custom" type="number" value="20" min="1" step=".1"></label>
+            </div>
+
+            <div id="adultDoseResult" class="result-box" style="margin-top:12px">
+              <strong>Adult dose estimate</strong>
+              <div class="subtle">Enter values above.</div>
+            </div>
+          </div>
+
+          <div class="result-box">
+            <strong>Infusion timing</strong>
+            <div class="subtle">Work out the Classic recipe first. If using the adult path, add the weighed decarbed material early, before final mixing or baking. The callout near the recipe gives timing guidance based on the current recipe direction.</div>
+          </div>
+
+          <div class="btn-row">
+            <button class="green" id="openDecarbBtn">Open Decarboxylation Guide</button>
+            <button id="closeAdultBtn">Close Adult Add-On</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Thank You / Inspiration</h2>
+          <p class="subtle">Thank you to Sara Robinson for the 2020 machine-learning baking experiment and the cakie / breakie idea. DoughDial builds on that spirit with hand-tuned recipe anchors, flour-based scaling, kitchen-friendly yield tools, and a separated adult workflow.</p>
+        </section>
+      </div>
+
+    </section>
+
+    <footer class="site-legal-footer" style="margin-top:64px; padding:28px 18px; border-top:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.28); color:rgba(230,235,245,.72); font-family:Inter, Segoe UI, Arial, sans-serif; text-align:center;">
+      <div style="max-width:1120px; margin:0 auto; display:flex; flex-direction:column; gap:10px; align-items:center;">
+        <div style="font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.82);">Order Drives Execution</div>
+        <div>&copy; 2026 Endian Engine LLC. All rights reserved.</div>
+        <nav aria-label="Legal and site links" style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center; font-size:.92rem;">
+          <a href="./index.html" style="color:inherit; text-decoration:none;">Home</a>
+          <a href="./privacy.html" style="color:inherit; text-decoration:none;">Privacy Policy</a>
+          <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
+          <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
+        </nav>
+        <div style="font-size:.82rem; color:rgba(230,235,245,.52);">DoughDial v02.06.23.26.02 · publication QA controls fix</div>
+        <div class="legal" style="max-width:900px;">DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC. Public use is allowed through this page. Bulk copying, scraping, republishing, or automated extraction is not permitted.</div>
+      </div>
     </footer>
   </main>
+
+  <section id="decarbScreen" class="decarb-screen">
+    <section class="hero">
+      <h1>Decarboxylation Guide</h1>
+      <div class="tag">Focused adult workflow</div>
+      <p>This screen is intentionally separate from the recipe calculator. Decarboxylation is a preparation process that may take about 70–75 minutes including oven stabilization and stirring steps.</p>
+      <div class="btn-row">
+        <button class="green" id="backFromDecarb">Back to DoughDial</button>
+      </div>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <h2>Temperature Target</h2>
+        <div class="result-box">
+          <div class="subtle">Actual oven temperature</div>
+          <div class="result-big">230–240°F / 110–116°C</div>
+          <div class="subtle">Use an oven thermometer. Do not rely only on the oven dial.</div>
+        </div>
+        <ul class="guidance-list">
+          <li>Preheat with an oven thermometer inside for about 30 minutes.</li>
+          <li>If the actual oven is above 240°F / 116°C, reduce heat and re-check.</li>
+          <li>At 250°F+ / 121°C+, stop and let the oven cool before continuing.</li>
+        </ul>
+      </section>
+
+      <section class="panel">
+        <h2>Reference Chart</h2>
+        <img class="decarb-img" src="assets/decarboxylation-cannabis-chart-768x595.jpeg" alt="Decarboxylation reference chart">
+        <p class="subtle">Reference image only. Use an oven thermometer and the written target range above.</p>
+      </section>
+
+      <section class="panel">
+        <div class="decarb-check-head">
+          <h2 style="margin:0">Workflow Checklist</h2>
+          <button id="clearDecarbChecks" type="button">Clear Checkmarks</button>
+        </div>
+
+        <div class="checklist" id="decarbChecklist">
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Finely chop or grind the material">
+            <div><div class="check-main">Finely chop or grind the material.</div></div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Spread material thinly in glass baking dish">
+            <div><div class="check-main">Spread it thinly in a glass/Pyrex baking dish.</div></div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Preheat oven with thermometer for about 30 minutes">
+            <div>
+              <div class="check-main">Preheat the oven with an oven thermometer for about 30 minutes.</div>
+              <div class="timer-tools">
+                <button type="button" class="timer-btn" data-seconds="1800">Start 30-minute timer</button>
+                <span class="timer-display">30:00</span>
+                <button type="button" class="timer-stop">Stop Timer</button>
+              </div>
+              <div class="timer-alert">Timer complete — check this step when done.</div>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Confirm actual oven temperature">
+            <div><div class="check-main">Confirm actual oven temperature is about 230–240°F / 110–116°C.</div></div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Process for 40 minutes total">
+            <div><div class="check-main">Process for 40 minutes total.</div></div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="At 10 minutes stir and return to oven">
+            <div>
+              <div class="check-main">At 10 minutes: stir gently, spread flat, return to oven.</div>
+              <div class="timer-tools">
+                <button type="button" class="timer-btn" data-seconds="600">Start 10-minute timer</button>
+                <span class="timer-display">10:00</span>
+                <button type="button" class="timer-stop">Stop Timer</button>
+              </div>
+              <div class="timer-alert">Timer complete — stir, spread flat, return to oven, then check this step.</div>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="At 20 minutes stir and return to oven">
+            <div>
+              <div class="check-main">At 20 minutes: stir gently, spread flat, return to oven.</div>
+              <div class="timer-tools">
+                <button type="button" class="timer-btn" data-seconds="600">Start 10-minute timer</button>
+                <span class="timer-display">10:00</span>
+                <button type="button" class="timer-stop">Stop Timer</button>
+              </div>
+              <div class="timer-alert">Timer complete — stir, spread flat, return to oven, then check this step.</div>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="At 30 minutes stir and return to oven">
+            <div>
+              <div class="check-main">At 30 minutes: stir gently, spread flat, return to oven.</div>
+              <div class="timer-tools">
+                <button type="button" class="timer-btn" data-seconds="600">Start 10-minute timer</button>
+                <span class="timer-display">10:00</span>
+                <button type="button" class="timer-stop">Stop Timer</button>
+              </div>
+              <div class="timer-alert">Timer complete — stir, spread flat, return to oven, then check this step.</div>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="At 40 minutes remove and let cool">
+            <div>
+              <div class="check-main">At 40 minutes: remove and let cool fully.</div>
+              <div class="timer-tools">
+                <button type="button" class="timer-btn" data-seconds="600">Start final 10-minute timer</button>
+                <span class="timer-display">10:00</span>
+                <button type="button" class="timer-stop">Stop Timer</button>
+              </div>
+              <div class="timer-alert">Timer complete — remove from oven and let cool fully.</div>
+            </div>
+          </div>
+
+          <div class="check-item">
+            <input class="decarb-check" type="checkbox" aria-label="Store cooled material safely">
+            <div><div class="check-main">Store cooled material sealed at room temperature, away from light, heat, children, pets, and anyone who should not consume it.</div></div>
+          </div>
+        </div>
+
+        <div id="decarbComplete" class="decarb-complete" aria-live="polite">
+          <div class="decarb-complete-title">Ta-da 🌿</div>
+          <p><strong>Decarboxylation checklist complete.</strong></p>
+          <p>Let it cool fully, then store it sealed, labeled, and away from children, pets, heat, and light.</p>
+        </div>
+      </section>
+    </section>
+  </section>
+
+</div>
+
+<script>
+const VERSION = "DoughDial v02.06.23.26.02 · publication QA controls fix";
+
+const ANCHORS = {
+  pancake: {
+    label:"Pancake",
+    name:"Basic Pancake",
+    flourG:120, sugarG:12, fatG:14, liquidG:240, eggsG:50, leaveningG:12, saltG:1.5, vanillaG:4,
+    type:"pourable batter",
+    method:"Cook on a lightly greased pan or griddle at about 350–375°F / 175–190°C.",
+    notes:["Let batter rest 3–5 minutes.","Cook until bubbles form and edges look set, then flip."]
+  },
+  cookie: {
+    label:"Cookie",
+    name:"Light Cookie",
+    flourG:55, sugarG:45, fatG:38, liquidG:0, eggsG:18, leaveningG:.75, saltG:.5, vanillaG:2,
+    type:"scoopable dough",
+    method:"Bake at about 350°F / 175–180°C until edges are set and barely golden.",
+    notes:["Use gentle mixing once flour is added.","Small batches often use one egg yolk rather than a whole egg."]
+  },
+  cake: {
+    label:"Cake",
+    name:"Basic Vanilla Cake",
+    flourG:90, sugarG:65, fatG:45, liquidG:75, eggsG:50, leaveningG:4, saltG:1, vanillaG:4,
+    type:"soft pourable/spreadable batter",
+    method:"Bake at about 350°F / 175–180°C until the top springs back and a toothpick has a few moist crumbs.",
+    notes:["Do not overmix after flour is added.","Works as small cake, ramekins, or cupcakes."]
+  },
+  quickBread: {
+    label:"Quick Bread",
+    name:"Light Quick Bread",
+    flourG:100, sugarG:55, fatG:30, liquidG:80, eggsG:50, leaveningG:4, saltG:1.5, vanillaG:3,
+    type:"thick muffin-style batter",
+    method:"Bake muffins at about 375°F / 190°C or mini loaves at about 350°F / 175°C.",
+    notes:["Mix gently by hand until flour disappears.","A few small lumps are fine."]
+  },
+  loafBread: {
+    label:"Bread / Loaf",
+    name:"Basic No-Yeast Bread / Loaf",
+    flourG:120, sugarG:3, fatG:10, liquidG:90, eggsG:0, leaveningG:6, saltG:2, vanillaG:0,
+    type:"soft shaped no-yeast dough",
+    method:"Bake at about 400°F / 200°C until golden and cooked through.",
+    notes:["Uses baking powder for lift, not yeast.","Bring together gently just enough to shape. Do not overwork."]
+  }
+};
+
+const DIAL_ORDER = ["pancake","cake","quickBread","cookie","loafBread"];
+
+let state = {
+  flourG:120,
+  dials:{ pancake:0, cookie:50, cake:50, quickBread:0, loafBread:0 },
+  portion:"cup60",
+  customPortionG:30,
+  adultOpen:false
+};
+
+const PRESETS = [
+  ["Pancake", {pancake:100,cookie:0,cake:0,quickBread:0,loafBread:0}],
+  ["Cookie Pancake", {pancake:50,cookie:50,cake:0,quickBread:0,loafBread:0}],
+  ["Cookie", {pancake:0,cookie:100,cake:0,quickBread:0,loafBread:0}],
+  ["Cakie", {pancake:0,cookie:50,cake:50,quickBread:0,loafBread:0}],
+  ["Cake", {pancake:0,cookie:0,cake:100,quickBread:0,loafBread:0}],
+  ["Muffin Cake", {pancake:0,cookie:0,cake:50,quickBread:50,loafBread:0}],
+  ["Quick Bread", {pancake:0,cookie:0,cake:0,quickBread:100,loafBread:0}],
+  ["Breakie", {pancake:0,cookie:50,cake:0,quickBread:0,loafBread:50}],
+  ["Bread / Loaf", {pancake:0,cookie:0,cake:0,quickBread:0,loafBread:100}]
+];
+
+const PORTIONS = [
+  {id:"tsp5", label:"Teaspoon — 5 ml / 0.17 fl oz", grams:5},
+  {id:"tbsp15", label:"Tablespoon — 15 ml / 0.5 fl oz", grams:15},
+  {id:"cup30", label:"1/8 cup — 30 ml / 1 fl oz", grams:30},
+  {id:"cup60", label:"1/4 cup ladle — 60 ml / 2 fl oz", grams:60},
+  {id:"cup80", label:"1/3 cup ladle — 80 ml / 2.7 fl oz", grams:80},
+  {id:"cup120", label:"1/2 cup ladle — 120 ml / 4 fl oz", grams:120},
+  {id:"cup160", label:"2/3 cup ladle — 160 ml / 5.3 fl oz", grams:160},
+  {id:"cup240", label:"1 cup — 240 ml / 8 fl oz", grams:240},
+  {id:"cookie20", label:"Small cookie — 20 g dough", grams:20},
+  {id:"cookie30", label:"Medium cookie — 30 g dough", grams:30},
+  {id:"cookie40", label:"Large cookie — 40 g dough", grams:40},
+  {id:"d100", label:"#100 disher estimate — 9.5 ml / 0.32 fl oz", grams:946/100},
+  {id:"d60", label:"#60 disher estimate — 15.8 ml / 0.53 fl oz", grams:946/60},
+  {id:"d40", label:"#40 disher estimate — 23.7 ml / 0.8 fl oz", grams:946/40},
+  {id:"d30", label:"#30 disher estimate — 31.5 ml / 1.07 fl oz", grams:946/30},
+  {id:"d24", label:"#24 disher estimate — 39.4 ml / 1.33 fl oz", grams:946/24},
+  {id:"d20", label:"#20 disher estimate — 47.3 ml / 1.6 fl oz", grams:946/20},
+  {id:"d16", label:"#16 disher estimate — 59.1 ml / 2 fl oz", grams:946/16},
+  {id:"d12", label:"#12 disher estimate — 78.8 ml / 2.66 fl oz", grams:946/12},
+  {id:"d10", label:"#10 disher estimate — 94.6 ml / 3.2 fl oz", grams:946/10},
+  {id:"d8", label:"#8 disher estimate — 118.3 ml / 4 fl oz", grams:946/8},
+  {id:"custom", label:"Custom portion — grams or ml", grams:null}
+];
+
+function round(value, places=1){
+  const p = Math.pow(10, places);
+  return Math.round(value*p)/p;
+}
+
+function grams(value){
+  if(value === 0) return "0 g";
+  if(value < 1) return round(value,2) + " g";
+  if(value < 10) return round(value,1) + " g";
+  return Math.round(value) + " g";
+}
+
+function ml(value){
+  if(value === 0) return "0 ml";
+  if(value < 10) return round(value,1) + " ml";
+  return Math.round(value) + " ml";
+}
+
+function flOzFromMl(value){
+  return round(value / 29.5735, value < 30 ? 2 : 1) + " fl oz";
+}
+
+function tsp(valueMl){
+  return round(valueMl/5, 2) + " tsp";
+}
+
+function tbsp(valueMl){
+  return round(valueMl/15, 2) + " tbsp";
+}
+
+function cupsFromMl(valueMl){
+  const cup = valueMl / 240;
+  if(cup < .12) return tsp(valueMl);
+  if(cup < .24) return tbsp(valueMl);
+  if(Math.abs(cup-.25)<.04) return "about 1/4 cup";
+  if(Math.abs(cup-.333)<.04) return "about 1/3 cup";
+  if(Math.abs(cup-.5)<.05) return "about 1/2 cup";
+  if(Math.abs(cup-.667)<.06) return "about 2/3 cup";
+  if(Math.abs(cup-1)<.08) return "about 1 cup";
+  return "about " + round(cup,2) + " cups";
+}
+
+function flourKitchen(g){
+  return "about " + round(g/120,2) + " cup" + (g/120 === 1 ? "" : "s");
+}
+
+function sugarKitchen(g){
+  return "about " + round(g/12.5,1) + " tbsp";
+}
+
+function fatKitchen(g){
+  return "about " + round(g/14,1) + " tbsp";
+}
+
+function leaveningKitchen(g){
+  return "about " + round(g/4,2) + " tsp";
+}
+
+function saltKitchen(g){
+  return "about " + round(g/6,2) + " tsp";
+}
+
+function eggKitchen(g){
+  if(g <= 0.5) return "none";
+  if(g >= 44 && g <= 58) return "≈ 1 large egg";
+  if(g >= 15 && g <= 22) return "≈ 1 large yolk";
+  if(g < 44) return "about " + round(g/50,2) + " beaten egg";
+  return "about " + round(g/50,1) + " large eggs";
+}
+
+function normalizeBlend(raw){
+  const clean = {};
+  DIAL_ORDER.forEach(k=>{
+    clean[k] = Math.max(0, Number(raw[k]) || 0);
+  });
+
+  const total = DIAL_ORDER.reduce((sum,k)=>sum + clean[k], 0);
+
+  // Empty blend must stay empty.
+  if(total <= 0){
+    const empty = {};
+    DIAL_ORDER.forEach(k=>empty[k] = 0);
+    return empty;
+  }
+
+  // IMPORTANT:
+  // Return 0–1 ratios, not 0–100 percentages.
+  // Example: 50 + 40 + 25 => pancake 0.43478, not 43.478.
+  const normalized = {};
+  DIAL_ORDER.forEach(k=>{
+    normalized[k] = clean[k] / total;
+  });
+
+  return normalized;
+}
+
+function ratioFor(anchor, key){
+  return anchor[key] / anchor.flourG;
+}
+
+function interpolateRatios(blend){
+  const keys = ["sugarG","fatG","liquidG","eggsG","leaveningG","saltG","vanillaG"];
+  const ratios = {};
+  keys.forEach(key=>{
+    ratios[key] = DIAL_ORDER.reduce((sum, anchorKey)=>{
+      return sum + ratioFor(ANCHORS[anchorKey], key) * blend[anchorKey];
+    },0);
+  });
+  return ratios;
+}
+
+function scaleRecipe(ratios, flourG){
+  return {
+    flourG,
+    sugarG:ratios.sugarG * flourG,
+    fatG:ratios.fatG * flourG,
+    liquidG:ratios.liquidG * flourG,
+    eggsG:ratios.eggsG * flourG,
+    leaveningG:ratios.leaveningG * flourG,
+    saltG:ratios.saltG * flourG,
+    vanillaG:ratios.vanillaG * flourG
+  };
+}
+
+function totalMass(recipe){
+  return Object.values(recipe).reduce((a,b)=>a+b,0);
+}
+
+function getPortion(){
+  const p = PORTIONS.find(x=>x.id===state.portion) || PORTIONS[0];
+  if(p.id === "custom"){
+    return { ...p, grams:Math.max(1, Number(state.customPortionG)||30), label:`Custom portion — ${Math.max(1, Number(state.customPortionG)||30)} g/ml` };
+  }
+  return p;
+}
+
+function dominantLabel(blend){
+  const sorted = DIAL_ORDER.map(k=>[k,blend[k]]).sort((a,b)=>b[1]-a[1]);
+  const top = sorted.filter(x=>x[1] > .08).slice(0,2).map(x=>ANCHORS[x[0]].label);
+  if(top.length === 0) return "Pancake Direction";
+  if(top.length === 1) return ANCHORS[sorted[0][0]].name;
+  return top.join(" + ") + " Direction";
+}
+
+function textureSummary(blend){
+  const entries = DIAL_ORDER.map(k=>`${ANCHORS[k].label} ${Math.round(blend[k]*100)}%`).filter(x=>!x.endsWith(" 0%"));
+  return entries.join(" · ");
+}
+
+function calc(){
+  const flourG = Math.max(1, Number(state.flourG)||120);
+  const blend = normalizeBlend(state.dials);
+  const ratios = interpolateRatios(blend);
+  const recipe = scaleRecipe(ratios, flourG);
+  const mass = totalMass(recipe);
+  const portion = getPortion();
+  const pieces = mass / portion.grams;
+  return {flourG, blend, ratios, recipe, mass, portion, pieces};
+}
+
+function renderDials(){
+  const host = document.getElementById("dialRows");
+  host.innerHTML = "";
+  DIAL_ORDER.forEach(key=>{
+    const row = document.createElement("div");
+    row.className = "dial-row";
+    row.innerHTML = `
+      <label for="dial-${key}">${ANCHORS[key].label}</label>
+      <input id="dial-${key}" type="range" min="0" max="100" step="1" value="${state.dials[key]}">
+      <input id="num-${key}" class="dial-num" type="number" min="0" max="100" step="1" value="${state.dials[key]}">
+    `;
+    host.appendChild(row);
+
+    const range = row.querySelector(`#dial-${key}`);
+    const num = row.querySelector(`#num-${key}`);
+
+    range.addEventListener("input", ()=>{
+      state.dials[key] = Number(range.value);
+      num.value = state.dials[key];
+      render();
+    });
+
+    num.addEventListener("input", ()=>{
+      const v = Math.max(0, Math.min(100, Number(num.value)||0));
+      state.dials[key] = v;
+      range.value = v;
+      render();
+    });
+  });
+}
+
+function renderPresets(){
+  const host = document.getElementById("presetButtons");
+  host.innerHTML = "";
+  PRESETS.forEach(([label, values])=>{
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = label;
+    btn.addEventListener("click", ()=>{
+      state.dials = {...values};
+      
+
+renderDials();
+      render();
+    });
+    host.appendChild(btn);
+  });
+}
+
+function renderPortions(){
+  const select = document.getElementById("portionSelect");
+  select.innerHTML = "";
+  PORTIONS.forEach(p=>{
+    const opt = document.createElement("option");
+    opt.value = p.id;
+    opt.textContent = p.label;
+    select.appendChild(opt);
+  });
+  select.value = state.portion;
+  select.addEventListener("change", ()=>{
+    state.portion = select.value;
+    document.getElementById("customPortionWrap").style.display = state.portion === "custom" ? "block" : "none";
+    render();
+  });
+
+  const custom = document.getElementById("customPortion");
+  custom.addEventListener("input", ()=>{
+    state.customPortionG = Number(custom.value)||30;
+    render();
+  });
+}
+
+function renderActualBlend(blend){
+  const host = document.getElementById("actualBlend");
+  host.innerHTML = "";
+  DIAL_ORDER.forEach(k=>{
+    const pct = Math.round(blend[k] * 1000) / 10;
+    const div = document.createElement("div");
+    div.className = "blend-pill";
+    div.innerHTML = `
+      <strong>${ANCHORS[k].label}</strong>
+      <div class="blend-bar"><div class="blend-fill" style="width:${pct}%"></div></div>
+      <span>${pct}%</span>
+    `;
+    host.appendChild(div);
+  });
+}
+
+
+function niceFraction(value, unitSingular, unitPlural){
+  if(!isFinite(value) || value <= 0) return "";
+  const whole = Math.floor(value);
+  const frac = value - whole;
+  const candidates = [
+    [0, ""],
+    [1/8, "1/8"],
+    [1/4, "1/4"],
+    [1/3, "1/3"],
+    [1/2, "1/2"],
+    [2/3, "2/3"],
+    [3/4, "3/4"],
+    [1, ""]
+  ];
+
+  let best = candidates[0];
+  let bestDiff = 99;
+  candidates.forEach(c=>{
+    const d = Math.abs(frac - c[0]);
+    if(d < bestDiff){ best = c; bestDiff = d; }
+  });
+
+  let roundedWhole = whole;
+  let fracText = best[1];
+
+  if(best[0] === 1){
+    roundedWhole += 1;
+    fracText = "";
+  }
+
+  const unit = roundedWhole === 1 && fracText === "" ? unitSingular : unitPlural;
+
+  if(roundedWhole === 0 && fracText) return fracText + " " + unitPlural;
+  if(roundedWhole > 0 && fracText) return roundedWhole + " " + fracText + " " + unitPlural;
+  return roundedWhole + " " + unit;
+}
+
+function flourKitchenFriendly(g){
+  return "≈ " + niceFraction(g / 120, "cup", "cups");
+}
+
+function sugarKitchenFriendly(g){
+  return "≈ " + niceFraction(g / 12.5, "tbsp", "tbsp");
+}
+
+function fatKitchenFriendly(g){
+  return "≈ " + niceFraction(g / 14, "tbsp", "tbsp") + " butter/oil equivalent";
+}
+
+function liquidKitchenFriendly(valueMl){
+  if(valueMl <= 0) return "none";
+  if(valueMl <= 10) return tsp(valueMl);
+  if(valueMl < 45) return tbsp(valueMl);
+  return "≈ " + niceFraction(valueMl / 240, "cup", "cups") + " / " + flOzFromMl(valueMl);
+}
+
+function leaveningKitchenFriendly(g){
+  return "≈ " + niceFraction(g / 4, "tsp", "tsp") + " baking powder/soda estimate";
+}
+
+function saltKitchenFriendly(g){
+  return "≈ " + niceFraction(g / 6, "tsp", "tsp");
+}
+
+function eggKitchenFriendly(g){
+  if(g <= 0.5) return "none";
+  if(g >= 44 && g <= 58) return "≈ 1 large egg";
+  if(g >= 15 && g <= 22) return "≈ 1 large yolk";
+  return "≈ " + niceFraction(g / 50, "large egg", "large eggs") + " / beaten egg by weight";
+}
+function renderIngredients(recipe){
+  const rows = [
+    ["Sugar", grams(recipe.sugarG), sugarKitchenFriendly(recipe.sugarG)],
+    ["Fat", grams(recipe.fatG), fatKitchenFriendly(recipe.fatG)],
+    ["Egg", grams(recipe.eggsG), eggKitchenFriendly(recipe.eggsG)],
+    ["Salt", grams(recipe.saltG), saltKitchenFriendly(recipe.saltG)],
+    ["Vanilla", recipe.vanillaG > 0 ? `${ml(recipe.vanillaG)} / ${grams(recipe.vanillaG)}` : "optional / none", recipe.vanillaG > 0 ? tsp(recipe.vanillaG) : "optional"],
+    ["Liquid", `${ml(recipe.liquidG)} / ${grams(recipe.liquidG)}`, liquidKitchenFriendly(recipe.liquidG)],
+    ["Flour", grams(recipe.flourG), flourKitchenFriendly(recipe.flourG)],
+    ["Leavening", grams(recipe.leaveningG), leaveningKitchenFriendly(recipe.leaveningG)]
+  ];
+
+  const host = document.getElementById("ingredientTable");
+  host.innerHTML = `
+    <div class="ing-row ing-head">
+      <div>Ingredient</div><div>Amount</div><div>Kitchen equivalent</div>
+    </div>
+  `;
+
+  rows.forEach(r=>{
+    const row = document.createElement("div");
+    row.className = "ing-row";
+    row.innerHTML = `<div class="ing-name">${r[0]}</div><div class="ing-amount">${r[1]}</div><div class="ing-kitchen">${r[2]}</div>`;
+    host.appendChild(row);
+  });
+}
+
+function renderGuidance(blend, recipe){
+  const host = document.getElementById("guidance");
+  if(!host) return;
+}
+
+function renderYield(mass, portion, pieces){
+  document.getElementById("yieldResult").textContent = `≈ ${Math.max(1, Math.floor(pieces))}–${Math.max(1, Math.ceil(pieces))} pieces`;
+  document.getElementById("yieldNote").textContent = `Total estimated recipe mass: ${grams(mass)}. Portion setting: ${portion.label}. Portion tools estimate yield only; they do not change ingredients.`;
+}
+
+function renderRecipeTitle(blend){
+  document.getElementById("recipeTitle").textContent = dominantLabel(blend);
+  document.getElementById("recipeMeta").textContent = textureSummary(blend);
+}
+
+
+function renderAdultSummary(c){
+  const host = document.getElementById("adultRecipeSummary");
+  if(!host) return;
+  host.innerHTML = `
+    <strong>Current Classic recipe</strong>
+    <div class="subtle">Direction: ${dominantLabel(c.blend)}</div>
+    <div class="subtle">Estimated recipe mass: ${grams(c.mass)}</div>
+    <div class="subtle">Estimated yield: ≈ ${Math.max(1, Math.floor(c.pieces))}–${Math.max(1, Math.ceil(c.pieces))} pieces</div>
+    <div class="subtle">Portion setting: ${c.portion.label}</div>
+  `;
+}
+
+
+
+function doseBand(mg){
+  if(mg <= 10) return {label:"Standard / starter", level:"ok", note:"10 mg is the default adult portion target."};
+  if(mg <= 25) return {label:"Moderate", level:"ok", note:"Moderate adult dose."};
+  if(mg <= 40) return {label:"Strong", level:"ok", note:"Strong, but within the planned acceptable range."};
+  if(mg <= 49) return {label:"High", level:"warn", note:"Above the normal planned range. Use caution."};
+  if(mg <= 79) return {label:"Caution", level:"warn", note:"50 mg+ is a caution range."};
+  if(mg <= 109) return {label:"Strong warning", level:"danger", note:"80–100+ mg is a strong warning range."};
+  return {label:"Extreme warning", level:"danger", note:"110 mg+ per adult is very high. Re-check the plan."};
+}
+
+function doseStyle(level){
+  if(level === "danger"){
+    return "border-color:rgba(239,68,68,.55);background:rgba(127,29,29,.55);color:#FEE2E2";
+  }
+  if(level === "warn"){
+    return "border-color:rgba(245,158,11,.60);background:rgba(120,53,15,.55);color:#FEF3C7";
+  }
+  return "border-color:rgba(34,197,94,.45);background:rgba(20,83,45,.48);color:#DCFCE7";
+}
+
+function warningStrip(title, mg, band){
+  return `
+    <div style="margin-top:10px;padding:10px 12px;border:1px solid;border-radius:14px;${doseStyle(band.level)}">
+      <strong>${title}: ${round(mg,1)} mg — ${band.label}</strong>
+      <div style="font-size:.92rem;margin-top:3px">${band.note}</div>
+    </div>
+  `;
+}
+
+
+function leftoverBand(leftoverPieces, adultPiecesNeeded){
+  const adultBase = Math.max(1, adultPiecesNeeded);
+  const ratio = leftoverPieces / adultBase;
+
+  if(leftoverPieces <= 0){
+    return {level:"ok", label:"Exact / no leftovers", note:"The adult serving plan uses the full estimated infused recipe yield."};
+  }
+
+  if(leftoverPieces <= 2 && ratio <= 0.25){
+    return {level:"ok", label:"Small buffer", note:"A small number of extra infused pieces may be reasonable if they are labeled and stored safely."};
+  }
+
+  if(leftoverPieces <= 5 && ratio <= 0.5){
+    return {level:"warn", label:"Extra infused pieces", note:"This recipe makes more infused pieces than the adult serving plan uses. Confirm that leftovers are intentional."};
+  }
+
+  if(leftoverPieces <= 10 && ratio <= 1){
+    return {level:"warn", label:"Large surplus", note:"This recipe makes a large number of extra infused pieces. Consider reducing flour/batch size or planning more servings."};
+  }
+
+  return {level:"danger", label:"Major surplus warning", note:"This recipe makes far more infused pieces than the adult serving plan uses. Reduce batch size, increase planned servings, or label and store leftovers very clearly."};
+}
+
+function leftoverStrip(leftoverPieces, adultPiecesNeeded){
+  const band = leftoverBand(leftoverPieces, adultPiecesNeeded);
+  const style = doseStyle(band.level);
+
+  return `
+    <div style="margin-top:10px;padding:10px 12px;border:1px solid;border-radius:14px;${style}">
+      <strong>Leftover infused pieces: ≈ ${round(Math.max(0,leftoverPieces),1)} — ${band.label}</strong>
+      <div style="font-size:.92rem;margin-top:3px">${band.note}</div>
+    </div>
+  `;
+}
+
+
+
+function servingPlanStrip(enoughPieces, adultPiecesNeeded, recipePieces){
+  if(enoughPieces){
+    return `
+      <div style="margin-top:10px;padding:10px 12px;border:1px solid;border-radius:14px;${doseStyle("ok")}">
+        <strong>Serving plan fits</strong>
+        <div style="font-size:.92rem;margin-top:3px">Adult plan needs ${round(adultPiecesNeeded,1)} piece(s). Current recipe estimate is ≈ ${recipePieces} piece(s).</div>
+      </div>
+    `;
+  }
+
+  return `
+    <div style="margin-top:10px;padding:10px 12px;border:1px solid;border-radius:14px;${doseStyle("danger")}">
+      <strong>Not enough recipe pieces</strong>
+      <div style="font-size:.92rem;margin-top:3px">Adult plan needs ${round(adultPiecesNeeded,1)} piece(s), but the current recipe estimate is only ≈ ${recipePieces}. Increase the batch size, reduce adults, or reduce pieces per adult.</div>
+    </div>
+  `;
+}
+
+
+function renderAdultDose(c){
+  const host = document.getElementById("adultDoseResult");
+  if(!host) return;
+
+  const targetMg = Math.max(1, Number(document.getElementById("targetMg")?.value) || 10);
+  const adults = Math.max(1, Number(document.getElementById("adultCount")?.value) || 1);
+  const piecesPerAdult = Math.max(0.25, Number(document.getElementById("piecesPerAdult")?.value) || 1);
+  const potencyPct = Math.max(0.1, Number(document.getElementById("potencyPct")?.value) || 20);
+
+  const recipePieces = Math.max(1, Math.round(c.pieces));
+  const adultPiecesNeeded = adults * piecesPerAdult;
+  const mgPerGram = potencyPct * 10;
+
+  const totalRecipeThcMg = targetMg * recipePieces;
+  const gramsToAdd = totalRecipeThcMg / mgPerGram;
+
+  const totalPerAdultMg = targetMg * piecesPerAdult;
+  const perPieceBand = doseBand(targetMg);
+  const perAdultBand = doseBand(totalPerAdultMg);
+
+  const enoughPieces = adultPiecesNeeded <= recipePieces;
+  const leftoverPieces = recipePieces - adultPiecesNeeded;
+
+  const tinyNote = gramsToAdd < 0.25
+    ? `<div class="subtle">Small amount: use a scale that can read at least tenths of a gram; hundredths are better.</div>`
+    : "";
+
+  const pieceWarning = servingPlanStrip(enoughPieces, adultPiecesNeeded, recipePieces);
+
+  const leftoverWarning = enoughPieces
+    ? leftoverStrip(leftoverPieces, adultPiecesNeeded)
+    : "";
+
+  host.innerHTML = `
+    <strong>Adult dose estimate</strong>
+    <div class="subtle">Adults entered: ${adults}</div>
+    <div class="subtle">Pieces per adult: ${round(piecesPerAdult,2)}</div>
+    <div class="subtle">Adult serving plan needs: ${round(adultPiecesNeeded,1)} piece(s)</div>
+    <div class="subtle">Recipe pieces available: ≈ ${recipePieces}</div>
+    <div class="subtle">Potency: ${round(potencyPct,1)}% THC ≈ ${round(mgPerGram,1)} mg/g</div>
+    <div class="result-big" style="margin-top:8px">Add ≈ ${round(gramsToAdd,2)} g decarbed material</div>
+    <div class="subtle">Total THC for the full recipe: ${round(totalRecipeThcMg,1)} mg</div>
+    ${warningStrip("Dose per recipe piece", targetMg, perPieceBand)}
+    ${warningStrip("Total per adult", totalPerAdultMg, perAdultBand)}
+    ${pieceWarning}
+    ${leftoverWarning}
+    ${tinyNote}
+  `;
+}
+function dominantAnchorKey(blend){
+  return DIAL_ORDER.map(k=>[k,blend[k]]).sort((a,b)=>b[1]-a[1])[0][0];
+}
+
+function infusionTimingNote(blend){
+  const dominant = dominantAnchorKey(blend);
+
+  if(dominant === "cookie" || dominant === "cake"){
+    return "Add the weighed decarbed material during the butter/fat + sugar creaming step, before the flour is mixed in. THC is fat-soluble, so distribute it through the fat phase early.";
+  }
+
+  if(dominant === "pancake" || dominant === "quickBread"){
+    return "Mix the weighed decarbed material into the oil/fat/wet ingredients first, before combining wet and dry ingredients. THC is fat-soluble, so distribute it before final mixing.";
+  }
+
+  if(dominant === "loafBread"){
+    return "Mix the weighed decarbed material into the oil/butter/liquid before adding it to the dry ingredients. Keep the loaf/bread path no-yeast and do not overwork.";
+  }
+
+  return "Add the weighed decarbed material early into the fat/oil/wet phase so it distributes before the recipe is finished.";
+}
+
+
+function renderAdultRecipeCallout(c){
+  const host = document.getElementById("adultRecipeCallout");
+  if(!host) return;
+
+  if(!state.adultOpen){
+    host.classList.remove("active");
+    host.innerHTML = "";
+    return;
+  }
+
+  const targetMg = Math.max(1, Number(document.getElementById("targetMg")?.value) || 10);
+  const adults = Math.max(1, Number(document.getElementById("adultCount")?.value) || 1);
+  const piecesPerAdult = Math.max(0.25, Number(document.getElementById("piecesPerAdult")?.value) || 1);
+  const potencyPct = Math.max(0.1, Number(document.getElementById("potencyPct")?.value) || 20);
+
+  const recipePieces = Math.max(1, Math.round(c.pieces));
+  const adultPiecesNeeded = adults * piecesPerAdult;
+  const mgPerGram = potencyPct * 10;
+
+  const totalRecipeThcMg = targetMg * recipePieces;
+  const gramsToAdd = totalRecipeThcMg / mgPerGram;
+  const estimatedMgPerRecipePiece = totalRecipeThcMg / recipePieces;
+
+  const totalPerAdultMg = targetMg * piecesPerAdult;
+  const perAdultBand = doseBand(totalPerAdultMg);
+  const statClass = perAdultBand.level === "danger" ? "danger" : perAdultBand.level === "warn" ? "warning" : "";
+
+  const enoughPieces = adultPiecesNeeded <= recipePieces;
+  const leftoverPieces = recipePieces - adultPiecesNeeded;
+  const leftover = enoughPieces ? leftoverBand(leftoverPieces, adultPiecesNeeded) : {level:"danger", label:"Not enough pieces"};
+
+  const leftoverClass = leftover.level === "danger" ? "danger" : leftover.level === "warn" ? "warning" : "";
+
+  const servingNote = enoughPieces
+    ? `Adult plan uses ${round(adultPiecesNeeded,1)} of ≈ ${recipePieces} infused recipe pieces. Leftover infused pieces: ≈ ${round(Math.max(0,leftoverPieces),1)} — ${leftover.label}.`
+    : `Adult plan needs ${round(adultPiecesNeeded,1)} pieces, but this recipe is estimated at ≈ ${recipePieces} pieces.`;
+
+  host.classList.add("active");
+  host.innerHTML = `
+    <div class="addition-label">Adult-infused recipe addition</div>
+    <div class="addition-amount">Add ≈ ${round(gramsToAdd,2)} g</div>
+    <div class="addition-note"><strong>decarbed cannabis / decarbed material</strong> to this whole recipe.</div>
+
+    <div class="adult-dose-grid">
+      <div class="adult-dose-stat">
+        <div class="stat-label">Total THC in full recipe</div>
+        <div class="stat-value">≈ ${round(totalRecipeThcMg,1)} mg</div>
+      </div>
+      <div class="adult-dose-stat">
+        <div class="stat-label">Estimated THC per recipe piece</div>
+        <div class="stat-value">≈ ${round(estimatedMgPerRecipePiece,1)} mg</div>
+      </div>
+      <div class="adult-dose-stat ${statClass}">
+        <div class="stat-label">Total per adult plan</div>
+        <div class="stat-value">≈ ${round(totalPerAdultMg,1)} mg</div>
+      </div>
+      <div class="adult-dose-stat ${leftoverClass}">
+        <div class="stat-label">Leftover infused pieces</div>
+        <div class="stat-value">≈ ${round(Math.max(0,leftoverPieces),1)}</div>
+      </div>
+    </div>
+
+    <div class="addition-note">Plan: ${adults} adult(s) × ${round(piecesPerAdult,2)} piece(s) each · ${round(targetMg,1)} mg target per recipe piece · <strong>${perAdultBand.label}</strong>.</div>
+    <div class="addition-note">${servingNote}</div>
+    <div class="addition-note">The full recipe is infused because the decarbed material is mixed into the whole batter/dough.</div>
+    <div class="addition-note"><strong>When to add it:</strong> ${infusionTimingNote(c.blend)}</div>
+
+    <div class="adult-disclaimer">
+      Estimate only. Potency, decarb, mixing, and portion size can vary. Use an accurate scale, label clearly, follow local laws, and keep away from children, pets, and anyone who should not consume it. You are responsible for your own use.
+    </div>
+  `;
+}
+
+function getSelectedAddIns(){
+  const groups = {};
+  document.querySelectorAll(".addin-check:checked").forEach(chk=>{
+    const group = chk.dataset.group || "Add-ins";
+    const label = chk.dataset.label || chk.value || "Selected item";
+    if(!groups[group]) groups[group] = [];
+    groups[group].push(label);
+  });
+  return groups;
+}
+
+function renderAddInSelections(){
+  const box = document.getElementById("addinSelectedBox");
+  if(!box) return;
+
+  document.querySelectorAll(".addin-option").forEach(label=>{
+    const input = label.querySelector(".addin-check");
+    label.classList.toggle("addin-selected", !!input?.checked);
+  });
+
+  const groups = getSelectedAddIns();
+  const names = Object.keys(groups);
+
+  if(!names.length){
+    box.innerHTML = `
+      <strong>Selected Flavor / Add-ins</strong>
+      <div class="subtle">None selected.</div>
+    `;
+    return;
+  }
+
+  box.innerHTML = `
+    <strong>Selected Flavor / Add-ins</strong>
+    ${names.map(group=>`
+      <div class="subtle" style="margin-top:8px"><strong>${group}:</strong> ${groups[group].join(", ")}</div>
+    `).join("")}
+    ${groups["Wet structural add-ins"] ? `<div class="subtle" style="margin-top:10px">Wet add-ins may affect moisture and texture. Future DoughDial versions should rebalance for these.</div>` : ""}
+  `;
+}
+
+function initAddIns(){
+  document.addEventListener("change", event=>{
+    if(event.target && event.target.classList.contains("addin-check")){
+      renderAddInSelections();
+    }
+  });
+  renderAddInSelections();
+}
+
+
+
+function renderMethodDirections(c){
+  const host = document.getElementById("methodDirections");
+  if(!host) return;
+
+  const dominant = dominantAnchorKey(c.blend);
+  const anchor = ANCHORS[dominant];
+
+  const hybridNote = Object.values(c.blend).filter(v=>v>.1).length > 1
+    ? `<div class="method-step">
+        <div class="method-num">H</div>
+        <div>
+          <div class="method-title">Hybrid recipe note</div>
+          <div class="method-text">This is a blended direction. Use the dominant method, then watch texture and doneness.</div>
+        </div>
+      </div>`
+    : "";
+
+  const adultStep = state.adultOpen
+    ? `<div class="method-step method-adult">
+        <div class="method-num">A</div>
+        <div>
+          <div class="method-title">Adult Add-On timing</div>
+          <div class="method-text">Add the weighed decarbed material during the first fat/wet mixing step so it distributes before the recipe is finished.</div>
+        </div>
+      </div>`
+    : "";
+
+  let restNote = "";
+  let finalStep = "Cook or bake using the target below. Watch texture and doneness.";
+
+  if(dominant === "pancake"){
+    restNote = "Let batter rest 3–5 minutes before cooking.";
+    finalStep = "Cook on a lightly greased pan or griddle at about 350–375°F / 175–190°C. Pour portions, cook until bubbles form and the edges look set, then flip.";
+  }else if(dominant === "cookie"){
+    finalStep = "Scoop onto a lined baking sheet. Bake at about 350°F / 175–180°C until the edges are set and barely golden. Let cookies rest briefly before moving.";
+  }else if(dominant === "cake"){
+    finalStep = "Pour or spread into the prepared pan. Bake at about 350°F / 175–180°C until the top springs back and a tester shows a few moist crumbs.";
+  }else if(dominant === "quickBread"){
+    finalStep = "Spoon into muffins or a loaf pan. Bake muffins around 375°F / 190°C or mini loaves around 350°F / 175°C until set. Avoid overmixing so it stays tender.";
+  }else if(dominant === "loafBread"){
+    finalStep = "Shape or spread into the pan. Bake around 400°F / 200°C until golden and cooked through. This is no-yeast: no proofing, rising, or kneading.";
+  }
+
+  const extraNotes = anchor.notes
+    .filter(n => !restNote || n !== restNote)
+    .map(n=>`<li>${n}</li>`)
+    .join("");
+
+  host.innerHTML = `
+    <div class="result-box">
+      <div class="subtle">Expected texture</div>
+      <div class="result-big">${anchor.type}</div>
+    </div>
+
+    <div class="method-steps">
+      <div class="method-step">
+        <div class="method-num">1</div>
+        <div>
+          <div class="method-title">Mix sugar and fat first.</div>
+          <div class="method-text">Cream or stir the sugar with the butter, oil, or chosen fat until combined.</div>
+        </div>
+      </div>
+
+      ${adultStep}
+
+      <div class="method-step">
+        <div class="method-num">2</div>
+        <div>
+          <div class="method-title">Add egg.</div>
+          <div class="method-text">Mix in the egg or beaten egg amount until the mixture looks even.</div>
+        </div>
+      </div>
+
+      <div class="method-step">
+        <div class="method-num">3</div>
+        <div>
+          <div class="method-title">Add salt, vanilla, and liquid.</div>
+          <div class="method-text">Stir in salt, vanilla/flavoring, and liquid or wet ingredients before the flour goes in.</div>
+        </div>
+      </div>
+
+      <div class="method-step">
+        <div class="method-num">4</div>
+        <div>
+          <div class="method-title">Add flour and leavening last.</div>
+          <div class="method-text">Add flour and baking powder/soda last. Mix gently until just combined. Do not overmix.</div>
+        </div>
+      </div>
+
+      ${restNote ? `<div class="method-step">
+        <div class="method-num">R</div>
+        <div>
+          <div class="method-title">Rest before cooking.</div>
+          <div class="method-text">${restNote}</div>
+        </div>
+      </div>` : ""}
+
+      <div class="method-step">
+        <div class="method-num">5</div>
+        <div>
+          <div class="method-title">Cook or bake.</div>
+          <div class="method-text">${finalStep}</div>
+        </div>
+      </div>
+
+      ${hybridNote}
+    </div>
+
+    <ul class="guidance-list">
+      ${extraNotes}
+      <li>Yield estimates are approximate. Thick doughs and batters may portion differently than water.</li>
+    </ul>
+  `;
+}
+
+
+function dd37HasActiveBlend(){
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd37PanelByHeading(text){
+  return Array.from(document.querySelectorAll("h2"))
+    .find(h => h.textContent.trim() === text)
+    ?.closest(".panel");
+}
+
+function dd37SetEmptyPanel(panel, title, message){
+  if(!panel) return;
+  let note = panel.querySelector(".dd37-empty-note");
+  if(!note){
+    note = document.createElement("div");
+    note.className = "dd37-empty-note";
+    panel.appendChild(note);
+  }
+  note.innerHTML = `<strong>${title}</strong><div>${message}</div>`;
+  panel.classList.add("dd37-empty-panel");
+}
+
+function dd37ClearEmptyPanels(){
+  document.querySelectorAll(".dd37-empty-panel").forEach(panel=>{
+    panel.classList.remove("dd37-empty-panel");
+  });
+}
+
+function dd37RenderEmptyBlendState(){
+  dd37SetEmptyPanel(
+    dd37PanelByHeading("Actual Recipe Blend"),
+    "No recipe blend selected",
+    "Choose a preset or move a recipe dial to generate a recipe."
+  );
+
+  dd37SetEmptyPanel(
+    document.querySelector(".recipe-card"),
+    "No recipe selected",
+    "Choose Pancake, Cake, Quick Bread, Cookie, Bread / Loaf, or a blended preset before using the recipe output."
+  );
+
+  dd37SetEmptyPanel(
+    document.getElementById("methodDirectionsPanel"),
+    "Directions paused",
+    "Directions will appear after a recipe blend is selected."
+  );
+
+  const yieldResult = document.getElementById("yieldResult");
+  if(yieldResult) yieldResult.textContent = "No recipe blend selected";
+
+  const yieldNote = document.getElementById("yieldNote");
+  if(yieldNote) yieldNote.textContent = "Choose a preset or move a dial before estimating yield.";
+
+  const adultSummary = document.getElementById("adultRecipeSummary");
+  if(adultSummary){
+    adultSummary.innerHTML = `
+      <strong>Current Classic recipe</strong>
+      <div class="subtle">No recipe blend selected yet.</div>
+    `;
+  }
+
+  const adultDose = document.getElementById("adultDoseResult");
+  if(adultDose){
+    adultDose.innerHTML = `
+      <strong>Adult dose estimate</strong>
+      <div class="subtle">Choose a Classic recipe blend before calculating adult dose.</div>
+    `;
+  }
+
+  const adultCallout = document.getElementById("adultRecipeCallout");
+  if(adultCallout){
+    adultCallout.classList.remove("active");
+    adultCallout.innerHTML = "";
+  }
+}
+
+function render(){
+  if(!dd37HasActiveBlend()){
+    dd37RenderEmptyBlendState();
+    return;
+  }
+
+  dd37ClearEmptyPanels();
+  renderActiveBlend();
+}
+
+
+function renderActiveBlend(){
+  state.flourG = Number(document.getElementById("flourG").value)||120;
+  const c = calc();
+  renderActualBlend(c.blend);
+  renderRecipeTitle(c.blend);
+  renderIngredients(c.recipe);
+  renderYield(c.mass, c.portion, c.pieces);
+  renderGuidance(c.blend, c.recipe);
+  renderMethodDirections(c);
+  renderAdultSummary(c);
+  renderAdultDose(c);
+  renderAdultRecipeCallout(c);
+}
+
+function normalizeVisibleDials(){
+  const blend = normalizeBlend(state.dials);
+  DIAL_ORDER.forEach(k => state.dials[k] = Math.round(blend[k]*100));
+  const total = DIAL_ORDER.reduce((s,k)=>s+state.dials[k],0);
+  if(total !== 100){
+    const top = DIAL_ORDER.map(k=>[k,state.dials[k]]).sort((a,b)=>b[1]-a[1])[0][0];
+    state.dials[top] += 100-total;
+  }
+  
+renderDials();
+  render();
+}
+
+function copyRecipe(){
+  const c = calc();
+  const dominant = dominantAnchorKey(c.blend);
+  const anchor = ANCHORS[dominant];
+  const lines = [];
+
+  lines.push(`${dominantLabel(c.blend)}`);
+  lines.push(`${VERSION}`);
+  lines.push("");
+
+  lines.push("Actual Recipe Blend");
+  const copyBlendLabels = {
+    pancake:"Pancake",
+    cake:"Cake",
+    quickBread:"Quick Bread",
+    cookie:"Cookie",
+    loafBread:"Bread / Loaf"
+  };
+  DIAL_ORDER.forEach(k=>{
+    const pct = Number(c.blend[k] || 0) * 100;
+    if(pct > 0){
+      lines.push(`- ${copyBlendLabels[k] || k}: ${round(pct,1)}%`);
+    }
+  });
+  lines.push("");
+  lines.push("Ingredients");
+  lines.push(`Sugar: ${grams(c.recipe.sugarG)} / ${sugarKitchenFriendly(c.recipe.sugarG)}`);
+  lines.push(`Fat: ${grams(c.recipe.fatG)} / ${fatKitchenFriendly(c.recipe.fatG)}`);
+  lines.push(`Egg: ${grams(c.recipe.eggsG)} / ${eggKitchenFriendly(c.recipe.eggsG)}`);
+  lines.push(`Salt: ${grams(c.recipe.saltG)} / ${saltKitchenFriendly(c.recipe.saltG)}`);
+  lines.push(`Vanilla: ${c.recipe.vanillaG > 0 ? grams(c.recipe.vanillaG) : "optional"}`);
+  lines.push(`Liquid: ${ml(c.recipe.liquidG)} / ${liquidKitchenFriendly(c.recipe.liquidG)}`);
+  lines.push(`Flour: ${grams(c.recipe.flourG)} / ${flourKitchenFriendly(c.recipe.flourG)}`);
+  lines.push(`Leavening: ${grams(c.recipe.leaveningG)} / ${leaveningKitchenFriendly(c.recipe.leaveningG)}`);
+  lines.push("");
+  lines.push(`Yield: ≈ ${Math.max(1, Math.floor(c.pieces))}–${Math.max(1, Math.ceil(c.pieces))} pieces using ${c.portion.label}.`);
+
+  const selected = getSelectedAddIns();
+  const selectedGroups = Object.keys(selected);
+  if(selectedGroups.length){
+    lines.push("");
+    lines.push("Selected Flavor / Add-ins");
+    selectedGroups.forEach(group=>{
+      lines.push(`${group}: ${selected[group].join(", ")}`);
+    });
+    if(selected["Wet structural add-ins"]){
+      lines.push("Note: wet structural add-ins may affect moisture and texture. This version does not rebalance for those yet.");
+    }
+  }
+
+  if(state.adultOpen){
+    const targetMg = Math.max(1, Number(document.getElementById("targetMg")?.value) || 10);
+    const adults = Math.max(1, Number(document.getElementById("adultCount")?.value) || 1);
+    const piecesPerAdult = Math.max(0.25, Number(document.getElementById("piecesPerAdult")?.value) || 1);
+    const potencyPct = Math.max(0.1, Number(document.getElementById("potencyPct")?.value) || 20);
+    const recipePieces = Math.max(1, Math.round(c.pieces));
+    const mgPerGram = potencyPct * 10;
+    const totalRecipeThcMg = targetMg * recipePieces;
+    const gramsToAdd = totalRecipeThcMg / mgPerGram;
+    const totalPerAdultMg = targetMg * piecesPerAdult;
+    const perAdultBand = doseBand(totalPerAdultMg);
+
+    lines.push("");
+    lines.push("Adult Add-On");
+    lines.push(`Add: ≈ ${round(gramsToAdd,2)} g decarbed cannabis / decarbed material to the whole recipe.`);
+    lines.push(`Total THC in full recipe: ≈ ${round(totalRecipeThcMg,1)} mg`);
+    lines.push(`Estimated THC per recipe piece: ≈ ${round(targetMg,1)} mg`);
+    lines.push(`Adult plan: ${adults} adult(s) × ${round(piecesPerAdult,2)} piece(s) each = ≈ ${round(totalPerAdultMg,1)} mg per adult (${perAdultBand.label}).`);
+    lines.push(`Timing: ${infusionTimingNote(c.blend)}`);
+    lines.push("Safety: estimate only. Potency, decarb, mixing, and portion size can vary. Label clearly, follow local laws, and keep away from children and pets.");
+  }
+
+  lines.push("");
+  lines.push("Directions");
+  lines.push("1. Mix sugar and fat first. Cream or stir the sugar with the butter, oil, or chosen fat until combined.");
+  if(state.adultOpen){
+    lines.push("Adult timing: add the weighed decarbed material during the first fat/wet mixing step so it distributes before the recipe is finished.");
+  }
+  lines.push("2. Add egg. Mix in the egg or beaten egg amount until the mixture looks even.");
+  lines.push("3. Add salt, vanilla, and liquid. Stir in salt, vanilla/flavoring, and liquid or wet ingredients before the flour goes in.");
+  lines.push("4. Add flour and leavening last. Mix gently until just combined. Do not overmix.");
+
+  if(dominant === "pancake"){
+    lines.push("Rest: let batter rest 3–5 minutes before cooking.");
+    lines.push("5. Cook on a lightly greased pan or griddle at about 350–375°F / 175–190°C. Pour portions, cook until bubbles form and the edges look set, then flip.");
+  }else if(dominant === "cookie"){
+    lines.push("5. Scoop onto a lined baking sheet. Bake at about 350°F / 175–180°C until the edges are set and barely golden. Let cookies rest briefly before moving.");
+  }else if(dominant === "cake"){
+    lines.push("5. Pour or spread into the prepared pan. Bake at about 350°F / 175–180°C until the top springs back and a tester shows a few moist crumbs.");
+  }else if(dominant === "quickBread"){
+    lines.push("5. Spoon into muffins or a loaf pan. Bake muffins around 375°F / 190°C or mini loaves around 350°F / 175°C until set. Avoid overmixing so it stays tender.");
+  }else if(dominant === "loafBread"){
+    lines.push("5. Shape or spread into the pan. Bake around 400°F / 200°C until golden and cooked through. This is no-yeast: no proofing, rising, or kneading.");
+  }else{
+    lines.push(`5. Cook or bake: ${anchor.method}`);
+  }
+
+  lines.push("");
+  lines.push("Notes");
+  lines.push(`Expected texture: ${anchor.type}`);
+  lines.push("Yield estimates are approximate. Thick doughs and batters may portion differently than water.");
+
+  const recipeText = lines.join("\n");
+  navigator.clipboard?.writeText(recipeText);
+  return recipeText;
+}
+
+document.getElementById("flourG").addEventListener("input", render);
+document.getElementById("normalizeBtn").addEventListener("click", normalizeVisibleDials);
+document.getElementById("zeroBtn").addEventListener("click", ()=>{
+  state.dials = {pancake:0,cookie:0,cake:0,quickBread:0,loafBread:0};
+  
+renderDials();
+  render();
+});
+const copyBtn = document.getElementById("copyBtn");
+if(copyBtn){
+  copyBtn.addEventListener("click", copyRecipe);
+}
+
+document.getElementById("openAdultBtn").addEventListener("click", ()=>{
+  state.adultOpen = true;
+  document.getElementById("adultClosed").style.display = "none";
+  document.getElementById("adultPanel").classList.add("active");
+  document.body.classList.add("mode-adult");
+  document.getElementById("adultTicker").classList.add("active");
+  render();
+});
+
+document.getElementById("closeAdultBtn").addEventListener("click", ()=>{
+  state.adultOpen = false;
+  document.getElementById("adultClosed").style.display = "flex";
+  document.getElementById("adultPanel").classList.remove("active");
+  document.body.classList.remove("mode-adult");
+  document.getElementById("adultTicker").classList.remove("active");
+  render();
+});
+
+document.getElementById("openDecarbBtn").addEventListener("click", ()=>{
+  document.getElementById("mainApp").classList.add("hidden");
+  document.getElementById("decarbScreen").classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+document.getElementById("backFromDecarb").addEventListener("click", ()=>{
+  document.getElementById("mainApp").classList.remove("hidden");
+  document.getElementById("decarbScreen").classList.remove("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+
+
+let activeDecarbTimer = null;
+let decarbCompleteTimer = null;
+let decarbBeepTimer = null;
+let decarbAudioCtx = null;
+
+function formatTimer(seconds){
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${String(s).padStart(2,"0")}`;
+}
+
+function decarbBeepOnce(){
+  try{
+    decarbAudioCtx = decarbAudioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if(decarbAudioCtx.state === "suspended") decarbAudioCtx.resume();
+    const osc = decarbAudioCtx.createOscillator();
+    const gain = decarbAudioCtx.createGain();
+    osc.frequency.value = 880;
+    gain.gain.value = 0.14;
+    osc.connect(gain);
+    gain.connect(decarbAudioCtx.destination);
+    osc.start();
+    osc.stop(decarbAudioCtx.currentTime + 0.16);
+  }catch(e){}
+}
+
+function stopDecarbBeeping(){
+  if(decarbBeepTimer){
+    clearInterval(decarbBeepTimer);
+    decarbBeepTimer = null;
+  }
+}
+
+function startDecarbBeeping(){
+  stopDecarbBeeping();
+  decarbBeepOnce();
+  decarbBeepTimer = setInterval(decarbBeepOnce, 1300);
+}
+
+function stopActiveDecarbTimer(){
+  if(activeDecarbTimer && activeDecarbTimer.interval){
+    clearInterval(activeDecarbTimer.interval);
+  }
+  if(activeDecarbTimer && activeDecarbTimer.row){
+    activeDecarbTimer.row.querySelector(".timer-stop")?.classList.remove("active");
+  }
+  activeDecarbTimer = null;
+  stopDecarbBeeping();
+}
+
+function startDecarbTimer(button){
+  stopActiveDecarbTimer();
+
+  const row = button.closest(".check-item");
+  if(!row) return;
+
+  const secondsTotal = Math.max(1, Number(button.dataset.seconds) || 600);
+  let remaining = secondsTotal;
+  const display = row.querySelector(".timer-display");
+  const stopButton = row.querySelector(".timer-stop");
+  const alert = row.querySelector(".timer-alert");
+
+  row.classList.remove("timer-done");
+  alert?.classList.remove("active");
+  if(display) display.textContent = formatTimer(remaining);
+  stopButton?.classList.add("active");
+
+  activeDecarbTimer = {
+    row,
+    interval:setInterval(()=>{
+      remaining -= 1;
+      if(display) display.textContent = formatTimer(Math.max(0, remaining));
+
+      if(remaining <= 0){
+        clearInterval(activeDecarbTimer.interval);
+        activeDecarbTimer.interval = null;
+        row.classList.add("timer-done");
+        alert?.classList.add("active");
+        stopButton?.classList.add("active");
+        startDecarbBeeping();
+      }
+    },1000)
+  };
+}
+
+function updateDecarbChecklist(){
+  const checks = Array.from(document.querySelectorAll(".decarb-check"));
+  if(!checks.length) return;
+
+  checks.forEach(chk=>{
+    const row = chk.closest(".check-item");
+    row?.classList.toggle("completed", chk.checked);
+
+    if(chk.checked && activeDecarbTimer && activeDecarbTimer.row === row){
+      stopActiveDecarbTimer();
+      row.classList.remove("timer-done");
+      row.querySelector(".timer-alert")?.classList.remove("active");
+    }
+  });
+
+  const complete = checks.every(chk=>chk.checked);
+  const card = document.getElementById("decarbComplete");
+
+  if(decarbCompleteTimer){
+    clearTimeout(decarbCompleteTimer);
+    decarbCompleteTimer = null;
+  }
+
+  if(!complete){
+    card?.classList.remove("active");
+    return;
+  }
+
+  decarbCompleteTimer = setTimeout(()=>{
+    card?.classList.add("active");
+  },2000);
+}
+
+function clearDecarbChecks(){
+  document.querySelectorAll(".decarb-check").forEach(chk=>chk.checked = false);
+
+  if(decarbCompleteTimer){
+    clearTimeout(decarbCompleteTimer);
+    decarbCompleteTimer = null;
+  }
+
+  document.getElementById("decarbComplete")?.classList.remove("active");
+
+  document.querySelectorAll(".check-item").forEach(row=>{
+    row.classList.remove("completed");
+    row.classList.remove("timer-done");
+    row.querySelector(".timer-alert")?.classList.remove("active");
+  });
+
+  updateDecarbChecklist();
+}
+
+function initDecarbWorkflow(){
+  if(window.__doughDialDecarbWorkflowBound){
+    updateDecarbChecklist();
+    return;
+  }
+  window.__doughDialDecarbWorkflowBound = true;
+
+  document.addEventListener("change", event=>{
+    if(event.target && event.target.classList.contains("decarb-check")){
+      updateDecarbChecklist();
+    }
+  });
+
+  document.addEventListener("click", event=>{
+    const timerBtn = event.target.closest(".timer-btn");
+    if(timerBtn){
+      startDecarbTimer(timerBtn);
+      return;
+    }
+
+    const stopBtn = event.target.closest(".timer-stop");
+    if(stopBtn){
+      const row = stopBtn.closest(".check-item");
+      stopActiveDecarbTimer();
+      row?.classList.remove("timer-done");
+      row?.querySelector(".timer-alert")?.classList.remove("active");
+      return;
+    }
+
+    if(event.target.closest("#clearDecarbChecks")){
+      clearDecarbChecks();
+      return;
+    }
+  });
+
+  updateDecarbChecklist();
+}
+
+initDecarbWorkflow();
+
+
+renderDials();
+renderPresets();
+renderPortions();
+render();
+
+// v30: Clear Add-ins button behavior.
+function bindClearAddInsV30(){
+  const btn = document.getElementById("clearAddInsBtn");
+  if(!btn || btn.dataset.boundV30) return;
+  btn.dataset.boundV30 = "1";
+
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".addin-check").forEach(chk=>chk.checked = false);
+    if(typeof renderAddInSelections === "function") renderAddInSelections();
+  });
+}
+
+bindClearAddInsV30();
+if(typeof renderAddInSelections === "function") renderAddInSelections();
+
+
+// v32: stable add-in selected summary wiring.
+function dd32GetSelectedAddIns(){
+  const groups = {};
+  document.querySelectorAll(".addin-check").forEach(chk=>{
+    if(!chk.checked) return;
+    const group = chk.dataset.group || "Add-ins";
+    const label = chk.dataset.label || chk.value || "Selected item";
+    if(!groups[group]) groups[group] = [];
+    groups[group].push(label);
+  });
+  return groups;
+}
+
+function dd32RenderAddIns(){
+  document.querySelectorAll(".addin-option").forEach(option=>{
+    const input = option.querySelector(".addin-check");
+    option.classList.toggle("addin-selected", !!input && input.checked);
+  });
+
+  const box = document.getElementById("addinSelectedBox");
+  if(!box) return;
+
+  const groups = dd32GetSelectedAddIns();
+  const names = Object.keys(groups);
+
+  if(!names.length){
+    box.innerHTML = `
+      <strong>Selected Flavor / Add-ins</strong>
+      <div class="subtle">None selected.</div>
+    `;
+    return;
+  }
+
+  box.innerHTML = `
+    <strong>Selected Flavor / Add-ins</strong>
+    ${names.map(group=>`
+      <div class="subtle" style="margin-top:8px"><strong>${group}:</strong> ${groups[group].join(", ")}</div>
+    `).join("")}
+    ${groups["Wet structural add-ins"] ? `<div class="subtle" style="margin-top:10px">Wet add-ins may affect moisture and texture. Future DoughDial versions should rebalance for these.</div>` : ""}
+  `;
+}
+
+function dd32ClearAddIns(){
+  document.querySelectorAll(".addin-check").forEach(chk=>chk.checked = false);
+  dd32RenderAddIns();
+}
+
+function dd32BindAddIns(){
+  if(window.__dd32AddInsBound){
+    dd32RenderAddIns();
+    return;
+  }
+  window.__dd32AddInsBound = true;
+
+  document.addEventListener("change", event=>{
+    if(event.target && event.target.classList.contains("addin-check")){
+      dd32RenderAddIns();
+    }
+  });
+
+  document.addEventListener("click", event=>{
+    if(event.target.closest("#clearAddInsBtn")){
+      dd32ClearAddIns();
+      return;
+    }
+
+    const option = event.target.closest(".addin-option");
+    if(!option) return;
+
+    const input = option.querySelector(".addin-check");
+    if(!input) return;
+
+    if(event.target !== input){
+      input.checked = !input.checked;
+      input.dispatchEvent(new Event("change", {bubbles:true}));
+    }
+  });
+
+  dd32RenderAddIns();
+}
+
+dd32BindAddIns();
+
+
+// v34: Adult dose fields must recalculate live while typing/editing.
+function bindAdultDoseLiveInputsV34(){
+  if(window.__dd34AdultDoseLiveBound) return;
+  window.__dd34AdultDoseLiveBound = true;
+
+  const adultIds = new Set(["targetMg","adultCount","piecesPerAdult","potencyPct"]);
+
+  function isAdultDoseInput(el){
+    return el && adultIds.has(el.id);
+  }
+
+  function refreshAdultDoseLive(){
+    if(typeof render === "function"){
+      render();
+    }
+  }
+
+  document.addEventListener("input", event=>{
+    if(isAdultDoseInput(event.target)){
+      refreshAdultDoseLive();
+    }
+  });
+
+  document.addEventListener("change", event=>{
+    if(isAdultDoseInput(event.target)){
+      refreshAdultDoseLive();
+    }
+  });
+}
+
+bindAdultDoseLiveInputsV34();
+
+
+// v38: Normalize button must preserve an empty cleared blend.
+function dd38BindNormalizeEmptyGuard(){
+  if(window.__dd38NormalizeEmptyGuardBound) return;
+  window.__dd38NormalizeEmptyGuardBound = true;
+
+  document.addEventListener("click", event=>{
+    const btn = event.target.closest("#normalizeBtn, [data-action='normalize']");
+    if(!btn) return;
+
+    const hasAny = DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+    if(hasAny) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    DIAL_ORDER.forEach(k=>state.dials[k] = 0);
+    renderDials();
+    render();
+  }, true);
+}
+
+dd38BindNormalizeEmptyGuard();
+
+
+// v02.06.17.26.02: homepage-style mobile nav shell
+function ddShellBindHomepageNav(){
+  const toggle = document.querySelector(".nav-toggle");
+  const mobileNav = document.getElementById("nav-mobile");
+  const header = document.getElementById("header");
+
+  if(toggle && mobileNav && !window.__ddShellHomepageNavBound){
+    window.__ddShellHomepageNavBound = true;
+
+    toggle.addEventListener("click", ()=>{
+      const open = toggle.classList.toggle("open");
+      mobileNav.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+
+    mobileNav.querySelectorAll("a").forEach(link=>{
+      link.addEventListener("click", ()=>{
+        toggle.classList.remove("open");
+        mobileNav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  if(header && !window.__ddShellHeaderScrollBound){
+    window.__ddShellHeaderScrollBound = true;
+    const updateHeader = ()=>header.classList.toggle("header--scrolled", window.scrollY > 8);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, {passive:true});
+  }
+}
+
+ddShellBindHomepageNav();
+
+
+// v02.06.17.26.03: remove stale empty-state notes when a real blend returns
+function dd06172603HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172603FindPanelByHeading(text){
+  const wanted = String(text).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172603RemoveEmptyNotes(){
+  document.querySelectorAll(".dd37-empty-note").forEach(el=>el.remove());
+  document.querySelectorAll(".dd37-empty-panel").forEach(el=>el.classList.remove("dd37-empty-panel"));
+}
+
+function dd06172603SyncAddinsPanel(){
+  const panel = dd06172603FindPanelByHeading("Flavor / Add-ins");
+  if(!panel) return;
+
+  const active = dd06172603HasActiveBlend();
+  panel.classList.toggle("dd06172603-collapsed", !active);
+}
+
+function dd06172603SyncActiveBlendState(){
+  const active = dd06172603HasActiveBlend();
+
+  if(active){
+    dd06172603RemoveEmptyNotes();
+  }
+
+  dd06172603SyncAddinsPanel();
+}
+
+if(typeof dd37ClearEmptyPanels === "function" && !window.__dd06172603ClearPatch){
+  window.__dd06172603ClearPatch = true;
+  const oldClearEmptyPanels = dd37ClearEmptyPanels;
+  dd37ClearEmptyPanels = function(){
+    oldClearEmptyPanels();
+    dd06172603RemoveEmptyNotes();
+  };
+}
+
+if(typeof render === "function" && !window.__dd06172603RenderPatch){
+  window.__dd06172603RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172603SyncActiveBlendState();
+  };
+}
+
+document.addEventListener("input", ()=>{
+  window.setTimeout(dd06172603SyncActiveBlendState, 0);
+}, true);
+
+document.addEventListener("click", ()=>{
+  window.setTimeout(dd06172603SyncActiveBlendState, 0);
+}, true);
+
+dd06172603SyncActiveBlendState();
+if(typeof render === "function") render();
+
+
+// v02.06.17.26.04: print recipe workflow
+function dd06172604HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172604EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172604FindPanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172604PanelText(label){
+  const panel = dd06172604FindPanelByHeading(label);
+  if(!panel) return "";
+
+  const clone = panel.cloneNode(true);
+  clone.querySelectorAll("button,input,select,textarea,.btn-row,.dd37-empty-note").forEach(el=>el.remove());
+
+  return clone.innerText
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]+\n/g,"\n")
+    .trim();
+}
+
+function dd06172604RecipeTitle(){
+  try{
+    const c = calc();
+    if(c && typeof dominantLabel === "function") return dominantLabel(c.blend);
+  }catch(e){}
+  return "DoughDial Recipe";
+}
+
+function dd06172604BuildPrintHtml(){
+  const sections = [
+    "Actual Recipe Blend",
+    "Recipe Flow",
+    "Estimated Yield",
+    "Directions",
+    "Flavor / Add-ins"
+  ];
+
+  const activeSections = sections
+    .map(label => ({label, text:dd06172604PanelText(label)}))
+    .filter(section => section.text.length > 0);
+
+  const adultOpen = document.body.classList.contains("mode-adult") || !document.getElementById("adultPanel")?.classList.contains("hidden");
+  const adultText = adultOpen ? dd06172604PanelText("Adult-Infused Add-On") : "";
+
+  const title = dd06172604RecipeTitle();
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${dd06172604EscapeHtml(title)} — DoughDial Print Recipe</title>
+<style>
+  body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111;
+    background:#fff;
+    margin:0;
+    padding:32px;
+    line-height:1.45;
+  }
+  main{
+    max-width:820px;
+    margin:0 auto;
+  }
+  h1{
+    margin:0 0 4px;
+    font-size:30px;
+  }
+  .meta{
+    color:#555;
+    font-size:13px;
+    margin-bottom:22px;
+  }
+  section{
+    border-top:1px solid #ccc;
+    padding-top:16px;
+    margin-top:18px;
+  }
+  h2{
+    font-size:18px;
+    margin:0 0 8px;
+  }
+  pre{
+    white-space:pre-wrap;
+    font-family:inherit;
+    margin:0;
+  }
+  .legal{
+    color:#666;
+    font-size:12px;
+    margin-top:28px;
+    border-top:1px solid #ddd;
+    padding-top:12px;
+  }
+  @media print{
+    body{padding:18mm}
+    button{display:none}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>${dd06172604EscapeHtml(title)}</h1>
+  <div class="meta">${dd06172604EscapeHtml(VERSION)}</div>
+
+  ${activeSections.map(section => `
+  <section>
+    <h2>${dd06172604EscapeHtml(section.label)}</h2>
+    <pre>${dd06172604EscapeHtml(section.text)}</pre>
+  </section>`).join("")}
+
+  ${adultText ? `
+  <section>
+    <h2>Adult Add-On</h2>
+    <pre>${dd06172604EscapeHtml(adultText)}</pre>
+  </section>` : ""}
+
+  <div class="legal">
+    DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC.
+    Yield, timing, and dose estimates are approximate.
+  </div>
+</main>
+<script>
+  window.addEventListener("load", ()=>window.print());
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172604PrintRecipe(){
+  if(!dd06172604HasActiveBlend()){
+    alert("Choose a recipe blend before printing.");
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "noopener,noreferrer,width=900,height=1000");
+  if(!printWindow){
+    alert("The print window was blocked. Allow pop-ups for this local page and try again.");
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172604BuildPrintHtml());
+  printWindow.document.close();
+}
+
+function dd06172604AddPrintButton(){
+  if(document.getElementById("printRecipeBtn")) return;
+
+  const copyBtn = document.getElementById("copyRecipeBtn");
+  if(!copyBtn) return;
+
+  const btn = document.createElement("button");
+  btn.id = "printRecipeBtn";
+  btn.type = "button";
+  btn.textContent = "Print Recipe";
+  btn.addEventListener("click", dd06172604PrintRecipe);
+
+  copyBtn.insertAdjacentElement("afterend", btn);
+}
+
+dd06172604AddPrintButton();
+
+
+// v02.06.17.26.05: reliable Ready to Cook print button + remove dead Classic button
+function dd06172605HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172605EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172605FindPanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172605PanelText(label){
+  const panel = dd06172605FindPanelByHeading(label);
+  if(!panel) return "";
+
+  const clone = panel.cloneNode(true);
+  clone.querySelectorAll("button,input,select,textarea,.btn-row,.dd37-empty-note").forEach(el=>el.remove());
+
+  return clone.innerText
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]+\n/g,"\n")
+    .trim();
+}
+
+function dd06172605RecipeTitle(){
+  try{
+    const c = calc();
+    if(c && typeof dominantLabel === "function") return dominantLabel(c.blend);
+  }catch(e){}
+  return "DoughDial Recipe";
+}
+
+function dd06172605BuildPrintHtml(){
+  const sections = [
+    "Actual Recipe Blend",
+    "Recipe Flow",
+    "Estimated Yield",
+    "Directions",
+    "Flavor / Add-ins"
+  ];
+
+  const activeSections = sections
+    .map(label => ({label, text:dd06172605PanelText(label)}))
+    .filter(section => section.text.length > 0);
+
+  const adultPanel = document.getElementById("adultPanel");
+  const adultOpen = document.body.classList.contains("mode-adult") || (adultPanel && !adultPanel.classList.contains("hidden"));
+  const adultText = adultOpen ? dd06172605PanelText("Adult-Infused Add-On") : "";
+
+  const title = dd06172605RecipeTitle();
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${dd06172605EscapeHtml(title)} — DoughDial Print Recipe</title>
+<style>
+  body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111;
+    background:#fff;
+    margin:0;
+    padding:32px;
+    line-height:1.45;
+  }
+  main{
+    max-width:820px;
+    margin:0 auto;
+  }
+  h1{
+    margin:0 0 4px;
+    font-size:30px;
+  }
+  .meta{
+    color:#555;
+    font-size:13px;
+    margin-bottom:22px;
+  }
+  section{
+    border-top:1px solid #ccc;
+    padding-top:16px;
+    margin-top:18px;
+  }
+  h2{
+    font-size:18px;
+    margin:0 0 8px;
+  }
+  pre{
+    white-space:pre-wrap;
+    font-family:inherit;
+    margin:0;
+  }
+  .legal{
+    color:#666;
+    font-size:12px;
+    margin-top:28px;
+    border-top:1px solid #ddd;
+    padding-top:12px;
+  }
+  @media print{
+    body{padding:18mm}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>${dd06172605EscapeHtml(title)}</h1>
+  <div class="meta">${dd06172605EscapeHtml(VERSION)}</div>
+
+  ${activeSections.map(section => `
+  <section>
+    <h2>${dd06172605EscapeHtml(section.label)}</h2>
+    <pre>${dd06172605EscapeHtml(section.text)}</pre>
+  </section>`).join("")}
+
+  ${adultText ? `
+  <section>
+    <h2>Adult Add-On</h2>
+    <pre>${dd06172605EscapeHtml(adultText)}</pre>
+  </section>` : ""}
+
+  <div class="legal">
+    DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC.
+    Yield, timing, and dose estimates are approximate.
+  </div>
+</main>
+<script>
+  window.addEventListener("load", ()=>window.print());
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172605PrintRecipe(){
+  if(!dd06172605HasActiveBlend()){
+    alert("Choose a recipe blend before printing.");
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "width=900,height=1000");
+  if(!printWindow){
+    alert("The print window was blocked. Allow pop-ups for this local page and try again.");
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172605BuildPrintHtml());
+  printWindow.document.close();
+}
+
+function dd06172605CleanReadyActions(){
+  const readyPanel = dd06172605FindPanelByHeading("Ready to Cook");
+  if(!readyPanel) return;
+
+  readyPanel.querySelectorAll("button,a").forEach(el=>{
+    const text = el.textContent.trim().toLowerCase();
+
+    if(text === "make classic recipe" || text === "main classic recipe"){
+      el.classList.add("dd06172605-hidden-action");
+      el.setAttribute("aria-hidden", "true");
+      el.setAttribute("tabindex", "-1");
+    }
+  });
+
+  if(document.getElementById("dd06172605PrintRecipeBtn")) return;
+
+  const btnRow = readyPanel.querySelector(".btn-row") || readyPanel;
+  const printBtn = document.createElement("button");
+  printBtn.id = "dd06172605PrintRecipeBtn";
+  printBtn.type = "button";
+  printBtn.textContent = "Print Recipe";
+  printBtn.addEventListener("click", dd06172605PrintRecipe);
+
+  const copyButton = Array.from(readyPanel.querySelectorAll("button,a")).find(el =>
+    el.textContent.trim().toLowerCase().includes("copy")
+  );
+
+  if(copyButton){
+    copyButton.insertAdjacentElement("afterend", printBtn);
+  }else{
+    btnRow.appendChild(printBtn);
+  }
+}
+
+dd06172605CleanReadyActions();
+
+document.addEventListener("click", ()=>{
+  window.setTimeout(dd06172605CleanReadyActions, 0);
+}, true);
+
+document.addEventListener("input", ()=>{
+  window.setTimeout(dd06172605CleanReadyActions, 0);
+}, true);
+
+if(typeof render === "function" && !window.__dd06172605RenderPatch){
+  window.__dd06172605RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172605CleanReadyActions();
+  };
+}
+
+
+// v02.06.17.26.08: reliable Ready action feedback and print binding
+function dd06172608HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172608SetStatus(message, kind){
+  const status = document.getElementById("readyActionStatus");
+  if(!status) return;
+
+  status.textContent = message || "";
+  status.classList.remove("ready-ok", "ready-warn");
+  if(kind) status.classList.add(kind);
+
+  if(message){
+    window.clearTimeout(window.__dd06172608StatusTimer);
+    window.__dd06172608StatusTimer = window.setTimeout(()=>{
+      status.textContent = "";
+      status.classList.remove("ready-ok", "ready-warn");
+    }, 3500);
+  }
+}
+
+function dd06172608EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172608FindPanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172608PanelText(label){
+  const panel = dd06172608FindPanelByHeading(label);
+  if(!panel) return "";
+
+  const clone = panel.cloneNode(true);
+  clone.querySelectorAll("button,input,select,textarea,.btn-row,.dd37-empty-note,.ticker,#readyActionStatus").forEach(el=>el.remove());
+
+  return clone.innerText
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]+\n/g,"\n")
+    .trim();
+}
+
+function dd06172608RecipeTitle(){
+  try{
+    const c = calc();
+    if(c && typeof dominantLabel === "function") return dominantLabel(c.blend);
+  }catch(e){}
+  return "DoughDial Recipe";
+}
+
+function dd06172608BuildPrintHtml(){
+  const sections = [
+    "Actual Recipe Blend",
+    "Recipe Flow",
+    "Estimated Yield",
+    "Directions",
+    "Flavor / Add-ins"
+  ];
+
+  const activeSections = sections
+    .map(label => ({label, text:dd06172608PanelText(label)}))
+    .filter(section => section.text.length > 0);
+
+  const adultText = state && state.adultOpen ? dd06172608PanelText("Adult Add-On Workflow") : "";
+  const title = dd06172608RecipeTitle();
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${dd06172608EscapeHtml(title)} — DoughDial Print Recipe</title>
+<style>
+  body{font-family:Arial, Helvetica, sans-serif;color:#111;background:#fff;margin:0;padding:32px;line-height:1.45}
+  main{max-width:820px;margin:0 auto}
+  h1{margin:0 0 4px;font-size:30px}
+  .meta{color:#555;font-size:13px;margin-bottom:22px}
+  section{border-top:1px solid #ccc;padding-top:16px;margin-top:18px}
+  h2{font-size:18px;margin:0 0 8px}
+  pre{white-space:pre-wrap;font-family:inherit;margin:0}
+  .legal{color:#666;font-size:12px;margin-top:28px;border-top:1px solid #ddd;padding-top:12px}
+  @media print{body{padding:18mm}}
+</style>
+</head>
+<body>
+<main>
+  <h1>${dd06172608EscapeHtml(title)}</h1>
+  <div class="meta">${dd06172608EscapeHtml(VERSION)}</div>
+
+  ${activeSections.map(section => `
+  <section>
+    <h2>${dd06172608EscapeHtml(section.label)}</h2>
+    <pre>${dd06172608EscapeHtml(section.text)}</pre>
+  </section>`).join("")}
+
+  ${adultText ? `
+  <section>
+    <h2>Adult Add-On</h2>
+    <pre>${dd06172608EscapeHtml(adultText)}</pre>
+  </section>` : ""}
+
+  <div class="legal">
+    DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC.
+    Yield, timing, and dose estimates are approximate.
+  </div>
+</main>
+<script>
+  window.addEventListener("load", ()=>setTimeout(()=>window.print(), 250));
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172608PrintRecipe(){
+  if(!dd06172608HasActiveBlend()){
+    dd06172608SetStatus("Choose a recipe blend before printing.", "ready-warn");
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "width=900,height=1000");
+  if(!printWindow){
+    dd06172608SetStatus("Print window was blocked. Allow pop-ups and try again.", "ready-warn");
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172608BuildPrintHtml());
+  printWindow.document.close();
+
+  dd06172608SetStatus("Print recipe opened.", "ready-ok");
+}
+
+function dd06172608CopyRecipe(){
+  if(!dd06172608HasActiveBlend()){
+    dd06172608SetStatus("Choose a recipe blend before copying.", "ready-warn");
+    return;
+  }
+
+  try{
+    copyRecipe();
+    dd06172608SetStatus("Recipe copied.", "ready-ok");
+  }catch(e){
+    dd06172608SetStatus("Copy failed. Try the browser clipboard permission again.", "ready-warn");
+  }
+}
+
+function dd06172608BindReadyActions(){
+  const copyBtn = document.getElementById("readyCopyBtn");
+  const printBtn = document.getElementById("readyPrintBtn");
+
+  if(copyBtn && !copyBtn.dataset.dd06172608Bound){
+    copyBtn.dataset.dd06172608Bound = "1";
+    copyBtn.addEventListener("click", dd06172608CopyRecipe);
+  }
+
+  if(printBtn && !printBtn.dataset.dd06172608Bound){
+    printBtn.dataset.dd06172608Bound = "1";
+    printBtn.addEventListener("click", dd06172608PrintRecipe);
+  }
+}
+
+dd06172608BindReadyActions();
+
+if(typeof render === "function" && !window.__dd06172608RenderPatch){
+  window.__dd06172608RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172608BindReadyActions();
+  };
+}
+
+
+// v02.06.17.26.09: compact print layout
+function dd06172609EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172609HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172609CleanTextFromElement(el){
+  if(!el) return "";
+
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll("button,input,select,textarea,.btn-row,.dd37-empty-note,.ticker,#readyActionStatus").forEach(node=>node.remove());
+
+  return clone.innerText
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]+\n/g,"\n")
+    .trim();
+}
+
+function dd06172609PanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172609TextBlock(label){
+  const panel = dd06172609PanelByHeading(label);
+  return dd06172609CleanTextFromElement(panel);
+}
+
+function dd06172609AddinText(){
+  const box = document.getElementById("addinSelectedBox");
+  const text = dd06172609CleanTextFromElement(box);
+  if(!text || /none selected/i.test(text)) return "";
+  return text;
+}
+
+function dd06172609AdultText(){
+  if(!state || !state.adultOpen) return "";
+
+  const parts = [
+    dd06172609CleanTextFromElement(document.getElementById("adultRecipeCallout")),
+    dd06172609CleanTextFromElement(document.getElementById("adultRecipeSummary")),
+    dd06172609CleanTextFromElement(document.getElementById("adultDoseResult"))
+  ].filter(Boolean);
+
+  return [...new Set(parts)].join("\n\n");
+}
+
+function dd06172609RecipeTitle(){
+  try{
+    const c = calc();
+    if(c && typeof dominantLabel === "function") return dominantLabel(c.blend);
+  }catch(e){}
+  return "DoughDial Recipe";
+}
+
+function dd06172609BuildPrintHtml(){
+  const title = dd06172609RecipeTitle();
+
+  const blocks = [
+    ["Blend", dd06172609TextBlock("Actual Recipe Blend")],
+    ["Ingredients", dd06172609TextBlock("Recipe Flow")],
+    ["Yield", dd06172609TextBlock("Estimated Yield")],
+    ["Directions", dd06172609TextBlock("Directions")],
+    ["Selected Add-ins", dd06172609AddinText()],
+    ["Adult Add-On", dd06172609AdultText()]
+  ].filter(([label,text]) => text && text.trim().length > 0);
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${dd06172609EscapeHtml(title)} — DoughDial Print Recipe</title>
+<style>
+  @page{
+    size:letter;
+    margin:.45in;
+  }
+
+  *{
+    box-sizing:border-box;
+  }
+
+  body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111;
+    background:#fff;
+    margin:0;
+    padding:0;
+    font-size:10pt;
+    line-height:1.22;
+  }
+
+  main{
+    max-width:7.55in;
+    margin:0 auto;
+  }
+
+  h1{
+    margin:0;
+    font-size:18pt;
+    line-height:1.05;
+  }
+
+  .meta{
+    color:#555;
+    font-size:8.5pt;
+    margin:3pt 0 8pt;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8pt 12pt;
+    align-items:start;
+  }
+
+  section{
+    break-inside:avoid;
+    page-break-inside:avoid;
+    border-top:1px solid #bbb;
+    padding-top:5pt;
+  }
+
+  section.wide{
+    grid-column:1 / -1;
+  }
+
+  h2{
+    font-size:11pt;
+    margin:0 0 3pt;
+    line-height:1.1;
+  }
+
+  pre{
+    white-space:pre-wrap;
+    font-family:inherit;
+    font-size:9pt;
+    line-height:1.18;
+    margin:0;
+  }
+
+  .legal{
+    color:#666;
+    font-size:7.5pt;
+    margin-top:10pt;
+    border-top:1px solid #ddd;
+    padding-top:5pt;
+  }
+
+  @media print{
+    body{font-size:10pt}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>${dd06172609EscapeHtml(title)}</h1>
+  <div class="meta">${dd06172609EscapeHtml(VERSION)}</div>
+
+  <div class="grid">
+    ${blocks.map(([label,text]) => `
+    <section class="${label === "Directions" || label === "Adult Add-On" ? "wide" : ""}">
+      <h2>${dd06172609EscapeHtml(label)}</h2>
+      <pre>${dd06172609EscapeHtml(text)}</pre>
+    </section>`).join("")}
+  </div>
+
+  <div class="legal">
+    DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC.
+    Yield, timing, and dose estimates are approximate.
+  </div>
+</main>
+<script>
+  window.addEventListener("load", ()=>setTimeout(()=>window.print(), 250));
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172609PrintRecipe(){
+  if(!dd06172609HasActiveBlend()){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Choose a recipe blend before printing.", "ready-warn");
+    }else{
+      alert("Choose a recipe blend before printing.");
+    }
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "width=900,height=1000");
+  if(!printWindow){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Print window was blocked. Allow pop-ups and try again.", "ready-warn");
+    }else{
+      alert("Print window was blocked. Allow pop-ups and try again.");
+    }
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172609BuildPrintHtml());
+  printWindow.document.close();
+
+  if(typeof dd06172608SetStatus === "function"){
+    dd06172608SetStatus("Print recipe opened.", "ready-ok");
+  }
+}
+
+function dd06172609BindPrintButton(){
+  const btn = document.getElementById("readyPrintBtn");
+  if(!btn) return;
+
+  const cleanBtn = btn.cloneNode(true);
+  cleanBtn.dataset.dd06172608Bound = "1";
+  cleanBtn.dataset.dd06172609Bound = "1";
+  cleanBtn.addEventListener("click", dd06172609PrintRecipe);
+
+  btn.replaceWith(cleanBtn);
+}
+
+dd06172609BindPrintButton();
+
+if(typeof render === "function" && !window.__dd06172609RenderPatch){
+  window.__dd06172609RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172609BindPrintButton();
+  };
+}
+
+
+// v02.06.17.26.10: one-page print sheet
+function dd06172610EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172610HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172610CleanTextFromElement(el){
+  if(!el) return "";
+
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll("button,input,select,textarea,.btn-row,.dd37-empty-note,.ticker,#readyActionStatus").forEach(node=>node.remove());
+
+  return clone.innerText
+    .replace(/Recipe flow:.*?opened\./is, "")
+    .replace(/\n{3,}/g,"\n\n")
+    .replace(/[ \t]+\n/g,"\n")
+    .trim();
+}
+
+function dd06172610PanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172610TextBlock(label){
+  return dd06172610CleanTextFromElement(dd06172610PanelByHeading(label));
+}
+
+function dd06172610RecipeTitle(){
+  try{
+    const c = calc();
+    if(c && typeof dominantLabel === "function") return dominantLabel(c.blend);
+  }catch(e){}
+  return "DoughDial Recipe";
+}
+
+function dd06172610BlendText(){
+  const labels = {
+    pancake:"Pancake",
+    cake:"Cake",
+    quickBread:"Quick Bread",
+    cookie:"Cookie",
+    loafBread:"Bread / Loaf"
+  };
+
+  try{
+    const blend = normalizeBlend(state.dials);
+    return DIAL_ORDER
+      .filter(k => Number(blend[k]) > 0)
+      .map(k => `${labels[k] || k}: ${round(Number(blend[k]) * 100, 1)}%`)
+      .join("\n");
+  }catch(e){
+    return dd06172610TextBlock("Actual Recipe Blend");
+  }
+}
+
+function dd06172610AddinText(){
+  const box = document.getElementById("addinSelectedBox");
+  const text = dd06172610CleanTextFromElement(box);
+  if(!text || /none selected/i.test(text)) return "";
+  return text.replace(/^Selected Flavor \/ Add-ins\s*/i, "").trim();
+}
+
+function dd06172610CompactDirections(){
+  const title = dd06172610RecipeTitle().toLowerCase();
+
+  let cookLine = "Cook or bake until set, lightly browned where appropriate, and no raw center remains.";
+
+  if(title.includes("pancake")){
+    cookLine = "Cook on a hot greased skillet or griddle. Flip once when bubbles set and edges look dry.";
+  }else if(title.includes("cookie")){
+    cookLine = "Bake as cookies until edges are set and centers are just done; cool before handling.";
+  }else if(title.includes("cake") || title.includes("cakie") || title.includes("quick bread")){
+    cookLine = "Bake until the center is set and a tester comes out clean or with only a few moist crumbs.";
+  }else if(title.includes("bread") || title.includes("loaf")){
+    cookLine = "Bake as a non-yeast loaf until the center is fully set. No proofing, rising, or kneading.";
+  }
+
+  const lines = [
+    "1. Mix sugar and fat first.",
+    state && state.adultOpen ? "2. Adult Add-On: mix weighed decarbed material into the fat/wet stage." : "",
+    "3. Add egg, salt, vanilla, and liquid.",
+    "4. Add flour and leavening last; mix only until combined.",
+    `5. ${cookLine}`,
+    "6. Let cool or set before serving."
+  ].filter(Boolean);
+
+  return lines.join("\n");
+}
+
+function dd06172610AdultText(){
+  if(!state || !state.adultOpen) return "";
+
+  const parts = [
+    dd06172610CleanTextFromElement(document.getElementById("adultRecipeCallout")),
+    dd06172610CleanTextFromElement(document.getElementById("adultDoseResult"))
+  ].filter(Boolean);
+
+  return [...new Set(parts)].join("\n\n");
+}
+
+function dd06172610BuildPrintHtml(){
+  const title = dd06172610RecipeTitle();
+
+  const blocks = [
+    ["Blend", dd06172610BlendText()],
+    ["Yield", dd06172610TextBlock("Estimated Yield")],
+    ["Ingredients", dd06172610TextBlock("Recipe Flow")],
+    ["Directions", dd06172610CompactDirections()],
+    ["Add-ins", dd06172610AddinText()],
+    ["Adult Add-On", dd06172610AdultText()]
+  ].filter(([label,text]) => text && text.trim().length > 0);
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>${dd06172610EscapeHtml(title)} — DoughDial Print Recipe</title>
+<style>
+  @page{
+    size:letter;
+    margin:.30in;
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111;
+    background:#fff;
+    margin:0;
+    padding:0;
+    font-size:8.8pt;
+    line-height:1.08;
+  }
+
+  main{
+    max-width:7.9in;
+    margin:0 auto;
+  }
+
+  h1{
+    margin:0;
+    font-size:16pt;
+    line-height:1;
+  }
+
+  .meta{
+    color:#555;
+    font-size:7.5pt;
+    margin:2pt 0 6pt;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6pt 9pt;
+    align-items:start;
+  }
+
+  section{
+    border-top:1px solid #bbb;
+    padding-top:3pt;
+    break-inside:auto;
+    page-break-inside:auto;
+  }
+
+  h2{
+    font-size:9.5pt;
+    margin:0 0 2pt;
+    line-height:1;
+  }
+
+  pre{
+    white-space:pre-wrap;
+    font-family:inherit;
+    font-size:8pt;
+    line-height:1.08;
+    margin:0;
+  }
+
+  .legal{
+    color:#666;
+    font-size:6.8pt;
+    margin-top:6pt;
+    border-top:1px solid #ddd;
+    padding-top:3pt;
+  }
+
+  @media print{
+    body{font-size:8.8pt}
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>${dd06172610EscapeHtml(title)}</h1>
+  <div class="meta">${dd06172610EscapeHtml(VERSION)}</div>
+
+  <div class="grid">
+    ${blocks.map(([label,text]) => `
+    <section>
+      <h2>${dd06172610EscapeHtml(label)}</h2>
+      <pre>${dd06172610EscapeHtml(text)}</pre>
+    </section>`).join("")}
+  </div>
+
+  <div class="legal">
+    DoughDial recipe model, calculator design, interface, and generated guidance © 2026 Endian Engine LLC.
+    Yield, timing, and dose estimates are approximate.
+  </div>
+</main>
+<script>
+  window.addEventListener("load", ()=>setTimeout(()=>window.print(), 250));
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172610PrintRecipe(){
+  if(!dd06172610HasActiveBlend()){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Choose a recipe blend before printing.", "ready-warn");
+    }else{
+      alert("Choose a recipe blend before printing.");
+    }
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "width=900,height=1000");
+  if(!printWindow){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Print window was blocked. Allow pop-ups and try again.", "ready-warn");
+    }else{
+      alert("Print window was blocked. Allow pop-ups and try again.");
+    }
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172610BuildPrintHtml());
+  printWindow.document.close();
+
+  if(typeof dd06172608SetStatus === "function"){
+    dd06172608SetStatus("Print recipe opened.", "ready-ok");
+  }
+}
+
+function dd06172610BindPrintButton(){
+  const btn = document.getElementById("readyPrintBtn");
+  if(!btn) return;
+
+  const cleanBtn = btn.cloneNode(true);
+  cleanBtn.dataset.dd06172610Bound = "1";
+  cleanBtn.addEventListener("click", dd06172610PrintRecipe);
+
+  btn.replaceWith(cleanBtn);
+}
+
+dd06172610BindPrintButton();
+
+if(typeof render === "function" && !window.__dd06172610RenderPatch){
+  window.__dd06172610RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172610BindPrintButton();
+  };
+}
+
+
+// v02.06.17.26.11: print the same text produced by Copy Recipe
+function dd06172611HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172611EscapeHtml(value){
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function dd06172611RecipeText(){
+  if(typeof copyRecipe !== "function") return "";
+
+  try{
+    const text = copyRecipe();
+    if(typeof text === "string" && text.trim()) return text.trim();
+  }catch(e){}
+
+  return "";
+}
+
+function dd06172611BuildPrintHtml(recipeText){
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DoughDial Print Recipe</title>
+<style>
+  @page{
+    size:letter;
+    margin:.55in;
+  }
+
+  *{
+    box-sizing:border-box;
+  }
+
+  body{
+    margin:0;
+    padding:0;
+    background:#fff;
+    color:#111;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11pt;
+    line-height:1.32;
+  }
+
+  main{
+    max-width:7.4in;
+    margin:0 auto;
+  }
+
+  pre{
+    white-space:pre-wrap;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:11pt;
+    line-height:1.32;
+    margin:0;
+  }
+
+  @media print{
+    body{
+      font-size:11pt;
+    }
+  }
+</style>
+</head>
+<body>
+<main>
+<pre>${dd06172611EscapeHtml(recipeText)}</pre>
+</main>
+<script>
+  window.addEventListener("load", ()=>setTimeout(()=>window.print(), 250));
+<\/script>
+</body>
+</html>`;
+}
+
+function dd06172611PrintRecipe(){
+  if(!dd06172611HasActiveBlend()){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Choose a recipe blend before printing.", "ready-warn");
+    }else{
+      alert("Choose a recipe blend before printing.");
+    }
+    return;
+  }
+
+  const recipeText = dd06172611RecipeText();
+
+  if(!recipeText){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Recipe text was not available for printing.", "ready-warn");
+    }else{
+      alert("Recipe text was not available for printing.");
+    }
+    return;
+  }
+
+  const printWindow = window.open("", "_blank", "width=900,height=1000");
+  if(!printWindow){
+    if(typeof dd06172608SetStatus === "function"){
+      dd06172608SetStatus("Print window was blocked. Allow pop-ups and try again.", "ready-warn");
+    }else{
+      alert("Print window was blocked. Allow pop-ups and try again.");
+    }
+    return;
+  }
+
+  printWindow.document.open();
+  printWindow.document.write(dd06172611BuildPrintHtml(recipeText));
+  printWindow.document.close();
+
+  if(typeof dd06172608SetStatus === "function"){
+    dd06172608SetStatus("Print recipe opened.", "ready-ok");
+  }
+}
+
+function dd06172611BindPrintButton(){
+  const btn = document.getElementById("readyPrintBtn");
+  if(!btn) return;
+
+  const cleanBtn = btn.cloneNode(true);
+  cleanBtn.dataset.dd06172611Bound = "1";
+  cleanBtn.addEventListener("click", dd06172611PrintRecipe);
+
+  btn.replaceWith(cleanBtn);
+}
+
+dd06172611BindPrintButton();
+
+if(typeof render === "function" && !window.__dd06172611RenderPatch){
+  window.__dd06172611RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172611BindPrintButton();
+  };
+}
+
+
+// v02.06.17.26.13: cook / bake time estimates
+function dd06172613HasActiveBlend(){
+  if(typeof DIAL_ORDER === "undefined" || typeof state === "undefined" || !state.dials) return false;
+  return DIAL_ORDER.some(k => Number(state.dials[k]) > 0);
+}
+
+function dd06172613FindPanelByHeading(label){
+  const wanted = String(label).trim().toLowerCase();
+  const headings = document.querySelectorAll(".panel h2, .panel h3");
+  for(const h of headings){
+    if(h.textContent.trim().toLowerCase() === wanted){
+      return h.closest(".panel");
+    }
+  }
+  return null;
+}
+
+function dd06172613TimingEstimate(){
+  let c = null;
+  try{ c = calc(); }catch(e){ c = null; }
+
+  const blend = c?.blend || normalizeBlend(state.dials || {});
+  const p = Number(blend.pancake || 0);
+  const cake = Number(blend.cake || 0);
+  const qb = Number(blend.quickBread || 0);
+  const cookie = Number(blend.cookie || 0);
+  const loaf = Number(blend.loafBread || 0);
+
+  let title = "General bake / cook estimate";
+  let time = "Bake or cook until set and no raw center remains.";
+  let note = "Estimate only. Pan size, oven accuracy, dough thickness, portion size, and add-ins change timing.";
+
+  if(loaf >= 0.40){
+    title = "Bread / loaf-style timing";
+    time = "Bake at about 350°F / 175°C for roughly 35–55 minutes as a small non-yeast loaf.";
+    note = "No proofing, rising, or kneading. Start checking early if using small portions or a shallow pan.";
+  }else if(qb >= 0.40){
+    title = "Quick bread timing";
+    time = "Bake at about 350°F / 175°C for roughly 16–24 minutes as muffins or small portions, or 40–60 minutes as a loaf.";
+    note = "Use a tester. The center should come out clean or with only a few moist crumbs.";
+  }else if(cookie >= 0.40 && cake >= 0.25){
+    title = "Cakie timing";
+    time = "Bake at about 350°F / 175°C for roughly 10–16 minutes as scoop portions, or 18–25 minutes in a small pan.";
+    note = "Cakie texture sits between cookie and cake. Pull when set, not dried out.";
+  }else if(cookie >= 0.45){
+    title = "Cookie timing";
+    time = "Bake at about 350°F / 175°C for roughly 8–12 minutes as cookie portions.";
+    note = "Edges should be set. Centers can finish setting while cooling.";
+  }else if(cake >= 0.45){
+    title = "Cake timing";
+    time = "Bake at about 350°F / 175°C for roughly 18–28 minutes as cupcakes or a small cake.";
+    note = "Use a tester. The center should come out clean or with only a few moist crumbs.";
+  }else if(p >= 0.45){
+    title = "Pancake timing";
+    time = "Cook on a hot greased skillet or griddle for roughly 2–3 minutes on the first side and 1–2 minutes after flipping.";
+    note = "Flip when bubbles set and edges look dry.";
+  }else{
+    title = "Mixed blend timing";
+    time = "Use the dominant direction as the starting point: skillet for pancake-heavy blends, 350°F / 175°C oven for cookie, cake, quick bread, and loaf blends.";
+    note = "Start checking early. Blended recipes may set faster or slower than a single anchor recipe.";
+  }
+
+  return {title, time, note};
+}
+
+function dd06172613TimingText(){
+  const t = dd06172613TimingEstimate();
+  return `${t.title}\n${t.time}\n${t.note}`;
+}
+
+function dd06172613RenderTimingBox(){
+  const existing = document.getElementById("cookTimeEstimateBox");
+
+  if(!dd06172613HasActiveBlend()){
+    existing?.remove();
+    return;
+  }
+
+  const panel = dd06172613FindPanelByHeading("Directions");
+  if(!panel) return;
+
+  let box = existing;
+  if(!box){
+    box = document.createElement("div");
+    box.id = "cookTimeEstimateBox";
+    box.className = "result-box";
+    const heading = Array.from(panel.querySelectorAll("h2,h3")).find(h => h.textContent.trim().toLowerCase() === "directions");
+    if(heading){
+      heading.insertAdjacentElement("afterend", box);
+    }else{
+      panel.prepend(box);
+    }
+  }
+
+  const t = dd06172613TimingEstimate();
+  box.innerHTML = `
+    <strong>Estimated cook / bake time</strong>
+    <div class="subtle"><strong>${t.title}</strong></div>
+    <div class="subtle">${t.time}</div>
+    <div class="subtle">${t.note}</div>
+  `;
+}
+
+function dd06172613InjectTimingText(recipeText){
+  if(!recipeText || recipeText.includes("Estimated Cook / Bake Time")) return recipeText;
+
+  const timingBlock = `Estimated Cook / Bake Time\n${dd06172613TimingText()}\n`;
+
+  if(recipeText.includes("\nDirections\n")){
+    return recipeText.replace("\nDirections\n", `\n${timingBlock}\nDirections\n`);
+  }
+
+  if(recipeText.includes("\nNotes\n")){
+    return recipeText.replace("\nNotes\n", `\n${timingBlock}\nNotes\n`);
+  }
+
+  return `${recipeText.trim()}\n\n${timingBlock}`.trim();
+}
+
+if(typeof copyRecipe === "function" && !window.__dd06172613CopyPatch){
+  window.__dd06172613CopyPatch = true;
+  const oldCopyRecipe = copyRecipe;
+
+  copyRecipe = function(){
+    const baseText = oldCopyRecipe();
+    if(typeof baseText !== "string" || !baseText.trim()){
+      return baseText;
+    }
+
+    const timedText = dd06172613InjectTimingText(baseText);
+
+    if(timedText !== baseText){
+      try{ navigator.clipboard?.writeText(timedText); }catch(e){}
+    }
+
+    return timedText;
+  };
+}
+
+dd06172613RenderTimingBox();
+
+if(typeof render === "function" && !window.__dd06172613RenderPatch){
+  window.__dd06172613RenderPatch = true;
+  const oldRender = render;
+  render = function(){
+    oldRender();
+    dd06172613RenderTimingBox();
+  };
+}
+
+
+/* DoughDial v02.06.21.26.01 bake setup timing model */
+(function(){
+  const DD_VERSION_06212601 = "DoughDial v02.06.23.26.02 · publication QA controls fix";
+  const STORAGE_KEY = "doughdialBakeCookSetup06212601";
+  let currentSetup = localStorage.getItem(STORAGE_KEY) || "auto";
+
+  const setupOptions = [
+    ["auto", "Auto"],
+    ["skillet-griddle", "Skillet / griddle"],
+    ["thin-metal-sheet", "Thin metal cookie sheet"],
+    ["stoneware-sheet", "Stoneware sheet"],
+    ["cast-iron", "Cast iron"],
+    ["muffin-pan", "Muffin / cupcake pan"],
+    ["ramekins", "Ramekins / small dish"],
+    ["small-cake-pan", "6-inch round / small square cake pan"],
+    ["mini-loaf-pan", "Mini loaf pan"],
+    ["small-rolls", "Small rolls / hand-shaped bread"]
+  ];
+
+  function dd06212601HasActiveBlend(){
+    if(typeof dd06172613HasActiveBlend === "function"){
+      return dd06172613HasActiveBlend();
+    }
+    const body = document.body ? document.body.textContent : "";
+    if(!body.trim()) return false;
+    if(/choose a recipe blend/i.test(body) || /clear.*copy/i.test(body)) return false;
+    return /actual recipe blend|ready to cook|directions/i.test(body);
+  }
+
+  function dd06212601FindPanelByHeading(label){
+    const re = new RegExp("^\\s*" + label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*$", "i");
+    const headings = [...document.querySelectorAll("h1,h2,h3,h4,strong,legend")];
+    const heading = headings.find(el => re.test(el.textContent || ""));
+    if(!heading) return null;
+    return heading.closest("section, article, .card, .panel, .recipe-card, .output-card, .result-card, div") || heading.parentElement;
+  }
+
+  function dd06212601RemoveOldTimingBoxes(){
+    [...document.querySelectorAll("strong")].forEach(strong => {
+      const label = (strong.textContent || "").trim().toLowerCase();
+      if(label === "estimated cook / bake time"){
+        const box = strong.closest(".card, .panel, .recipe-card, .output-card, .result-card, section, article, div");
+        if(box && box.id !== "dd06212601TimingBox") box.remove();
+      }
+    });
+  }
+
+  function dd06212601ActiveText(){
+    const chunks = [];
+
+    [...document.querySelectorAll("[aria-pressed='true'], .active, .selected, .is-active")].forEach(el => {
+      const txt = (el.textContent || "").trim();
+      if(txt) chunks.push(txt);
+    });
+
+    const ready = dd06212601FindPanelByHeading("Ready to Cook");
+    if(ready) chunks.push(ready.textContent || "");
+
+    const blend = dd06212601FindPanelByHeading("Actual Recipe Blend");
+    if(blend) chunks.push(blend.textContent || "");
+
+    const directions = dd06212601FindPanelByHeading("Directions");
+    if(directions) chunks.push(directions.textContent || "");
+
+    return chunks.join("\n");
+  }
+
+  function dd06212601BlendKind(){
+    const txt = dd06212601ActiveText();
+
+    if(/\bcakie\b/i.test(txt)) return "cakie";
+    if(/\bcookie pancake\b/i.test(txt)) return "pancake";
+    if(/\bmuffin cake\b/i.test(txt)) return "muffin";
+    if(/\bbreakie\b/i.test(txt)) return "quickbread";
+    if(/\bquick bread\b/i.test(txt)) return "quickbread";
+    if(/\bbread\s*\/\s*loaf\b|\bbread\b|\bloaf\b/i.test(txt)) return "breadloaf";
+    if(/\bcookie\b/i.test(txt)) return "cookie";
+    if(/\bpancake\b/i.test(txt)) return "pancake";
+    if(/\bcake\b/i.test(txt)) return "cake";
+
+    const body = document.body ? document.body.textContent : "";
+    const lines = body.split(/\n+/).map(s => s.trim()).filter(Boolean);
+    const score = { pancake:0, cake:0, quickbread:0, cookie:0, breadloaf:0 };
+
+    lines.forEach(line => {
+      let m;
+      if(/pancake/i.test(line) && (m = line.match(/(\d+(?:\.\d+)?)\s*%/))) score.pancake = Number(m[1]);
+      if(/^cake\b/i.test(line) && (m = line.match(/(\d+(?:\.\d+)?)\s*%/))) score.cake = Number(m[1]);
+      if(/quick bread/i.test(line) && (m = line.match(/(\d+(?:\.\d+)?)\s*%/))) score.quickbread = Number(m[1]);
+      if(/\bcookie\b/i.test(line) && (m = line.match(/(\d+(?:\.\d+)?)\s*%/))) score.cookie = Number(m[1]);
+      if(/bread\s*\/\s*loaf|bread|loaf/i.test(line) && (m = line.match(/(\d+(?:\.\d+)?)\s*%/))) score.breadloaf = Number(m[1]);
+    });
+
+    if(score.cake >= 35 && score.cookie >= 35) return "cakie";
+    if(score.cake >= 40 && score.quickbread >= 25) return "muffin";
+    if(score.quickbread >= 35) return "quickbread";
+    if(score.breadloaf >= 35) return "breadloaf";
+    if(score.cookie >= score.cake && score.cookie >= score.pancake) return "cookie";
+    if(score.cake >= score.pancake) return "cake";
+    return "pancake";
+  }
+
+  function dd06212601PortionInfo(){
+    const txt = [
+      ...[...document.querySelectorAll("select")].map(sel => {
+        const opt = sel.selectedOptions && sel.selectedOptions[0];
+        return opt ? opt.textContent : "";
+      }),
+      ...[...document.querySelectorAll("input")].map(inp => {
+        const id = `${inp.id || ""} ${inp.name || ""} ${inp.placeholder || ""}`.trim();
+        return `${id} ${inp.value || ""}`;
+      }),
+      dd06212601ActiveText()
+    ].join("\n");
+
+    if(/#\s*100|100\s*disher/i.test(txt)) return { label:"#100 disher", grams:10, size:"tiny" };
+    if(/#\s*60|60\s*disher/i.test(txt)) return { label:"#60 disher", grams:16, size:"small" };
+    if(/#\s*40|40\s*disher/i.test(txt)) return { label:"#40 disher", grams:24, size:"small" };
+    if(/#\s*30|30\s*disher/i.test(txt)) return { label:"#30 disher", grams:32, size:"medium" };
+    if(/#\s*24|24\s*disher/i.test(txt)) return { label:"#24 disher", grams:40, size:"medium-large" };
+    if(/#\s*20|20\s*disher/i.test(txt)) return { label:"#20 disher", grams:48, size:"large" };
+    if(/#\s*16|16\s*disher/i.test(txt)) return { label:"#16 disher", grams:60, size:"large" };
+    if(/#\s*12|12\s*disher/i.test(txt)) return { label:"#12 disher", grams:75, size:"extra-large" };
+    if(/#\s*10|10\s*disher/i.test(txt)) return { label:"#10 disher", grams:90, size:"extra-large" };
+    if(/#\s*8|8\s*disher/i.test(txt)) return { label:"#8 disher", grams:110, size:"jumbo" };
+    if(/\btablespoon\b|\btbsp\b/i.test(txt)) return { label:"tablespoon portion", grams:15, size:"small" };
+    if(/\bteaspoon\b|\btsp\b/i.test(txt)) return { label:"teaspoon portion", grams:5, size:"tiny" };
+    if(/\bladle\b/i.test(txt)) return { label:"ladle portion", grams:55, size:"pancake" };
+
+    const gramMatches = [...txt.matchAll(/(\d+(?:\.\d+)?)\s*g(?:rams?)?/gi)]
+      .map(m => Number(m[1]))
+      .filter(n => n >= 4 && n <= 160);
+
+    if(gramMatches.length){
+      const g = gramMatches[0];
+      return { label:`about ${Math.round(g)} g each`, grams:g, size:g < 15 ? "tiny" : g < 28 ? "small" : g < 44 ? "medium" : "large" };
+    }
+
+    return { label:"standard portion", grams:32, size:"medium" };
+  }
+
+  function dd06212601EffectiveSetup(kind){
+    if(currentSetup !== "auto") return currentSetup;
+    if(kind === "pancake") return "skillet-griddle";
+    if(kind === "cake") return "small-cake-pan";
+    if(kind === "muffin") return "muffin-pan";
+    if(kind === "quickbread") return "mini-loaf-pan";
+    if(kind === "breadloaf") return "small-rolls";
+    return "stoneware-sheet";
+  }
+
+  function dd06212601SetupLabel(setup){
+    const found = setupOptions.find(([value]) => value === setup);
+    return found ? found[1] : "Auto";
+  }
+
+  function dd06212601SheetMinutes(kind, grams, setup){
+    let start = 10;
+    let low = 11;
+    let high = 14;
+
+    if(grams <= 12){ start = 7; low = 8; high = 11; }
+    else if(grams <= 20){ start = 9; low = 10; high = 13; }
+    else if(grams <= 38){ start = 12; low = 13; high = 16; }
+    else if(grams <= 52){ start = 14; low = 16; high = 20; }
+    else if(grams <= 68){ start = 16; low = 18; high = 23; }
+    else if(grams <= 95){ start = 18; low = 20; high = 27; }
+    else { start = 20; low = 23; high = 32; }
+
+    if(kind === "cakie" || kind === "cake" || kind === "muffin"){
+      start += 1; low += 1; high += 2;
+    }
+    if(setup === "thin-metal-sheet"){
+      start -= 1; low -= 1; high -= 1;
+    }
+    if(setup === "stoneware-sheet" || setup === "cast-iron"){
+      start += 1; low += 1; high += 2;
+    }
+
+    return { start:Math.max(6,start), low:Math.max(7,low), high:Math.max(9,high) };
+  }
+
+  function dd06212601TimingEstimate(){
+    if(!dd06212601HasActiveBlend()) return null;
+
+    const kind = dd06212601BlendKind();
+    const portion = dd06212601PortionInfo();
+    const setup = dd06212601EffectiveSetup(kind);
+    const setupLabel = dd06212601SetupLabel(setup);
+
+    if(setup === "skillet-griddle" || kind === "pancake"){
+      return {
+        title:"Skillet / griddle timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Preheat fully over medium heat.",
+          "Cook about 2–3 minutes on the first side, then 1–3 minutes on the second side.",
+          "Flip when bubbles form and pop, edges look set, and a broad spatula can slide underneath.",
+          setup === "cast-iron" ? "Cast iron needs a full preheat and holds heat strongly; lower the burner if later batches brown too fast." : "Adjust heat between batches so the center cooks before the outside gets too dark."
+        ]
+      };
+    }
+
+    if(setup === "muffin-pan"){
+      const start = portion.grams >= 55 ? 17 : portion.grams >= 40 ? 15 : 13;
+      const high = portion.grams >= 55 ? 24 : portion.grams >= 40 ? 22 : 19;
+      return {
+        title:"Muffin / cupcake pan timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Bake at 350°F / 175°C.",
+          `Start checking around ${start} minutes.`,
+          `Expected range: ${start + 1}–${high} minutes.`,
+          "Done when the top springs lightly, the center is not wet, and a tester comes out clean or with moist crumbs."
+        ]
+      };
+    }
+
+    if(setup === "ramekins"){
+      return {
+        title:"Ramekin / small dish timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Bake at 350°F / 175°C.",
+          "Start checking around 18 minutes.",
+          "Expected range: 20–28 minutes.",
+          "Done when the edges are set and the center is no longer wet.",
+          "Deeper dishes run longer than scoop portions; check the center, not just the edges."
+        ]
+      };
+    }
+
+    if(setup === "small-cake-pan"){
+      return {
+        title:"Small cake pan timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Bake at 350°F / 175°C.",
+          "Start checking around 22 minutes.",
+          "Expected range: 24–34 minutes.",
+          "Done when the center springs lightly and a tester comes out clean or with moist crumbs.",
+          "A thicker pan batter is not timed like cookies or scoop portions."
+        ]
+      };
+    }
+
+    if(setup === "mini-loaf-pan"){
+      return {
+        title:"Mini loaf timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Bake at 350°F / 175°C.",
+          "Start checking around 28 minutes.",
+          "Expected range: 30–42 minutes.",
+          "Done when the top is set, the center is not wet, and a tester comes out clean or with moist crumbs.",
+          "Mini loaves need more time than muffin cups because the center is deeper."
+        ]
+      };
+    }
+
+    if(setup === "small-rolls"){
+      return {
+        title:"Small rolls / hand-shaped bread timing",
+        setup,
+        setupLabel,
+        lines:[
+          "Bake at 350°F / 175°C.",
+          "Start checking around 15 minutes.",
+          "Expected range: 17–25 minutes.",
+          "Done when the outside is set, the bottom is lightly browned, and the center is not gummy.",
+          "This is non-yeast Bread / Loaf guidance: no proofing, rising, or kneading."
+        ]
+      };
+    }
+
+    const m = dd06212601SheetMinutes(kind, portion.grams, setup);
+    const cue = kind === "cookie"
+      ? "Edges set, center not wet, then cool on the pan/stone to finish setting."
+      : "Done when edges are set, the center springs lightly, and the middle is not wet.";
+
+    const warning = setup === "thin-metal-sheet"
+      ? "Thin metal usually runs shorter and browns faster underneath."
+      : "Stoneware and cast iron may need more preheat and often run longer than thin metal.";
+
+    return {
+      title: kind === "cookie" ? "Cookie sheet timing" : "Cakie / sheet bake timing",
+      setup,
+      setupLabel,
+      lines:[
+        "Bake at 350°F / 175°C.",
+        `Portion reference: ${portion.label}.`,
+        `Start checking around ${m.start} minutes.`,
+        `Expected range: ${m.low}–${m.high} minutes.`,
+        cue,
+        warning
+      ]
+    };
+  }
+
+  function dd06212601TimingText(){
+    const t = dd06212601TimingEstimate();
+    if(!t) return "Choose a recipe blend first.";
+    return [
+      `Bake / Cook Setup: ${t.setupLabel}`,
+      ...t.lines
+    ].join("\n");
+  }
+
+  function dd06212601EnsureSetupPanel(){
+    if(!dd06212601HasActiveBlend()){
+      const old = document.getElementById("dd06212601SetupPanel");
+      if(old) old.remove();
+      return;
+    }
+
+    let panel = document.getElementById("dd06212601SetupPanel");
+    const directions = dd06212601FindPanelByHeading("Directions");
+    const target = directions || dd06212601FindPanelByHeading("Ready to Cook");
+    if(!target || !target.parentElement) return;
+
+    if(!panel){
+      panel = document.createElement("div");
+      panel.id = "dd06212601SetupPanel";
+      panel.className = "card panel result-card";
+      panel.style.marginTop = "1rem";
+      panel.style.padding = "1rem";
+      panel.style.border = "1px solid rgba(148,163,184,.25)";
+      panel.style.borderRadius = "16px";
+      panel.style.background = "rgba(15,23,42,.72)";
+      panel.innerHTML = `
+        <h3 style="margin-top:0;">Bake / Cook Setup</h3>
+        <p style="margin:.25rem 0 .75rem; color:rgba(230,235,245,.72);">
+          Timing adjusts by recipe style, portion size, and cooking surface. Use the doneness cues before the clock.
+        </p>
+        <label style="display:block; font-weight:700; margin-bottom:.35rem;" for="dd06212601SetupSelect">Cooking surface or pan</label>
+        <select id="dd06212601SetupSelect" style="width:100%; max-width:420px;"></select>
+      `;
+
+      target.parentElement.insertBefore(panel, target);
+      const select = panel.querySelector("#dd06212601SetupSelect");
+      setupOptions.forEach(([value, label]) => {
+        const opt = document.createElement("option");
+        opt.value = value;
+        opt.textContent = label;
+        select.appendChild(opt);
+      });
+      select.addEventListener("change", () => {
+        currentSetup = select.value;
+        localStorage.setItem(STORAGE_KEY, currentSetup);
+        dd06212601RenderTimingBox();
+      });
+    }
+
+    const select = panel.querySelector("#dd06212601SetupSelect");
+    if(select && select.value !== currentSetup) select.value = currentSetup;
+  }
+
+  function dd06212601RenderTimingBox(){
+    dd06212601RemoveOldTimingBoxes();
+
+    let box = document.getElementById("dd06212601TimingBox");
+    if(!dd06212601HasActiveBlend()){
+      if(box) box.remove();
+      return;
+    }
+
+    dd06212601EnsureSetupPanel();
+
+    const setupPanel = document.getElementById("dd06212601SetupPanel");
+    const directions = dd06212601FindPanelByHeading("Directions");
+    const target = directions || setupPanel;
+    if(!target || !target.parentElement) return;
+
+    if(!box){
+      box = document.createElement("div");
+      box.id = "dd06212601TimingBox";
+      box.className = "card panel result-card";
+      box.style.marginTop = "1rem";
+      box.style.padding = "1rem";
+      box.style.border = "1px solid rgba(251,146,60,.35)";
+      box.style.borderRadius = "16px";
+      box.style.background = "rgba(30,41,59,.72)";
+      target.parentElement.insertBefore(box, directions || target.nextSibling);
+    }
+
+    const t = dd06212601TimingEstimate();
+    if(!t){
+      box.innerHTML = `<h3 style="margin-top:0;">Estimated Cook / Bake Time</h3><p>Choose a recipe blend first.</p>`;
+      return;
+    }
+
+    box.innerHTML = `
+      <h3 style="margin-top:0;">Estimated Cook / Bake Time</h3>
+      <p style="margin:.15rem 0 .65rem; color:rgba(230,235,245,.72);"><strong>Setup:</strong> ${t.setupLabel}</p>
+      <ul style="margin:.25rem 0 0 1.15rem; padding:0;">
+        ${t.lines.map(line => `<li style="margin:.25rem 0;">${line}</li>`).join("")}
+      </ul>
+    `;
+  }
+
+  function dd06212601StripOldTimingText(recipeText){
+    if(!recipeText) return recipeText;
+    return recipeText
+      .replace(/\n?Estimated Cook \/ Bake Time\n(?:.*\n){1,12}?(?=\n(?:Directions|Selected Add-ins|Adult Add-On|Notes|Disclaimer|$))/i, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  }
+
+  function dd06212601InjectTimingText(recipeText){
+    if(!recipeText) return recipeText;
+    if(/choose a recipe blend/i.test(recipeText)) return recipeText;
+
+    const clean = dd06212601StripOldTimingText(recipeText);
+    const timingBlock = `Estimated Cook / Bake Time\n${dd06212601TimingText()}\n`;
+
+    if(/\nDirections\n/i.test(clean)){
+      return clean.replace(/\nDirections\n/i, `\n${timingBlock}\nDirections\n`);
+    }
+
+    return `${clean}\n\n${timingBlock}`.trim();
+  }
+
+  if(typeof copyRecipe === "function" && !window.__dd06212601CopyPatch){
+    window.__dd06212601CopyPatch = true;
+    const previousCopyRecipe = copyRecipe;
+    copyRecipe = function(){
+      const baseText = previousCopyRecipe.apply(this, arguments);
+      return dd06212601InjectTimingText(baseText);
+    };
+  }
+
+  if(typeof render === "function" && !window.__dd06212601RenderPatch){
+    window.__dd06212601RenderPatch = true;
+    const previousRender = render;
+    render = function(){
+      const result = previousRender.apply(this, arguments);
+      setTimeout(dd06212601RenderTimingBox, 0);
+      return result;
+    };
+  }
+
+  document.addEventListener("change", event => {
+    if(event.target && event.target.id !== "dd06212601SetupSelect"){
+      setTimeout(dd06212601RenderTimingBox, 0);
+    }
+  });
+
+  document.addEventListener("click", () => {
+    setTimeout(dd06212601RenderTimingBox, 0);
+  });
+
+  dd06212601RenderTimingBox();
+})();
+/* END DoughDial v02.06.21.26.01 bake setup timing model */
+
+
+/* DoughDial v02.06.23.26.02 publication QA controls fix */
+(function(){
+  function dd06232602Visible(el){
+    if(!el) return false;
+    const style = window.getComputedStyle(el);
+    if(style.display === "none" || style.visibility === "hidden") return false;
+    return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+  }
+
+  function dd06232602FindAdultPanel(){
+    const headings = [...document.querySelectorAll("h1,h2,h3,h4,strong,legend")];
+    const matches = headings.filter(el => /adult add-on workflow|adult add-on/i.test((el.textContent || "").trim()));
+    const panels = matches.map(el => el.closest("section, article, .card, .panel, .recipe-card, .output-card, .result-card, div") || el.parentElement).filter(Boolean);
+    return panels.find(dd06232602Visible) || panels[0] || null;
+  }
+
+  function dd06232602AdultIsOpen(){
+    try{
+      if(typeof state !== "undefined" && state && state.adultOpen) return true;
+    }catch(e){}
+    const body = document.body ? document.body.textContent : "";
+    return /Adult Add-On Workflow|Adult Add-On Active|Infused baking tools are open/i.test(body);
+  }
+
+  function dd06232602Message(text){
+    const msg = document.getElementById("dd06232602AdultActionsMsg");
+    if(msg) msg.textContent = text;
+  }
+
+  async function dd06232602CopyFallback(){
+    if(typeof copyRecipe !== "function"){
+      dd06232602Message("Copy function unavailable.");
+      return;
+    }
+    const recipeText = copyRecipe();
+    if(!recipeText){
+      dd06232602Message("Nothing to copy yet.");
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(recipeText);
+      dd06232602Message("Recipe copied.");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = recipeText;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      dd06232602Message("Recipe copied.");
+    }
+  }
+
+  function dd06232602PrintFallback(){
+    if(typeof copyRecipe !== "function"){
+      window.print();
+      return;
+    }
+    const recipeText = copyRecipe();
+    const win = window.open("", "_blank", "noopener,noreferrer");
+    if(!win){
+      window.print();
+      return;
+    }
+    win.document.write(`<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DoughDial Recipe</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:780px;margin:32px auto;padding:0 24px;line-height:1.45;color:#111;}
+pre{white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;}
+</style>
+</head>
+<body>
+<pre>${String(recipeText || "").replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]))}</pre>
+<script>window.onload=function(){window.print();};<\/script>
+</body>
+</html>`);
+    win.document.close();
+  }
+
+  function dd06232602ClickReadyButton(id, fallback){
+    const btn = document.getElementById(id);
+    if(btn){
+      btn.click();
+      dd06232602Message(id === "readyCopyBtn" ? "Recipe copied." : "Print opened.");
+      return;
+    }
+    fallback();
+  }
+
+  function dd06232602InjectAdultActions(){
+    const existing = document.getElementById("dd06232602AdultActions");
+
+    if(!dd06232602AdultIsOpen()){
+      if(existing) existing.remove();
+      return;
+    }
+
+    const panel = dd06232602FindAdultPanel();
+    if(!panel) return;
+
+    if(existing && panel.contains(existing)) return;
+    if(existing) existing.remove();
+
+    const box = document.createElement("div");
+    box.id = "dd06232602AdultActions";
+    box.style.margin = "1rem 0";
+    box.style.display = "flex";
+    box.style.flexWrap = "wrap";
+    box.style.alignItems = "center";
+    box.style.gap = ".65rem";
+    box.innerHTML = `
+      <button class="orange" id="dd06232602AdultCopyBtn" type="button">Copy Recipe</button>
+      <button class="primary" id="dd06232602AdultPrintBtn" type="button">Print Recipe</button>
+      <span id="dd06232602AdultActionsMsg" style="color:rgba(230,235,245,.72); font-size:.92rem;"></span>
+    `;
+
+    const heading = [...panel.querySelectorAll("h1,h2,h3,h4,strong,legend")]
+      .find(el => /adult add-on workflow|adult add-on/i.test((el.textContent || "").trim()));
+
+    if(heading && heading.nextSibling){
+      heading.parentNode.insertBefore(box, heading.nextSibling);
+    }else{
+      panel.insertBefore(box, panel.firstChild);
+    }
+
+    box.querySelector("#dd06232602AdultCopyBtn").addEventListener("click", () => {
+      dd06232602ClickReadyButton("readyCopyBtn", dd06232602CopyFallback);
+    });
+
+    box.querySelector("#dd06232602AdultPrintBtn").addEventListener("click", () => {
+      dd06232602ClickReadyButton("readyPrintBtn", dd06232602PrintFallback);
+    });
+  }
+
+  if(typeof render === "function" && !window.__dd06232602RenderPatch){
+    window.__dd06232602RenderPatch = true;
+    const previousRender = render;
+    render = function(){
+      const result = previousRender.apply(this, arguments);
+      setTimeout(dd06232602InjectAdultActions, 0);
+      return result;
+    };
+  }
+
+  document.addEventListener("click", () => setTimeout(dd06232602InjectAdultActions, 0));
+  document.addEventListener("change", () => setTimeout(dd06232602InjectAdultActions, 0));
+
+  dd06232602InjectAdultActions();
+})();
+/* END DoughDial v02.06.23.26.02 publication QA controls fix */
+
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
