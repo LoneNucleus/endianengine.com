@@ -1634,6 +1634,29 @@ a, button, [role="button"], input, textarea, select {
   text-decoration: underline;
 }
 </style>
+
+<style id="ee-doughdial-homepage-layout-fix">
+  /* DoughDial homepage card polish: less image crop + button alignment */
+  img[src$="DoughDial_2.png"] {
+    object-fit: contain !important;
+    object-position: center center !important;
+    background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.18)) !important;
+    padding: 10px !important;
+    box-sizing: border-box !important;
+  }
+
+  .ee-doughdial-home-card,
+  .ee-nuclide-home-card {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .ee-doughdial-home-actions,
+  .ee-nuclide-home-actions {
+    margin-top: auto !important;
+  }
+</style>
+
 </head>
 <body>
 
@@ -2637,6 +2660,44 @@ a, button, [role="button"], input, textarea, select {
     setTimeout(tickUp, 2800);
     setTimeout(moveCounter, 90000 + Math.random() * 60000);
   }, 30000);
+})();
+</script>
+
+
+<script id="ee-doughdial-homepage-layout-script">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", fn);
+    } else {
+      fn();
+    }
+  }
+
+  ready(function () {
+    const doughLink = document.querySelector('a[href*="doughdial"]');
+    const nuclideLink = document.querySelector('a[href*="nuclide"]');
+
+    function findCard(link) {
+      if (!link) return null;
+      return link.closest(".card, .product-card, .feature-card, article, section, .tile, .panel") || link.parentElement;
+    }
+
+    function findActions(link) {
+      if (!link) return null;
+      return link.closest(".actions, .card-actions, .button-row, .btn-row, p, div") || link;
+    }
+
+    const doughCard = findCard(doughLink);
+    const nuclideCard = findCard(nuclideLink);
+    const doughActions = findActions(doughLink);
+    const nuclideActions = findActions(nuclideLink);
+
+    if (doughCard) doughCard.classList.add("ee-doughdial-home-card");
+    if (nuclideCard) nuclideCard.classList.add("ee-nuclide-home-card");
+    if (doughActions) doughActions.classList.add("ee-doughdial-home-actions");
+    if (nuclideActions) nuclideActions.classList.add("ee-nuclide-home-actions");
+  });
 })();
 </script>
 
