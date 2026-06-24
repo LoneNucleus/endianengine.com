@@ -1636,24 +1636,30 @@ a, button, [role="button"], input, textarea, select {
 </style>
 
 <style id="ee-doughdial-homepage-layout-fix">
-  /* DoughDial homepage card polish: less image crop + button alignment */
+  /* v01.06.23.26.02: DoughDial homepage card image + action alignment */
   img[src$="DoughDial_2.png"] {
     object-fit: contain !important;
     object-position: center center !important;
-    background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.18)) !important;
-    padding: 10px !important;
+    background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.20)) !important;
+    padding: 14px !important;
     box-sizing: border-box !important;
   }
 
-  .ee-doughdial-home-card,
-  .ee-nuclide-home-card {
+  .ee-product-card-align {
     display: flex !important;
     flex-direction: column !important;
+    height: 100% !important;
   }
 
-  .ee-doughdial-home-actions,
-  .ee-nuclide-home-actions {
+  .ee-product-action-align {
     margin-top: auto !important;
+    padding-top: 18px !important;
+  }
+
+  #ee-homepage-patch-version {
+    margin-top: 10px;
+    font-size: .78rem;
+    color: rgba(230,235,245,.52);
   }
 </style>
 
@@ -1730,7 +1736,7 @@ a, button, [role="button"], input, textarea, select {
 
     <div class="products-grid stagger">
 
-      
+
 <!-- Audio Clock DEMO -->
       <article class="product-card reveal">
         <a class="product-card-image" href="./audio-clock.html" style="display:block;text-decoration:none;">
@@ -1816,7 +1822,7 @@ a, button, [role="button"], input, textarea, select {
 <!-- DoughDial -->
       <article class="product-card reveal">
         <a class="product-card-image" href="./doughdial.html" style="display:block;text-decoration:none;">
-          <img src="./assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
+          <img src="././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
         </a>
         <div class="product-card-body">
           <div class="product-card-header">
@@ -2118,6 +2124,9 @@ a, button, [role="button"], input, textarea, select {
     </nav>
     <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.01 · homepage favicon polish</div>
   </div>
+
+<div id="ee-homepage-patch-version">Endian Engine Home v01.06.23.26.02 · DoughDial card alignment fix</div>
+
 </footer>
 
 <!-- Exit Intent Toast -->
@@ -2663,7 +2672,6 @@ a, button, [role="button"], input, textarea, select {
 })();
 </script>
 
-
 <script id="ee-doughdial-homepage-layout-script">
 (function () {
   function ready(fn) {
@@ -2675,28 +2683,75 @@ a, button, [role="button"], input, textarea, select {
   }
 
   ready(function () {
-    const doughLink = document.querySelector('a[href*="doughdial"]');
-    const nuclideLink = document.querySelector('a[href*="nuclide"]');
+    const doughImg = document.querySelector('img[src$="DoughDial_2.png"]');
+    const doughLink = Array.from(document.querySelectorAll('a[href*="doughdial"]'))
+      .find(a => /open\s+doughdial/i.test(a.textContent)) ||
+      Array.from(document.querySelectorAll('a[href*="doughdial"]')).pop();
 
-    function findCard(link) {
-      if (!link) return null;
-      return link.closest(".card, .product-card, .feature-card, article, section, .tile, .panel") || link.parentElement;
+    const nuclideLink = Array.from(document.querySelectorAll('a[href*="nuclide"]'))
+      .find(a => /open\s+nuclide/i.test(a.textContent)) ||
+      Array.from(document.querySelectorAll('a[href*="nuclide"]')).pop();
+
+    function findCardFromImage(img, link) {
+      let node = img || link;
+      while (node && node !== document.body) {
+        if (
+          node.querySelector &&
+          node.querySelector('img[src$="DoughDial_2.png"]') &&
+          node.querySelector('a[href*="doughdial"]')
+        ) return node;
+        node = node.parentElement;
+      }
+      return link ? link.closest("article, section, .card, .product-card, .feature-card, .tile, .panel") : null;
     }
 
-    function findActions(link) {
+    function findCardFromLink(link) {
       if (!link) return null;
-      return link.closest(".actions, .card-actions, .button-row, .btn-row, p, div") || link;
+      let node = link;
+      while (node && node !== document.body) {
+        const text = (node.innerText || "").toLowerCase();
+        if (
+          node.querySelector &&
+          node.querySelector('a[href*="nuclide"]') &&
+          text.includes("nuclide")
+        ) return node;
+        node = node.parentElement;
+      }
+      return link.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
     }
 
-    const doughCard = findCard(doughLink);
-    const nuclideCard = findCard(nuclideLink);
-    const doughActions = findActions(doughLink);
-    const nuclideActions = findActions(nuclideLink);
+    function directChildUnder(card, target) {
+      if (!card || !target) return null;
+      let node = target;
+      while (node && node.parentElement && node.parentElement !== card) {
+        node = node.parentElement;
+      }
+      return node && node.parentElement === card ? node : target;
+    }
 
-    if (doughCard) doughCard.classList.add("ee-doughdial-home-card");
-    if (nuclideCard) nuclideCard.classList.add("ee-nuclide-home-card");
-    if (doughActions) doughActions.classList.add("ee-doughdial-home-actions");
-    if (nuclideActions) nuclideActions.classList.add("ee-nuclide-home-actions");
+    const doughCard = findCardFromImage(doughImg, doughLink);
+    const nuclideCard = findCardFromLink(nuclideLink);
+
+    if (doughCard) doughCard.classList.add("ee-product-card-align");
+    if (nuclideCard) nuclideCard.classList.add("ee-product-card-align");
+
+    const doughAction = directChildUnder(doughCard, doughLink);
+    const nuclideAction = directChildUnder(nuclideCard, nuclideLink);
+
+    if (doughAction) doughAction.classList.add("ee-product-action-align");
+    if (nuclideAction) nuclideAction.classList.add("ee-product-action-align");
+
+    function equalizeCards() {
+      if (!doughCard || !nuclideCard) return;
+      doughCard.style.minHeight = "";
+      nuclideCard.style.minHeight = "";
+      const h = Math.max(doughCard.offsetHeight, nuclideCard.offsetHeight);
+      doughCard.style.minHeight = h + "px";
+      nuclideCard.style.minHeight = h + "px";
+    }
+
+    equalizeCards();
+    window.addEventListener("resize", equalizeCards);
   });
 })();
 </script>
