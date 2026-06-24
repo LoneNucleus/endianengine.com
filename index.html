@@ -1636,7 +1636,7 @@ a, button, [role="button"], input, textarea, select {
 </style>
 
 <style id="ee-doughdial-homepage-layout-fix">
-  /* v01.06.23.26.07: leave DoughDial text alone; move only Open DoughDial button */
+  /* v01.06.23.26.08: move only Open DoughDial button lower, second pass */
   img[src$="DoughDial_2.png"] {
     object-fit: contain !important;
     object-position: center center !important;
@@ -1647,7 +1647,7 @@ a, button, [role="button"], input, textarea, select {
 
   a.ee-doughdial-button-only {
     display: inline-flex !important;
-    margin-top: 96px !important;
+    margin-top: 192px !important;
     margin-bottom: 24px !important;
     position: relative !important;
     z-index: 2 !important;
@@ -1655,7 +1655,7 @@ a, button, [role="button"], input, textarea, select {
 
   @media (max-width: 900px) {
     a.ee-doughdial-button-only {
-      margin-top: 48px !important;
+      margin-top: 96px !important;
       margin-bottom: 20px !important;
     }
   }
@@ -1820,7 +1820,7 @@ a, button, [role="button"], input, textarea, select {
 <!-- DoughDial -->
       <article class="product-card reveal">
         <a class="product-card-image" href="./doughdial.html" style="display:block;text-decoration:none;">
-          <img src="././././././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
+          <img src="./././././././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
         </a>
         <div class="product-card-body">
           <div class="product-card-header">
@@ -2120,7 +2120,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
       <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
     </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.07 · DoughDial button-only spacing fix</div>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.08 · DoughDial button lower second pass</div>
   </div>
 </footer>
 
@@ -2683,8 +2683,7 @@ a, button, [role="button"], input, textarea, select {
 
     if (!openDoughDial) return;
 
-    // IMPORTANT: class goes on the actual Open DoughDial anchor only.
-    // Do not class the card, text wrapper, image wrapper, or parent block.
+    // Class only the actual Open DoughDial anchor. Do not move text/card/image wrappers.
     openDoughDial.classList.add("ee-doughdial-button-only");
   });
 })();
