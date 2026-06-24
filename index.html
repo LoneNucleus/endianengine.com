@@ -1636,7 +1636,7 @@ a, button, [role="button"], input, textarea, select {
 </style>
 
 <style id="ee-doughdial-homepage-layout-fix">
-  /* v01.06.23.26.05: move DoughDial copy up; move spacing above button */
+  /* v01.06.23.26.06: move Open DoughDial button lower inside card */
   img[src$="DoughDial_2.png"] {
     display: block !important;
     width: 100% !important;
@@ -1664,7 +1664,6 @@ a, button, [role="button"], input, textarea, select {
   .ee-doughdial-title-block {
     margin-top: 0 !important;
     padding-top: 0 !important;
-    transform: translateY(-4px);
   }
 
   .ee-doughdial-title-block h1,
@@ -1675,20 +1674,23 @@ a, button, [role="button"], input, textarea, select {
     margin-top: 0 !important;
   }
 
-  .ee-doughdial-product-card,
-  .ee-nuclide-product-card {
+  .ee-doughdial-product-card {
     display: flex !important;
     flex-direction: column !important;
     height: 100% !important;
   }
 
-  .ee-doughdial-action-gap {
-    margin-top: 34px !important;
+  .ee-doughdial-button-lower {
+    margin-top: 96px !important;
+    margin-bottom: 28px !important;
     padding-top: 0 !important;
   }
 
-  .ee-nuclide-action-gap {
-    margin-top: auto !important;
+  @media (max-width: 900px) {
+    .ee-doughdial-button-lower {
+      margin-top: 48px !important;
+      margin-bottom: 24px !important;
+    }
   }
 </style>
 
@@ -1851,7 +1853,7 @@ a, button, [role="button"], input, textarea, select {
 <!-- DoughDial -->
       <article class="product-card reveal">
         <a class="product-card-image" href="./doughdial.html" style="display:block;text-decoration:none;">
-          <img src="././././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
+          <img src="./././././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
         </a>
         <div class="product-card-body">
           <div class="product-card-header">
@@ -2151,7 +2153,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
       <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
     </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.05 · DoughDial text/button spacing fix</div>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.06 · DoughDial button lower spacing</div>
   </div>
 </footer>
 
@@ -2713,16 +2715,13 @@ a, button, [role="button"], input, textarea, select {
     if (!doughImg) return;
 
     const allDoughLinks = Array.from(document.querySelectorAll('a[href*="doughdial"]'));
-    const doughLink =
+    const doughButton =
       allDoughLinks.find(a => /open\s+doughdial/i.test(a.textContent)) ||
       allDoughLinks[allDoughLinks.length - 1];
 
-    const allNuclideLinks = Array.from(document.querySelectorAll('a[href*="nuclide"]'));
-    const nuclideLink =
-      allNuclideLinks.find(a => /open\s+nuclide/i.test(a.textContent)) ||
-      allNuclideLinks[allNuclideLinks.length - 1];
+    if (!doughButton) return;
 
-    function findCardWithDoughImage(img) {
+    function findDoughCard(img, button) {
       let node = img;
       while (node && node !== document.body) {
         if (
@@ -2734,18 +2733,7 @@ a, button, [role="button"], input, textarea, select {
         }
         node = node.parentElement;
       }
-      return img.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
-    }
-
-    function findCardFromLink(link, keyword) {
-      if (!link) return null;
-      let node = link;
-      while (node && node !== document.body) {
-        const text = (node.innerText || "").toLowerCase();
-        if (node.querySelector && node.querySelector("a") && text.includes(keyword)) return node;
-        node = node.parentElement;
-      }
-      return link.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
+      return button.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
     }
 
     function directChildUnder(card, target) {
@@ -2757,11 +2745,8 @@ a, button, [role="button"], input, textarea, select {
       return node && node.parentElement === card ? node : target;
     }
 
-    const doughCard = findCardWithDoughImage(doughImg);
-    const nuclideCard = findCardFromLink(nuclideLink, "nuclide");
-
+    const doughCard = findDoughCard(doughImg, doughButton);
     if (doughCard) doughCard.classList.add("ee-doughdial-product-card");
-    if (nuclideCard) nuclideCard.classList.add("ee-nuclide-product-card");
 
     const imageWrap = doughImg.parentElement;
     if (imageWrap) imageWrap.classList.add("ee-doughdial-image-wrap");
@@ -2775,11 +2760,8 @@ a, button, [role="button"], input, textarea, select {
       }
     }
 
-    const doughAction = directChildUnder(doughCard, doughLink);
-    const nuclideAction = directChildUnder(nuclideCard, nuclideLink);
-
-    if (doughAction) doughAction.classList.add("ee-doughdial-action-gap");
-    if (nuclideAction) nuclideAction.classList.add("ee-nuclide-action-gap");
+    const buttonBlock = directChildUnder(doughCard, doughButton);
+    if (buttonBlock) buttonBlock.classList.add("ee-doughdial-button-lower");
   });
 })();
 </script>
