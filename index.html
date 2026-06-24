@@ -1636,42 +1636,42 @@ a, button, [role="button"], input, textarea, select {
 </style>
 
 <style id="ee-doughdial-homepage-layout-fix">
-  /* v01.06.23.26.04: tighten DoughDial homepage card image gap */
+  /* v01.06.23.26.05: move DoughDial copy up; move spacing above button */
   img[src$="DoughDial_2.png"] {
     display: block !important;
     width: 100% !important;
-    height: 100% !important;
-    max-height: 260px !important;
+    height: auto !important;
+    max-height: 240px !important;
     object-fit: contain !important;
-    object-position: center center !important;
+    object-position: center bottom !important;
     background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.20)) !important;
-    padding: 10px !important;
+    padding: 8px !important;
     box-sizing: border-box !important;
     margin: 0 !important;
   }
 
   .ee-doughdial-image-wrap {
-    height: 260px !important;
+    height: auto !important;
     min-height: 0 !important;
-    max-height: 260px !important;
-    margin: 0 0 14px 0 !important;
+    max-height: none !important;
+    margin: 0 0 8px 0 !important;
     padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
     line-height: 0 !important;
+    display: block !important;
+    overflow: visible !important;
   }
 
   .ee-doughdial-title-block {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    transform: translateY(-4px);
   }
 
   .ee-doughdial-title-block h1,
   .ee-doughdial-title-block h2,
   .ee-doughdial-title-block h3,
-  .ee-doughdial-title-block .title {
+  .ee-doughdial-title-block .title,
+  .ee-doughdial-title-block p {
     margin-top: 0 !important;
   }
 
@@ -1682,20 +1682,13 @@ a, button, [role="button"], input, textarea, select {
     height: 100% !important;
   }
 
-  .ee-product-action-align {
-    margin-top: auto !important;
-    padding-top: 18px !important;
+  .ee-doughdial-action-gap {
+    margin-top: 34px !important;
+    padding-top: 0 !important;
   }
 
-  @media (min-width: 1200px) {
-    .ee-doughdial-image-wrap {
-      height: 240px !important;
-      max-height: 240px !important;
-    }
-
-    img[src$="DoughDial_2.png"] {
-      max-height: 240px !important;
-    }
+  .ee-nuclide-action-gap {
+    margin-top: auto !important;
   }
 </style>
 
@@ -1858,7 +1851,7 @@ a, button, [role="button"], input, textarea, select {
 <!-- DoughDial -->
       <article class="product-card reveal">
         <a class="product-card-image" href="./doughdial.html" style="display:block;text-decoration:none;">
-          <img src="./././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
+          <img src="././././assets/DoughDial_2.png" alt="DoughDial flour-spectrum recipe calculator preview" loading="lazy">
         </a>
         <div class="product-card-body">
           <div class="product-card-header">
@@ -2158,7 +2151,7 @@ a, button, [role="button"], input, textarea, select {
       <a href="./terms.html" style="color:inherit; text-decoration:none;">Terms of Service</a>
       <a href="mailto:contact@endianengine.com" style="color:inherit; text-decoration:none;">Contact</a>
     </nav>
-    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.04 · DoughDial card gap cleanup</div>
+    <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.05 · DoughDial text/button spacing fix</div>
   </div>
 </footer>
 
@@ -2719,22 +2712,26 @@ a, button, [role="button"], input, textarea, select {
     const doughImg = document.querySelector('img[src$="DoughDial_2.png"]');
     if (!doughImg) return;
 
-    const doughLink = Array.from(document.querySelectorAll('a[href*="doughdial"]'))
-      .find(a => /open\s+doughdial/i.test(a.textContent)) ||
-      Array.from(document.querySelectorAll('a[href*="doughdial"]')).pop();
+    const allDoughLinks = Array.from(document.querySelectorAll('a[href*="doughdial"]'));
+    const doughLink =
+      allDoughLinks.find(a => /open\s+doughdial/i.test(a.textContent)) ||
+      allDoughLinks[allDoughLinks.length - 1];
 
-    const nuclideLink = Array.from(document.querySelectorAll('a[href*="nuclide"]'))
-      .find(a => /open\s+nuclide/i.test(a.textContent)) ||
-      Array.from(document.querySelectorAll('a[href*="nuclide"]')).pop();
+    const allNuclideLinks = Array.from(document.querySelectorAll('a[href*="nuclide"]'));
+    const nuclideLink =
+      allNuclideLinks.find(a => /open\s+nuclide/i.test(a.textContent)) ||
+      allNuclideLinks[allNuclideLinks.length - 1];
 
-    function findCardWithImage(img) {
+    function findCardWithDoughImage(img) {
       let node = img;
       while (node && node !== document.body) {
         if (
           node.querySelector &&
           node.querySelector('img[src$="DoughDial_2.png"]') &&
           node.querySelector('a[href*="doughdial"]')
-        ) return node;
+        ) {
+          return node;
+        }
         node = node.parentElement;
       }
       return img.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
@@ -2760,14 +2757,16 @@ a, button, [role="button"], input, textarea, select {
       return node && node.parentElement === card ? node : target;
     }
 
-    const doughCard = findCardWithImage(doughImg);
+    const doughCard = findCardWithDoughImage(doughImg);
     const nuclideCard = findCardFromLink(nuclideLink, "nuclide");
+
+    if (doughCard) doughCard.classList.add("ee-doughdial-product-card");
+    if (nuclideCard) nuclideCard.classList.add("ee-nuclide-product-card");
 
     const imageWrap = doughImg.parentElement;
     if (imageWrap) imageWrap.classList.add("ee-doughdial-image-wrap");
 
     if (doughCard) {
-      doughCard.classList.add("ee-doughdial-product-card");
       const headings = Array.from(doughCard.querySelectorAll("h1,h2,h3,.title,.product-title"));
       const title = headings.find(h => doughImg.compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING);
       if (title) {
@@ -2776,13 +2775,11 @@ a, button, [role="button"], input, textarea, select {
       }
     }
 
-    if (nuclideCard) nuclideCard.classList.add("ee-nuclide-product-card");
-
     const doughAction = directChildUnder(doughCard, doughLink);
     const nuclideAction = directChildUnder(nuclideCard, nuclideLink);
 
-    if (doughAction) doughAction.classList.add("ee-product-action-align");
-    if (nuclideAction) nuclideAction.classList.add("ee-product-action-align");
+    if (doughAction) doughAction.classList.add("ee-doughdial-action-gap");
+    if (nuclideAction) nuclideAction.classList.add("ee-nuclide-action-gap");
   });
 })();
 </script>
