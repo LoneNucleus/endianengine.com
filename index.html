@@ -1636,13 +1636,36 @@ a, button, [role="button"], input, textarea, select {
 </style>
 
 <style id="ee-doughdial-homepage-layout-fix">
-  /* v01.06.23.26.02: DoughDial homepage card image + action alignment */
+  /* v01.06.23.26.03: DoughDial card spacing + image containment */
   img[src$="DoughDial_2.png"] {
     object-fit: contain !important;
     object-position: center center !important;
     background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.20)) !important;
-    padding: 14px !important;
+    padding: 12px !important;
     box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+  }
+
+  .ee-doughdial-product-card {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .ee-doughdial-image-wrap {
+    margin-bottom: 12px !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ee-doughdial-title-block {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .ee-doughdial-title-block h1,
+  .ee-doughdial-title-block h2,
+  .ee-doughdial-title-block h3,
+  .ee-doughdial-title-block .title {
+    margin-top: 0 !important;
   }
 
   .ee-product-card-align {
@@ -2125,7 +2148,7 @@ a, button, [role="button"], input, textarea, select {
     <div style="font-size:.82rem; color:rgba(230,235,245,.52);">v01.06.23.26.01 · homepage favicon polish</div>
   </div>
 
-<div id="ee-homepage-patch-version">Endian Engine Home v01.06.23.26.02 · DoughDial card alignment fix</div>
+<div id="ee-homepage-patch-version">Endian Engine Home v01.06.23.26.03 · DoughDial card spacing fix</div>
 
 </footer>
 
@@ -2684,6 +2707,8 @@ a, button, [role="button"], input, textarea, select {
 
   ready(function () {
     const doughImg = document.querySelector('img[src$="DoughDial_2.png"]');
+    if (!doughImg) return;
+
     const doughLink = Array.from(document.querySelectorAll('a[href*="doughdial"]'))
       .find(a => /open\s+doughdial/i.test(a.textContent)) ||
       Array.from(document.querySelectorAll('a[href*="doughdial"]')).pop();
@@ -2692,29 +2717,43 @@ a, button, [role="button"], input, textarea, select {
       .find(a => /open\s+nuclide/i.test(a.textContent)) ||
       Array.from(document.querySelectorAll('a[href*="nuclide"]')).pop();
 
-    function findCardFromImage(img, link) {
-      let node = img || link;
+    function closestUsefulCard(start) {
+      let node = start;
       while (node && node !== document.body) {
         if (
           node.querySelector &&
           node.querySelector('img[src$="DoughDial_2.png"]') &&
           node.querySelector('a[href*="doughdial"]')
-        ) return node;
+        ) {
+          return node;
+        }
         node = node.parentElement;
       }
-      return link ? link.closest("article, section, .card, .product-card, .feature-card, .tile, .panel") : null;
+      return start.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
     }
 
-    function findCardFromLink(link) {
+    const doughCard = closestUsefulCard(doughImg);
+    if (doughCard) doughCard.classList.add("ee-doughdial-product-card", "ee-product-card-align");
+
+    const imgWrap = doughImg.parentElement;
+    if (imgWrap) imgWrap.classList.add("ee-doughdial-image-wrap");
+
+    // Find the first title-ish block after the image inside the same card and pull it upward.
+    if (doughCard) {
+      const headings = Array.from(doughCard.querySelectorAll("h1,h2,h3,.title,.product-title"));
+      const firstHeadingAfterImage = headings.find(h => doughImg.compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING);
+      if (firstHeadingAfterImage) {
+        const titleBlock = firstHeadingAfterImage.closest("div, header, section, article") || firstHeadingAfterImage;
+        titleBlock.classList.add("ee-doughdial-title-block");
+      }
+    }
+
+    function findCardFromLink(link, keyword) {
       if (!link) return null;
       let node = link;
       while (node && node !== document.body) {
         const text = (node.innerText || "").toLowerCase();
-        if (
-          node.querySelector &&
-          node.querySelector('a[href*="nuclide"]') &&
-          text.includes("nuclide")
-        ) return node;
+        if (node.querySelector && node.querySelector('a') && text.includes(keyword)) return node;
         node = node.parentElement;
       }
       return link.closest("article, section, .card, .product-card, .feature-card, .tile, .panel");
@@ -2729,10 +2768,7 @@ a, button, [role="button"], input, textarea, select {
       return node && node.parentElement === card ? node : target;
     }
 
-    const doughCard = findCardFromImage(doughImg, doughLink);
-    const nuclideCard = findCardFromLink(nuclideLink);
-
-    if (doughCard) doughCard.classList.add("ee-product-card-align");
+    const nuclideCard = findCardFromLink(nuclideLink, "nuclide");
     if (nuclideCard) nuclideCard.classList.add("ee-product-card-align");
 
     const doughAction = directChildUnder(doughCard, doughLink);
